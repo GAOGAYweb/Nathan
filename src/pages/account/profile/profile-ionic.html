@@ -1,0 +1,29 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>My Account</ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content>
+  <ion-item-group>
+    <ion-item-divider color="light"></ion-item-divider>
+    <ion-item (click)="genderTapped($event, 2, selectedUser.imageSrc)">
+      <h2>{{selectedUser.name}}</h2>
+      <ion-avatar item-right>
+        <img src="{{selectedUser.imageSrc}}">
+      </ion-avatar>
+    </ion-item>
+  </ion-item-group>
+  <ion-item-group>
+    <ion-item-divider color="light"></ion-item-divider>
+    <ion-item (click)="genderTapped($event, 0, selectedUser.gender)">
+      Gender
+      <ion-note item-right>{{selectedUser.gender}}</ion-note>
+      <ion-icon name='arrow-forward' item-right></ion-icon>
+    </ion-item>
+    <ion-item (click)="genderTapped($event, 1, selectedUser.description)">
+      What's Up
+      <ion-note item-right>{{selectedUser.description}}</ion-note>
+      <ion-icon name='arrow-forward' item-right></ion-icon>
+    </ion-item>
+  </ion-item-group>
+</ion-content>

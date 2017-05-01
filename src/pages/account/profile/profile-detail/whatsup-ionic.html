@@ -1,0 +1,13 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>What's up</ion-title>
+    <ion-buttons end>
+      <button (click)="desClicked($event, description)">
+        <ion-icon name="checkmark"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+<ion-content>
+  <ion-textarea [value]="description" type="text" [(ngModel)]="description" name="message" id="content_area"></ion-textarea>
+</ion-content>
