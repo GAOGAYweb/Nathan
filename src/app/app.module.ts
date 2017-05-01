@@ -16,6 +16,10 @@ import {WhatsUpPage} from "../pages/account/profile/profile-detail/whatsup-ionic
 import {PicIonicPage} from "../pages/account/profile/profile-detail/pic-ionic";
 import {NoticeService} from "../pages/account/profile/profile-detail/notice-service";
 import {ImgService} from "../pages/account/profile/profile-detail/image-service";
+import {Camera} from "@ionic-native/camera";
+import {FileChooser} from "@ionic-native/file-chooser";
+import {FilePath} from "@ionic-native/file-path";
+import {IonicImageViewerModule} from "ionic-img-viewer";
 
 @NgModule({
   declarations: [
@@ -31,6 +35,7 @@ import {ImgService} from "../pages/account/profile/profile-detail/image-service"
   ],
   imports: [
     BrowserModule,
+    //IonicImageViewerModule,
     IonicModule.forRoot(MyApp),
   ],
   bootstrap: [IonicApp],
@@ -50,6 +55,9 @@ import {ImgService} from "../pages/account/profile/profile-detail/image-service"
     SplashScreen,
     NoticeService,
     ImgService,
+    Camera,
+    FileChooser,
+    FilePath,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })

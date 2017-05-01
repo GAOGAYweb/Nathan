@@ -5,7 +5,6 @@ import {Component} from "@angular/core";
 import {ImgService} from "./image-service";
 import {NoticeService} from "./notice-service";
 import {NavController, NavParams} from "ionic-angular";
-//import {IonicImageViewerModule} from "ionic-img-viewer";
 
 
 @Component({
@@ -13,22 +12,17 @@ import {NavController, NavParams} from "ionic-angular";
   templateUrl: 'pic-ionic.html',
   providers:[ImgService, NoticeService],
 })
-// @NgModule({
-//   imports: [
-//     IonicImageViewerModule
-//   ]
-// })
 export class PicIonicPage {
   imgSrc: string;
   constructor(private notiSer: NoticeService, private imgSer: ImgService, public navCtrl: NavController, public navParams: NavParams) {
     this.imgSrc = navParams.get("imageSrc");
   }
   initImgSer() {
-    this.imgSer.upload.url = ''; // 上传图片的url，如果同默认配置的url一致，那无须再设置
-    this.imgSer.upload.success = (data) => {
+    this.imgSer.uploadObj.url = ''; // 上传图片的url，如果同默认配置的url一致，那无须再设置
+    this.imgSer.uploadObj.success = (data) => {
       //上传成功后的回调处理
     };
-    this.imgSer.upload.error = (err) => {
+    this.imgSer.uploadObj.error = (err) => {
       this.notiSer.showToast('错误：头像上传失败！');
     };
   }
