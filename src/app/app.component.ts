@@ -8,6 +8,7 @@ import { ListPage } from '../pages/list/list';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import {AccountIonicPage} from "../pages/account/account-ionic";
+import {MapPage} from "../pages/map/map";
 
 
 @Component({
@@ -32,7 +33,8 @@ export class MyApp {
     this.pages = [
       { title: 'Hello Ionic', component: HelloIonicPage },
       { title: 'My First List', component: ListPage },
-      { title: 'My Account', component: AccountIonicPage }
+      { title: 'My Account', component: AccountIonicPage },
+      { title: 'My Map', component: MapPage },
     ];
   }
 

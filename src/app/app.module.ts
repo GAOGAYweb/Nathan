@@ -10,6 +10,7 @@ import { ListPage } from '../pages/list/list';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import {AccountIonicPage} from "../pages/account/account-ionic";
+import {MapPage} from "../pages/map/map";
 import {ProfileIonicPage} from "../pages/account/profile/profile-ionic";
 import {GenderIonicPage} from "../pages/account/profile/profile-detail/gender-ionic";
 import {WhatsUpPage} from "../pages/account/profile/profile-detail/whatsup-ionic";
@@ -19,7 +20,6 @@ import {ImgService} from "../pages/account/profile/profile-detail/image-service"
 import {Camera} from "@ionic-native/camera";
 import {FileChooser} from "@ionic-native/file-chooser";
 import {FilePath} from "@ionic-native/file-path";
-import {IonicImageViewerModule} from "ionic-img-viewer";
 
 @NgModule({
   declarations: [
@@ -31,11 +31,11 @@ import {IonicImageViewerModule} from "ionic-img-viewer";
     PicIonicPage,
     WhatsUpPage,
     ListPage,
-    AccountIonicPage
+    AccountIonicPage,
+    MapPage,
   ],
   imports: [
     BrowserModule,
-    //IonicImageViewerModule,
     IonicModule.forRoot(MyApp),
   ],
   bootstrap: [IonicApp],
@@ -48,7 +48,8 @@ import {IonicImageViewerModule} from "ionic-img-viewer";
     WhatsUpPage,
     PicIonicPage,
     ListPage,
-    AccountIonicPage
+    AccountIonicPage,
+    MapPage,
   ],
   providers: [
     StatusBar,
