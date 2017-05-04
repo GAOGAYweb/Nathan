@@ -10,6 +10,7 @@ import {SplashScreen} from '@ionic-native/splash-screen';
 import {AccountIonicPage} from "../pages/account/account-ionic";
 import {MapPage} from "../pages/map/map";
 import {FriendsPage} from '../pages/friends/friends';
+import {ChatListPage} from '../pages/chatlist/chatlist';
 import {MomentsPage} from '../pages/moments/moments';
 
 
@@ -36,7 +37,8 @@ export class MyApp {
       {title: 'My Account', component: AccountIonicPage},
       {title: 'My Map', component: MapPage},
       {title: 'My Friends', component: FriendsPage},
-      {title: 'Moments', component: MomentsPage}
+      {title: 'Moments', component: MomentsPage},
+      {title: 'Chats', component: ChatListPage}
     ];
   }
 
