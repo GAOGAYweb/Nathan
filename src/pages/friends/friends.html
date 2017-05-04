@@ -1,5 +1,8 @@
 <ion-header>
   <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
     <ion-title>Friends</ion-title>
   </ion-navbar>
 </ion-header>
@@ -10,7 +13,7 @@
   <ion-list>
   <button ion-item *ngFor="let item of contacts" (click)="itemSelected(item.name)">
     {{ item.name }}
-  </button>  
+  </button>
   </ion-list> -->
 
   <ion-item-group *ngFor="let category of categorizedContacts.keys()">
