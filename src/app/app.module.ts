@@ -19,7 +19,6 @@ import {ImgService} from "../pages/account/profile/profile-detail/image-service"
 import {Camera} from "@ionic-native/camera";
 import {FileChooser} from "@ionic-native/file-chooser";
 import {FilePath} from "@ionic-native/file-path";
-import {IonicImageViewerModule} from "ionic-img-viewer";
 
 @NgModule({
   declarations: [

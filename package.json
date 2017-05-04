@@ -56,7 +56,8 @@
     {
       "locator": "https://github.com/Telerik-Verified-Plugins/ImagePicker",
       "id": "com.synconset.imagepicker"
-    }
+    },
+    "cordova-plugin-imagepicker"
   ],
   "cordovaPlatforms": [],
   "description": "Nathan: An Ionic project"
