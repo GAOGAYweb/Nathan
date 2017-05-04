@@ -1,0 +1,63 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Detail</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="dismiss()">
+        <ion-icon name='md-close'></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+
+<ion-card>
+  <ion-item>
+    <ion-avatar item-left>
+      <img src="assets/img/{{moment.avatar}}">
+    </ion-avatar>
+    <h2>{{moment.author}}</h2>
+    <p>{{moment.time}}</p>
+  </ion-item>
+
+  <img src="assets/img/{{moment.image}}">
+
+  <ion-card-content [innerHTML]="moment.content"> </ion-card-content>
+
+  <ion-row>
+    <ion-col>
+      <button ion-button color="primary" clear small icon-left>
+        <ion-icon name='thumbs-up'></ion-icon>
+        Like
+      </button>
+    </ion-col>
+    <ion-col>
+      <button ion-button color="primary" clear small icon-left (click)="doPrompt()">
+        <ion-icon name='text'></ion-icon>
+        Comment
+      </button>
+    </ion-col>
+  </ion-row>
+
+  <ion-row>
+    <ion-item>
+      <ion-icon name="heart" color="primary"></ion-icon>
+      <a *ngFor="let like of moment.likes" [href]=""> {{like}} </a>
+    </ion-item>
+  </ion-row>
+
+  <ion-list>
+    <ion-item *ngFor="let comment of moment.comments">
+      <ion-avatar item-left>
+        <img src="assets/img/{{comment.avatar}}">
+      </ion-avatar>
+      <h2>{{comment.author}}</h2>
+      <p>{{comment.content}}</p>
+      <ion-note item-right>{{comment.time}}</ion-note>
+    </ion-item>
+
+  </ion-list>
+
+</ion-card>
+
+</ion-content>

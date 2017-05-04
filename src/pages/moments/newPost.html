@@ -1,0 +1,53 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>New Post</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="dismiss()">
+        <ion-icon name='md-close'></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+
+<ion-card>
+  <ion-card-header>
+  <ion-textarea placeholder="Enter a description"></ion-textarea>
+  </ion-card-header>
+
+ <ion-item>
+      <button ion-button icon-only large outline color="royal">
+        <ion-icon name="add"></ion-icon>
+      </button>
+  </ion-item>
+  
+</ion-card>
+
+  <ion-list>
+    <button ion-item>
+      <ion-icon name="navigate" item-left></ion-icon>
+      Location
+    </button>
+
+    <button ion-item>
+      <ion-icon name="share-alt" item-left></ion-icon>
+      Share to
+    </button>
+
+    <button ion-item>
+      <ion-icon name="at" item-left></ion-icon>
+      Mention
+    </button>
+  </ion-list>
+
+    <ion-buttons end>
+      <button ion-button (click)="dismiss()">
+      Submit
+      </button>
+    </ion-buttons>
+
+
+
+
+</ion-content>

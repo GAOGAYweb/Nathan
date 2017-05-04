@@ -1,0 +1,29 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Friends</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content class="list-avatar-page">
+  <!-- <ion-searchbar (ionInput)="getItems($event)"></ion-searchbar>
+
+  <ion-list>
+  <button ion-item *ngFor="let item of contacts" (click)="itemSelected(item.name)">
+    {{ item.name }}
+  </button>  
+  </ion-list> -->
+
+  <ion-item-group *ngFor="let category of categorizedContacts.keys()">
+
+    <ion-item-divider color="light">{{category}}</ion-item-divider>
+
+    <ion-item *ngFor="let contact of categorizedContacts.get(category)" (click)="itemSelected(contact.name)">
+      <ion-avatar item-left>
+        <img src="assets/img/{{ contact.avatar }}">
+      </ion-avatar>
+      <h2>{{ contact.name }}</h2>
+      <p>{{ contact.whatsup }}</p>
+    </ion-item>
+
+  </ion-item-group>
+</ion-content>

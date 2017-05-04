@@ -1,14 +1,14 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule, ErrorHandler } from '@angular/core';
-import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
-import { MyApp } from './app.component';
+import {BrowserModule} from '@angular/platform-browser';
+import {NgModule, ErrorHandler} from '@angular/core';
+import {IonicApp, IonicModule, IonicErrorHandler} from 'ionic-angular';
+import {MyApp} from './app.component';
 
-import { HelloIonicPage } from '../pages/hello-ionic/hello-ionic';
-import { ItemDetailsPage } from '../pages/item-details/item-details';
-import { ListPage } from '../pages/list/list';
+import {HelloIonicPage} from '../pages/hello-ionic/hello-ionic';
+import {ItemDetailsPage} from '../pages/item-details/item-details';
+import {ListPage} from '../pages/list/list';
 
-import { StatusBar } from '@ionic-native/status-bar';
-import { SplashScreen } from '@ionic-native/splash-screen';
+import {StatusBar} from '@ionic-native/status-bar';
+import {SplashScreen} from '@ionic-native/splash-screen';
 import {AccountIonicPage} from "../pages/account/account-ionic";
 import {MapPage} from "../pages/map/map";
 import {ProfileIonicPage} from "../pages/account/profile/profile-ionic";
@@ -20,6 +20,12 @@ import {ImgService} from "../pages/account/profile/profile-detail/image-service"
 import {Camera} from "@ionic-native/camera";
 import {FileChooser} from "@ionic-native/file-chooser";
 import {FilePath} from "@ionic-native/file-path";
+
+
+import {FriendsPage} from '../pages/friends/friends';
+import {MomentsPage} from '../pages/moments/moments';
+import {ModalNewPostPage} from '../pages/moments/newPost';
+import {ModalMomentDetailPage} from '../pages/moments/momentDetail';
 
 @NgModule({
   declarations: [
@@ -33,6 +39,8 @@ import {FilePath} from "@ionic-native/file-path";
     ListPage,
     AccountIonicPage,
     MapPage,
+    FriendsPage,
+    MomentsPage, ModalNewPostPage, ModalMomentDetailPage
   ],
   imports: [
     BrowserModule,
@@ -50,6 +58,8 @@ import {FilePath} from "@ionic-native/file-path";
     ListPage,
     AccountIonicPage,
     MapPage,
+    FriendsPage,
+    MomentsPage, ModalNewPostPage, ModalMomentDetailPage
   ],
   providers: [
     StatusBar,
@@ -62,4 +72,5 @@ import {FilePath} from "@ionic-native/file-path";
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })
-export class AppModule {}
+export class AppModule {
+}
