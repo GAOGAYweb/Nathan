@@ -1,5 +1,7 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
 import { NavController, Platform} from 'ionic-angular';
+import { MOMENTS} from './mock.moments';
+import {Moment} from './moment';
 declare var BMap;
 @Component({
   selector: 'map-presentation',
@@ -19,9 +21,9 @@ declare var BMap;
     }
   `]
 })
-
 export class MapPage{
   map:any;
+  moments:Moment[]=MOMENTS;
   @ViewChild('map') mapElement: ElementRef;
   constructor(
     private navCtrl: NavController,
@@ -34,31 +36,14 @@ export class MapPage{
     let point = new BMap.Point(121.604,31.196);//坐标可以通过百度地图坐标拾取器获取
     map.centerAndZoom(point, 18);//设置中心和地图显示级别
    
-    let icon = new BMap.Icon('http://pic002.cnblogs.com/images/2011/308287/2011091516161618.png', new BMap.Size(20, 32), {
-      anchor: new BMap.Size(10, 30),
-    })//设置标注图片和位置
-    var mkr1 = new BMap.Marker(new BMap.Point(121.604, 31.196), {
-      icon: icon,
-      enableDragging: false,
-      raiseOnDrag: false
-    });//设置起始坐标点
-    map.addOverlay(mkr1);//添加标注在地图中并实现拖拽
-    var mkr2 = new BMap.Marker(new BMap.Point(121.603, 31.197), {
-      icon: icon,
-      enableDragging: false,
-      raiseOnDrag: false
-    });//设置起始坐标点
-    map.addOverlay(mkr2);//添加标注在地图中并实现拖拽
-    var mkr3 = new BMap.Marker(new BMap.Point(121.600, 31.196), {
-      icon: icon,
-      enableDragging: false,
-      raiseOnDrag: false
-    });//设置起始坐标点
-    map.addOverlay(mkr3);//添加标注在地图中并实现拖拽
-    var mkr4 = new BMap.Marker(new BMap.Point(121.605, 31.195), {
-      icon: icon,
-      enableDragging: false,
-    });//设置起始坐标点
-    map.addOverlay(mkr4);//添加标注在地图中并实现拖拽
+    var mkr,ptr;
+    var myIcon = new BMap.Icon("assets/img/markers.png", new BMap.Size(23, 25));      
+    for(var i=0;i<this.moments.length;i++){
+      ptr=new BMap.Point(this.moments[i].x, this.moments[i].y);
+      mkr=new BMap.Marker(ptr,{icon:myIcon});
+      mkr.setLabel(new BMap.Label(this.moments[i].content,{offset:new BMap.Size(20,-10)}));
+      map.addOverlay(mkr);
+    }
   }
 }
+
