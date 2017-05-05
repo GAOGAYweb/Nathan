@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { AlertController, ViewController, NavParams } from 'ionic-angular';
+import {Component} from '@angular/core';
+import {AlertController, ViewController, NavParams} from 'ionic-angular';
 
 @Component({
   selector: 'page-momentDetail',
@@ -37,7 +37,12 @@ export class ModalMomentDetailPage {
         {
           text: 'Submit',
           handler: data => {
-            console.log('Submit clicked');
+            this.moment.comments.push({
+              "author": "老吴",
+              "avatar": "avatar-ts-hamm.png",
+              "content": data["comment-text"],
+              "time": new Date(Date.now()).toLocaleDateString()
+            });
           }
         }
       ]
