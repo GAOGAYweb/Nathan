@@ -13,7 +13,7 @@ export class AccountIonicPage {
   user: { name: string; description: string; gender: string; friendsNum: number; imageSrc: string};
   mc: {ip: string};
   constructor(public navCtrl: NavController, public navParams: NavParams) {
-    this.mc = {ip: "http://localhost:3000/multiplayer.html"};
+    this.mc = {ip: "http://10.131.250.11:3000/multiplayer.html"};
     this.user = {
       name: "Ultra-Seven",
       description: "Back off, man. I'm a scientist.",
