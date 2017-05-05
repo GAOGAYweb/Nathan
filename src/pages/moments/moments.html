@@ -1,0 +1,49 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Moments</ion-title>
+     <ion-buttons end>
+      <button ion-button icon-only color="royal" (click)="openModalNewPostPage()">
+        <ion-icon name="add-circle"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+
+<ion-card *ngFor="let moment of moments">
+  <ion-item>
+    <ion-avatar item-left>
+      <img src="assets/img/{{moment.avatar}}">
+    </ion-avatar>
+    <h2>{{moment.author}}</h2>
+    <p>{{moment.time}}</p>
+  </ion-item>
+
+  <img src="assets/img/{{moment.image}}">
+
+  <ion-card-content [innerHTML]="moment.content"> </ion-card-content>
+
+  <ion-row>
+    <ion-col>
+      <button ion-button color="primary" clear small icon-left>
+        <ion-icon name='thumbs-up'></ion-icon>
+        {{moment.likes.length}} Likes
+      </button>
+    </ion-col>
+    <ion-col>
+      <button ion-button color="primary" clear small icon-left (click)="openModalMomentDetailPage(({moment: moment}))">
+        <ion-icon name='text'></ion-icon>
+        {{moment.comments.length}} Comments
+      </button>
+    </ion-col>
+    <ion-col align-self-center text-center>
+      <ion-note>
+        sometime
+      </ion-note>
+    </ion-col>
+  </ion-row>
+
+</ion-card>
+
+</ion-content>
