@@ -1,0 +1,37 @@
+<ion-header>
+    <ion-navbar>
+        <ion-title>{{name}}</ion-title>
+        <ion-buttons end>
+        <button ion-button icon-only color="royal">
+            <ion-icon name="person-add"></ion-icon>
+        </button>
+        </ion-buttons>
+    </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+      <div *ngFor="let message of messages">
+        <img class="avator" [ngClass]="{'avator-left':message.tome,'avator-right':!message.tome}" src="assets/img/{{message.avatar}}">
+        <div class="div-content">
+            <div class="bubble" [ngClass]="{'left':message.tome,'right':!message.tome}">
+                <div class="plain">
+                    {{message.message}}
+                </div>
+            </div>
+        </div>
+      </div>
+  </ion-list>
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <ion-input type="text" placeholder="say something..." clearInput=true [(ngModel)]="myMessage"></ion-input>
+    <ion-buttons end>
+      <button ion-button icon-right color="secondary" (click)="send()">
+        发送
+        <ion-icon name="send"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-footer>

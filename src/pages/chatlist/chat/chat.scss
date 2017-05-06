@@ -1,0 +1,67 @@
+.bubble {
+    max-width: 50%;
+    position: relative;
+    margin: 0 10px;
+    border-radius: 5px;
+    padding: 5px;
+    display: inline-block;
+    font-size: 14px;
+  }
+
+  .right {
+    float: right;
+    background: #b2e281;
+  }
+
+  .left {
+    float: left;
+    background: #ececec;
+  }
+
+  .left:before {
+    content: '';
+    width: 0;
+    height: 0;
+    position: absolute;
+    top: 5px;
+    left: -14px;
+    border: solid 8px;
+    border-color: transparent #ececec transparent transparent;
+    font-size: 0;
+  }
+
+  .right:after {
+    content: '';
+    width: 0;
+    height: 0;
+    position: absolute;
+    top: 5px;
+    right: -14px;
+    border: solid 8px;
+    border-color: transparent transparent transparent #b2e281;
+    font-size: 0;
+  }
+
+  .plain {
+    padding: 9px 13px;
+  }
+
+  .div-content {
+    margin: 10px;
+    overflow:hidden
+  }
+
+  .avator {
+    height: 40px;
+    width: 40px;
+  }
+
+  .avator-left {
+    float: left;
+    margin-left: 20px;
+  }
+
+  .avator-right {
+    float: right;
+    margin-right: 20px;
+  }

@@ -1,0 +1,33 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Chats</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content class="outer-content">
+  <ion-list>
+    <ion-item-sliding *ngFor="let contact of contacts">
+      <button ion-item (click)="itemTapped($event,contact.name,contact.avatar)">
+        <ion-avatar item-left>
+          <img src="assets/img/{{contact.avatar}}">
+        </ion-avatar>
+        <h2>{{contact.name}}</h2>
+        <p>{{contact.message}}</p>
+        <ion-note item-right>{{contact.time}}</ion-note>
+      </button>
+      <ion-item-options>
+        <button ion-button color="primary" icon-left>
+          <ion-icon name="text"></ion-icon>
+          Text
+        </button>
+        <button ion-button color="danger" icon-left>
+          <ion-icon name="close"></ion-icon>
+          Delete
+        </button>
+      </ion-item-options>
+    </ion-item-sliding>
+  </ion-list>
+</ion-content>

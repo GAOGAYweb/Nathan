@@ -20,6 +20,8 @@ import {ImgService} from "../pages/account/profile/profile-detail/image-service"
 import {Camera} from "@ionic-native/camera";
 import {FileChooser} from "@ionic-native/file-chooser";
 import {FilePath} from "@ionic-native/file-path";
+import {ChatListPage} from '../pages/chatlist/chatlist';
+import {ChatPage} from '../pages/chatlist/chat/chat';
 import {FriendsPage} from '../pages/friends/friends';
 import {MomentsPage} from '../pages/moments/moments';
 import {ModalNewPostPage} from '../pages/moments/newPost';
@@ -38,7 +40,8 @@ import {ModalMomentDetailPage} from '../pages/moments/momentDetail';
     AccountIonicPage,
     MapPage,
     FriendsPage,
-    MomentsPage, ModalNewPostPage, ModalMomentDetailPage
+    MomentsPage, ModalNewPostPage, ModalMomentDetailPage,
+    ChatListPage, ChatPage
   ],
   imports: [
     BrowserModule,
@@ -57,7 +60,8 @@ import {ModalMomentDetailPage} from '../pages/moments/momentDetail';
     AccountIonicPage,
     MapPage,
     FriendsPage,
-    MomentsPage, ModalNewPostPage, ModalMomentDetailPage
+    MomentsPage, ModalNewPostPage, ModalMomentDetailPage,
+    ChatListPage, ChatPage
   ],
   providers: [
     StatusBar,
