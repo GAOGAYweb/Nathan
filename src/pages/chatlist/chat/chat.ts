@@ -15,6 +15,7 @@ export class ChatPage {
     this.name=this.navParams.get("name");
     this.avatar=this.navParams.get("avatar");
     this.messages=MESSAGE;
+    this.myMessage="";
     for(let message of this.messages){
         if(message.tome)
             message.avatar=this.avatar;
@@ -24,12 +25,17 @@ export class ChatPage {
   }
 
   send(){
-      this.messages.push({
-        "tome":false,
-        "message":this.myMessage,
-        "avatar":"avatar-finn.png"
-      });
-      this.myMessage="";
+      if(this.myMessage==""){
+
+      }
+      else{
+        this.messages.push({
+            "tome":false,
+            "message":this.myMessage,
+            "avatar":"avatar-finn.png"
+        });
+        this.myMessage="";
+      }
   }
 
 }
