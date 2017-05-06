@@ -26,7 +26,6 @@ import {FriendsPage} from '../pages/friends/friends';
 import {MomentsPage} from '../pages/moments/moments';
 import {ModalNewPostPage} from '../pages/moments/newPost';
 import {ModalMomentDetailPage} from '../pages/moments/momentDetail';
-
 import {LoginPage} from '../pages/login/login';
 import {RegisterPage} from '../pages/register/register';
 
