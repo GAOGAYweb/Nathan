@@ -27,6 +27,9 @@ import {MomentsPage} from '../pages/moments/moments';
 import {ModalNewPostPage} from '../pages/moments/newPost';
 import {ModalMomentDetailPage} from '../pages/moments/momentDetail';
 
+import {LoginPage} from '../pages/login/login';
+import {RegisterPage} from '../pages/register/register';
+
 @NgModule({
   declarations: [
     MyApp,
@@ -41,7 +44,8 @@ import {ModalMomentDetailPage} from '../pages/moments/momentDetail';
     MapPage,
     FriendsPage,
     MomentsPage, ModalNewPostPage, ModalMomentDetailPage,
-    ChatListPage, ChatPage
+    ChatListPage, ChatPage,
+    LoginPage, RegisterPage,
   ],
   imports: [
     BrowserModule,
@@ -61,7 +65,8 @@ import {ModalMomentDetailPage} from '../pages/moments/momentDetail';
     MapPage,
     FriendsPage,
     MomentsPage, ModalNewPostPage, ModalMomentDetailPage,
-    ChatListPage, ChatPage
+    ChatListPage, ChatPage,
+    LoginPage, RegisterPage
   ],
   providers: [
     StatusBar,
