@@ -15,6 +15,10 @@
 
 <ion-content padding>
 <ion-list>
+<form class="list" [formGroup]="registerForm">
+  <ion-item>
+    <img src="http://www.runoob.com/try/demo_source/venkman.jpg"/>
+  </ion-item>
 
   <ion-item>
     <ion-label floating>Username</ion-label>
@@ -22,11 +26,20 @@
   </ion-item>
 
   <ion-item>
+  	<ion-label floating>Email</ion-label>
+  	<ion-input type="text"></ion-input>
+  </ion-item>
+
+  <ion-item>
     <ion-label floating>Password</ion-label>
     <ion-input type="password"></ion-input>
   </ion-item>
 
+  <ion-item>
+  	<ion-label floating>Confirm</ion-label>
+  	<ion-input type="password"></ion-input>
+  </ion-item>
+</form>
 </ion-list>
-<button ion-button>Create Account</button>
-
+<button ion-button block (click)="presentLoading()">Create Account</button>
 </ion-content>
