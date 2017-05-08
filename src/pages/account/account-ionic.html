@@ -8,7 +8,7 @@
 </ion-header>
 <ion-content>
   <ion-item-group>
-    <ion-item-divider color="light">A</ion-item-divider>
+    <ion-item-divider color="light"></ion-item-divider>
     <ion-item (click)="itemTapped($event, user)">
       <ion-avatar item-left>
         <img src={{user.imageSrc}}>
@@ -18,8 +18,8 @@
     </ion-item>
   </ion-item-group>
   <ion-item-group>
-    <ion-item-divider color="light">B</ion-item-divider>
-    <ion-item>
+    <ion-item-divider color="light"></ion-item-divider>
+    <ion-item (click)= "intoPost(user.name)">
       <ion-icon name='images' item-left></ion-icon>
       My Posts
     </ion-item>
@@ -27,7 +27,7 @@
       <ion-icon name='star' item-left></ion-icon>
       My Stars
     </ion-item>
-    <ion-item>
+    <ion-item (click)= "intoFriends(user.name)">
       <ion-icon name='people' item-left></ion-icon>
       Friends
       <ion-badge item-right>{{user.friendsNum}}</ion-badge>

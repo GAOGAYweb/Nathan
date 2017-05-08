@@ -17,8 +17,8 @@ export class LoginPage {
       duration: 3000
     });
     loader.present();
-    this.navCtrl.push(MapPage, {
-
-    });
+    setTimeout(()=> {
+      this.navCtrl.push(MapPage);
+    },1000);
   }
 }

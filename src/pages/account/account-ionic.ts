@@ -4,6 +4,8 @@
 import { Component } from '@angular/core';
 import {ProfileIonicPage} from "./profile/profile-ionic";
 import {NavController, NavParams} from "ionic-angular";
+import {MomentsPage} from "../moments/moments";
+import {FriendsPage} from "../friends/friends";
 
 @Component({
   selector: 'page-account-ionic',
@@ -24,6 +26,16 @@ export class AccountIonicPage {
   }
   itemTapped(event, user) {
     this.navCtrl.push(ProfileIonicPage, {
+      user: user
+    });
+  }
+  intoPost(user) {
+    this.navCtrl.push(MomentsPage, {
+      user: user
+    });
+  }
+  intoFriends(user) {
+    this.navCtrl.push(FriendsPage, {
       user: user
     });
   }
