@@ -1,12 +1,13 @@
 import { Component } from '@angular/core';
-import { LoadingController } from 'ionic-angular';
+import {LoadingController, NavController} from 'ionic-angular';
+import {MapPage} from "../map/map";
 
 @Component({
   selector: 'page-login',
   templateUrl: 'login.html'
 })
 export class LoginPage {
-  constructor(public loadingCtrl: LoadingController) {
+  constructor(public loadingCtrl: LoadingController, public navCtrl: NavController) {
 
   }
 
@@ -16,5 +17,8 @@ export class LoginPage {
       duration: 3000
     });
     loader.present();
+    this.navCtrl.push(MapPage, {
+
+    });
   }
 }
