@@ -20,7 +20,7 @@
   </ion-item-group>
   <ion-item-group>
     <ion-item-divider color="light"></ion-item-divider>
-    <ion-item>
+    <ion-item (click)= "intoPost(user.name)">
       <ion-icon name='images' item-left></ion-icon>
       My Posts
     </ion-item>
@@ -28,7 +28,7 @@
       <ion-icon name='star' item-left></ion-icon>
       My Stars
     </ion-item>
-    <ion-item (click)="toFriends()">
+    <ion-item (click)= "intoFriends(user.name)">
       <ion-icon name='people' item-left></ion-icon>
       Friends
       <ion-badge item-right>{{user.friendsNum}}</ion-badge>

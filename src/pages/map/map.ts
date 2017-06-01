@@ -35,9 +35,9 @@ export class MapPage{
     map.enableContinuousZoom();//连续缩放效果，默认禁用
     let point = new BMap.Point(121.604,31.196);//坐标可以通过百度地图坐标拾取器获取
     map.centerAndZoom(point, 18);//设置中心和地图显示级别
-   
+
     var mkr,ptr;
-    var myIcon = new BMap.Icon("assets/img/markers.png", new BMap.Size(23, 25));      
+    var myIcon = new BMap.Icon("assets/img/markers.png", new BMap.Size(23, 25));
     for(var i=0;i<this.moments.length;i++){
       ptr=new BMap.Point(this.moments[i].x, this.moments[i].y);
       mkr=new BMap.Marker(ptr,{icon:myIcon});

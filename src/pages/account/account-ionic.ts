@@ -4,7 +4,8 @@
 import { Component } from '@angular/core';
 import {ProfileIonicPage} from "./profile/profile-ionic";
 import {NavController, NavParams} from "ionic-angular";
-import { FriendsPage } from "../friends/friends";
+import {MomentsPage} from "../moments/moments";
+import {FriendsPage} from "../friends/friends";
 
 @Component({
   selector: 'page-account-ionic',
@@ -28,10 +29,15 @@ export class AccountIonicPage {
       user: user
     });
   }
+  intoPost(user) {
+    this.navCtrl.push(MomentsPage, {
+      user: user
+    });
+  }
+  intoFriends() {
+    this.navCtrl.setRoot(FriendsPage);
+  }
   intoMyWorld(user) {
     window.location.href = this.mc.ip;
-  }
-  toFriends(){
-    this.navCtrl.setRoot(FriendsPage);
   }
 }

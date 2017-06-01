@@ -10,7 +10,6 @@ import {FriendsPage} from '../pages/friends/friends';
 import {ChatListPage} from '../pages/chatlist/chatlist';
 import {MomentsPage} from '../pages/moments/moments';
 import {LoginPage} from '../pages/login/login';
-import {RegisterPage} from '../pages/register/register';
 
 
 @Component({
@@ -20,7 +19,7 @@ export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
   // make HelloIonicPage the root (or first) page
-  rootPage = MomentsPage;
+  rootPage = LoginPage;
   pages: Array<{ title: string, component: any }>;
 
   constructor(public platform: Platform,
@@ -36,8 +35,6 @@ export class MyApp {
       {title: 'My Friends', component: FriendsPage},
       {title: 'Moments', component: MomentsPage},
       {title: 'Chats', component: ChatListPage},
-      {title: 'Login', component: LoginPage},
-      {title: 'Register', component: RegisterPage}
     ];
 
   }

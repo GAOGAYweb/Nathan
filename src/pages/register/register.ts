@@ -7,7 +7,6 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   templateUrl: 'register.html'
 })
 export class RegisterPage {
-
 	registerForm: FormGroup;
   constructor(
   	public loadingCtrl: LoadingController,
@@ -39,5 +38,6 @@ export class RegisterPage {
       duration: 3000
     });
     loader.present();
+
   }
 }
