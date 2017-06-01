@@ -3,10 +3,6 @@ import {NgModule, ErrorHandler} from '@angular/core';
 import {IonicApp, IonicModule, IonicErrorHandler} from 'ionic-angular';
 import {MyApp} from './app.component';
 
-import {HelloIonicPage} from '../pages/hello-ionic/hello-ionic';
-import {ItemDetailsPage} from '../pages/item-details/item-details';
-import {ListPage} from '../pages/list/list';
-
 import {StatusBar} from '@ionic-native/status-bar';
 import {SplashScreen} from '@ionic-native/splash-screen';
 import {AccountIonicPage} from "../pages/account/account-ionic";
@@ -32,16 +28,15 @@ import {ModalMomentDetailPage} from '../pages/moments/momentDetail';
 import {LoginPage} from '../pages/login/login';
 import {RegisterPage} from '../pages/register/register';
 
+import {Keyboard} from '@ionic-native/keyboard';
+
 @NgModule({
   declarations: [
     MyApp,
-    HelloIonicPage,
-    ItemDetailsPage,
     ProfileIonicPage,
     GenderIonicPage,
     PicIonicPage,
     WhatsUpPage,
-    ListPage,
     AccountIonicPage,
     MapPage,
     FriendsPage,
@@ -56,13 +51,10 @@ import {RegisterPage} from '../pages/register/register';
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    HelloIonicPage,
-    ItemDetailsPage,
     ProfileIonicPage,
     GenderIonicPage,
     WhatsUpPage,
     PicIonicPage,
-    ListPage,
     AccountIonicPage,
     MapPage,
     FriendsPage,
@@ -71,6 +63,7 @@ import {RegisterPage} from '../pages/register/register';
     LoginPage, RegisterPage
   ],
   providers: [
+    Keyboard,
     StatusBar,
     SplashScreen,
     NoticeService,

@@ -1,17 +1,19 @@
-import {Component} from '@angular/core';
-import {NavController,NavParams} from 'ionic-angular';
+import { Component, Renderer, ElementRef, ViewChild } from '@angular/core';
+import { NavController, NavParams,Content } from 'ionic-angular';
+import { Keyboard } from '@ionic-native/keyboard';
 
 @Component({
   selector: 'page-chat',
   templateUrl: 'chat.html'
 })
 export class ChatPage {
+  @ViewChild(Content) content: Content
 
   name:string;
   avatar:string;
   messages;
   myMessage:string;
-  constructor(public navCtrl: NavController,public navParams: NavParams) {
+  constructor(public navCtrl: NavController,public navParams: NavParams,private renderer:Renderer, private elementRef:ElementRef,private keyboard: Keyboard) {
     this.name=this.navParams.get("name");
     this.avatar=this.navParams.get("avatar");
     this.messages=MESSAGE;
@@ -25,6 +27,13 @@ export class ChatPage {
   }
 
   send(){
+      let element = this.elementRef.nativeElement.querySelector('input');
+       // we need to delay our call in order to work with ionic …
+      setTimeout(() => {
+        this.renderer.invokeElementMethod(element, 'focus', []);
+        this.keyboard.show();
+        this.content.scrollToBottom(300);
+      }, 500); // with 0 it will trigger a validation error instantly
       if(this.myMessage==""){
 
       }
