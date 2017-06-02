@@ -3,7 +3,6 @@ import {NgModule, ErrorHandler} from '@angular/core';
 import {IonicApp, IonicModule, IonicErrorHandler} from 'ionic-angular';
 import {MyApp} from './app.component';
 
-import {ListPage} from '../pages/list/list';
 
 import {StatusBar} from '@ionic-native/status-bar';
 import {SplashScreen} from '@ionic-native/splash-screen';
@@ -28,6 +27,9 @@ import {LoginPage} from '../pages/login/login';
 import {RegisterPage} from '../pages/register/register';
 
 import {Keyboard} from '@ionic-native/keyboard';
+import {UserService} from "../services/UserService";
+import {HttpModule} from "@angular/http";
+import {MomentsService} from "../services/MomentsService";
 
 @NgModule({
   declarations: [
@@ -44,6 +46,7 @@ import {Keyboard} from '@ionic-native/keyboard';
     LoginPage, RegisterPage,
   ],
   imports: [
+    HttpModule,
     BrowserModule,
     IonicModule.forRoot(MyApp),
   ],
@@ -67,6 +70,8 @@ import {Keyboard} from '@ionic-native/keyboard';
     SplashScreen,
     NoticeService,
     ImgService,
+    UserService,
+    MomentsService,
     Camera,
     FileChooser,
     FilePath,

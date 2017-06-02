@@ -10,7 +10,7 @@ import {PicIonicPage} from "./profile-detail/pic-ionic";
 
 @Component({
   selector: 'page-profile-ionic',
-  templateUrl: 'profile-ionic.html'
+  templateUrl: 'profile-ionic.html',
 })
 export class ProfileIonicPage {
   myCallbackFunction: (_params: any) => Promise<{}>;
@@ -43,7 +43,8 @@ export class ProfileIonicPage {
       new Promise((resolve, reject) => {
         this.navCtrl.push(PicIonicPage, {resolve: resolve, imageSrc: value});
       }).then(data => {
-        //this.selectedUser.description = data.toString();
+        //let des = this.selectedUser.description = data.toString();
+
       });
     }
   }

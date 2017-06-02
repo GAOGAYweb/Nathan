@@ -13,15 +13,15 @@
 
 <ion-card>
   <ion-card-header>
-  <ion-textarea placeholder="Enter a description"></ion-textarea>
+  <ion-textarea placeholder="Enter a description" [(ngModel)]="data.message"></ion-textarea>
   </ion-card-header>
 
  <ion-item>
-      <button ion-button icon-only large outline color="royal">
+      <button ion-button icon-only large outline color="royal" (click)="choosePics()">
         <ion-icon name="add"></ion-icon>
       </button>
   </ion-item>
-  
+
 </ion-card>
 
   <ion-list>

@@ -23,7 +23,7 @@ export class PicIonicPage {
       //上传成功后的回调处理
     };
     this.imgSer.uploadObj.error = (err) => {
-      this.notiSer.showToast('错误：头像上传失败！');
+      this.notiSer.showToast('Error: uploading failure...');
     };
   }
   choosePics() {
