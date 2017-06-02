@@ -8,6 +8,8 @@ import {Injectable} from "@angular/core";
 import { Camera, CameraOptions  } from '@ionic-native/camera';
 import {FileChooser} from "@ionic-native/file-chooser";
 import {FilePath} from "@ionic-native/file-path";
+
+
 @Injectable()
 export class ImgService {
   config: any;
@@ -50,7 +52,7 @@ export class ImgService {
     });
   }
   openImgPicker() {
-    this.fileChooser.open().then(uri =>{
+    /*this.fileChooser.open().then(uri =>{
         this.filePath.resolveNativePath(uri)
           .then(filePath => {
             this.imageURL = filePath;
@@ -59,10 +61,32 @@ export class ImgService {
           });
       }
     ).catch(e => console.log(e));
+    */
+    var options = {
+      // Some common settings are 20, 50, and 100
+      quality: 50,
+      destinationType: this.camera.DestinationType.FILE_URI,
+      // In this app, dynamically set the picture source, Camera or photo gallery
+      sourceType:0,//0对应的值为PHOTOLIBRARY ，即打开相册
+      encodingType: this.camera.EncodingType.JPEG,
+      mediaType: this.camera.MediaType.PICTURE,
+      allowEdit: true,
+      correctOrientation: true  //Corrects Android orientation quirks
+    }
+    this.camera.getPicture(options).then((imageData) => {
+      // imageData is either a base64 encoded string or a file URI
+      // If it's base64:
+      let base64Image =  imageData;
+      //this.path = base64Image;
+      //this.profilePicture=base64Image;
+      alert(base64Image);
+    }, (err) => {
+      // Handle error
+    });
   }
   upload(imgUrl){
     let loader = this.loadingCtrl.create({
-      content: "正在上传头像...",
+      content: "uploading...",
     });
     loader.present();
     const ft = new Transfer();
@@ -71,7 +95,7 @@ export class ImgService {
       fileName: this.phone + '_head.jpg',
       params: {operatiune: 'uploadpoza'}
     };
-    ft.create().upload(imgUrl,encodeURI(this.config.server +"/uploadFile/upload"),options)
+    ft.create().upload(imgUrl,encodeURI(this.config.server +"/upload"),options)
       .then((data) => {
         if(data.response){
           const response = JSON.parse(data.response);
@@ -109,7 +133,7 @@ export class ImgService {
           }
         },
         {
-          text: 'Choose from the Album',
+          text: 'Choose photos from the Album',
           handler: () => {
             this.openImgPicker();
           }
