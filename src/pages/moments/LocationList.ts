@@ -6,34 +6,31 @@ import {NavController, ViewController} from 'ionic-angular';
 declare var BMap;
 @Component({
   selector: 'page-friends-list',
-  templateUrl: 'friendList.html'
+  templateUrl: 'LocationList.html'
 })
 export class LocationList {
-
+  streetNames: any[];
+  selectedPoint:any;
   constructor(public navCtrl: NavController, public viewCtrl: ViewController) {
     var gc = new BMap.Geocoder();
+    this.streetNames = [];
+    let that = this;
     navigator.geolocation.getCurrentPosition(onSuccess, onError,{enableHighAccuracy:true});
+
     function onSuccess(position) {
-      alert('Latitude: '          + position.coords.latitude          + '\n' +
-        'Longitude: '         + position.coords.longitude         + '\n' +
-        'Altitude: '          + position.coords.altitude          + '\n' +
-        'Accuracy: '          + position.coords.accuracy          + '\n' +
-        'Altitude Accuracy: ' + position.coords.altitudeAccuracy  + '\n' +
-        'Heading: '           + position.coords.heading           + '\n' +
-        'Speed: '             + position.coords.speed             + '\n' +
-        'Timestamp: '         + position.timestamp                + '\n');
 
       // 百度地图API功能
       //GPS坐标
       var xx = position.coords.longitude;
       var yy = position.coords.latitude;
-      //alert(xx+','+yy);
       var gpsPoint = new BMap.Point(xx,yy);
-      gc.getLocation(gpsPoint, function(rs){
+      gc.getLocation(gpsPoint, rs=>{
         var addComp = rs.addressComponents;
-        alert(addComp.province + ", " + addComp.city + ", " + addComp.district + ", " + addComp.street + ", " + addComp.streetNumber);
+        that.streetNames.push({
+            streetName: addComp.province + ", " + addComp.city + ", " + addComp.district + ", " + addComp.street + ", " + addComp.streetNumber,
+            streetPoint: gpsPoint
+          });
       });
-
     }
     function onError(error) {
       alert('code: '    + error.code    + '\n' + 'message: ' + error.message + '\n');
@@ -51,6 +48,9 @@ export class LocationList {
   dismiss() {
     let data = { 'foo': 'bar' };
     this.viewCtrl.dismiss(data);
+  }
+  confirmLocationList() {
+    this.viewCtrl.dismiss(this.selectedPoint);
   }
 }
 

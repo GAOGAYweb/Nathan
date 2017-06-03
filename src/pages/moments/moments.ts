@@ -20,6 +20,21 @@ export class MomentsPage {
 
   openModalNewPostPage() {
     let modal = this.modalCtrl.create(ModalNewPostPage);
+    modal.onDidDismiss(data => {
+      if(data.foo !== "bar") {
+        let moment = {
+          "author": data.author,
+          "avatar": data.avatar,
+          "time": data.time,
+          "image": "advance-card-bttf.png",
+          "content": "<p>"+ data.content +"</p>",
+          "likes": [],
+          "comments": []
+        };
+        console.log(data);
+        this.moments.unshift(moment);
+      }
+    });
     modal.present();
   }
 

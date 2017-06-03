@@ -19,6 +19,7 @@ export class MomentsService {
     let options = new RequestOptions({
       headers: headers
     });
+
     let MOMENTS = [
       {
         "author": "Marty McFly",
@@ -80,8 +81,6 @@ export class MomentsService {
     });
 
     let body;
-
-
     return new Promise((resolve, reject) => {
       this.http.post(this.server + '/user', body, options )
         .map(res => res.json())

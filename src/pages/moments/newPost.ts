@@ -6,6 +6,7 @@ import {MomentsService} from "../../services/MomentsService";
 import { ModalController, NavParams } from 'ionic-angular';
 import {FriendList} from "./friendList";
 import {LocationList} from "./LocationList";
+import {ShareDetail} from "./shareDetail";
 @Component({
   selector: 'page-newPost',
   templateUrl: 'newPost.html',
@@ -19,11 +20,13 @@ export class ModalNewPostPage {
     this.data = {
       content: "",
       author: "",
+      avatar:"",
       time: "",
       image:[],
       likes:[],
       comments:[],
-      mentionedFriends:[]
+      mentionedFriends:[],
+      locationPoint:null
     }
   }
 
@@ -32,21 +35,37 @@ export class ModalNewPostPage {
   }
   sendMoment() {
     console.log(this.data);
-    this.momentsService.sendMoments(this.data);
-    this.viewCtrl.dismiss();
+    //this.momentsService.sendMoments(this.data);
+    this.viewCtrl.dismiss(this.data);
   }
 
   presentProfileModal() {
     let profileModal = this.modalCtrl.create(FriendList, { userId: 8675309 });
     profileModal.onDidDismiss(data => {
-      this.data.mentionedFriends = data;
-      console.log(this.data.mentionedFriends);
+      if(data.foo !== "bar") {
+        this.data.mentionedFriends = data;
+        console.log(this.data.mentionedFriends);
+      }
     });
     profileModal.present();
   }
   presentLocationModal() {
-    let profileModal = this.modalCtrl.create(LocationList);
-    profileModal.present();
+    let locationModal = this.modalCtrl.create(LocationList);
+    locationModal.onDidDismiss(data => {
+      if(data.foo !== "bar") {
+        this.data.locationPoint = data;
+      }
+    });
+    locationModal.present();
+  }
+  presentShareModal() {
+    let presentModal = this.modalCtrl.create(ShareDetail);
+    presentModal.onDidDismiss(data => {
+      if(data.foo !== "bar") {
+        this.data.locationPoint = data;
+      }
+    });
+    presentModal.present();
   }
   getMentionedFriends(){
     if (this.data.mentionedFriends.length > 0) {

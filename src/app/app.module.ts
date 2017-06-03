@@ -32,6 +32,7 @@ import {HttpModule} from "@angular/http";
 import {MomentsService} from "../services/MomentsService";
 import {FriendList} from "../pages/moments/friendList";
 import {LocationList} from "../pages/moments/LocationList";
+import {ShareDetail} from "../pages/moments/shareDetail";
 
 @NgModule({
   declarations: [
@@ -42,7 +43,7 @@ import {LocationList} from "../pages/moments/LocationList";
     WhatsUpPage,
     AccountIonicPage,
     MapPage,
-    FriendsPage, FriendList, LocationList,
+    FriendsPage, FriendList, LocationList, ShareDetail,
     MomentsPage, ModalNewPostPage, ModalMomentDetailPage,
     ChatListPage, ChatPage,
     LoginPage, RegisterPage,
@@ -61,7 +62,7 @@ import {LocationList} from "../pages/moments/LocationList";
     PicIonicPage,
     AccountIonicPage,
     MapPage,
-    FriendsPage,FriendList,LocationList,
+    FriendsPage,FriendList,LocationList, ShareDetail,
     MomentsPage, ModalNewPostPage, ModalMomentDetailPage,
     ChatListPage, ChatPage,
     LoginPage, RegisterPage
