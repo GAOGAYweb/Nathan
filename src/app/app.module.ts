@@ -30,6 +30,8 @@ import {Keyboard} from '@ionic-native/keyboard';
 import {UserService} from "../services/UserService";
 import {HttpModule} from "@angular/http";
 import {MomentsService} from "../services/MomentsService";
+import {FriendList} from "../pages/moments/friendList";
+import {LocationList} from "../pages/moments/LocationList";
 
 @NgModule({
   declarations: [
@@ -40,7 +42,7 @@ import {MomentsService} from "../services/MomentsService";
     WhatsUpPage,
     AccountIonicPage,
     MapPage,
-    FriendsPage,
+    FriendsPage, FriendList, LocationList,
     MomentsPage, ModalNewPostPage, ModalMomentDetailPage,
     ChatListPage, ChatPage,
     LoginPage, RegisterPage,
@@ -59,7 +61,7 @@ import {MomentsService} from "../services/MomentsService";
     PicIonicPage,
     AccountIonicPage,
     MapPage,
-    FriendsPage,
+    FriendsPage,FriendList,LocationList,
     MomentsPage, ModalNewPostPage, ModalMomentDetailPage,
     ChatListPage, ChatPage,
     LoginPage, RegisterPage

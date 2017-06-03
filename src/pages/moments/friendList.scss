@@ -1,0 +1,8 @@
+page-friends-list {
+  .selected img{
+    opacity: 0.4;
+  }
+  ion-item:hover {
+    background-color: lightslategray !important;
+  }
+}

@@ -25,7 +25,7 @@
 </ion-card>
 
   <ion-list>
-    <button ion-item>
+    <button ion-item (click)="presentLocationModal()">
       <ion-icon name="navigate" item-left></ion-icon>
       Location
     </button>
@@ -35,14 +35,19 @@
       Share to
     </button>
 
-    <button ion-item>
+    <button ion-item (click)="presentProfileModal()">
       <ion-icon name="at" item-left></ion-icon>
       Mention
     </button>
+
+
+    <ion-item item-left>
+      {{getMentionedFriends()}}
+    </ion-item>
   </ion-list>
 
     <ion-buttons end>
-      <button ion-button (click)="dismiss()">
+      <button ion-button (click)="sendMoment()">
       Submit
       </button>
     </ion-buttons>
