@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import {NavController, NavParams, PopoverController} from 'ionic-angular';
 import {DomSanitizer} from "@angular/platform-browser";
 import {BrowserPopoverPage} from "./browser-popover";
+import {MapPage} from "../pages/map/map";
 @Component({
   selector: 'minecraft-page',
   templateUrl: `minecraft.html`,
@@ -29,10 +30,10 @@ export class MinecraftPage{
       isLoaded: false, // 网页是否被加载
       proObj: null, // 进度条对象
       progress: 0, // 网页访问的进度条
-      secUrl: 'http://10.131.251.231:8080', // 安全链接
+      secUrl: 'http://10.131.251.231:9966', // 安全链接
 
       title: '加载中',
-      url: 'http://10.131.251.231:8080',
+      url: 'http://10.131.251.231:9966',
       //url: 'http://www.baidu.com',
       share: null // 是否具有分享功能（传递一个分享对象ShareModel过来）
     };
@@ -101,7 +102,7 @@ export class MinecraftPage{
         this.reload();
       },
       close: () => {
-        this.navCtrl.pop();
+        this.navCtrl.setRoot(MapPage);
       },
       share: null
     };
