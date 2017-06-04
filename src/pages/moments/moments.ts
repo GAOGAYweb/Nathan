@@ -29,7 +29,8 @@ export class MomentsPage {
           "image": "advance-card-bttf.png",
           "content": "<p>"+ data.content +"</p>",
           "likes": [],
-          "comments": []
+          "comments": [],
+          "tags":["technique", "geek"]
         };
         console.log(data);
         this.moments.unshift(moment);
@@ -42,5 +43,6 @@ export class MomentsPage {
     let modal = this.modalCtrl.create(ModalMomentDetailPage, moment);
     modal.present();
   }
+
 
 }

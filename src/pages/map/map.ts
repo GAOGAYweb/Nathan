@@ -1,5 +1,5 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
-import {ModalController, NavController, Platform} from 'ionic-angular';
+import {ModalController, NavController, Platform, NavParams} from 'ionic-angular';
 import { MOMENTS} from './mock.moments';
 import {Moment} from './moment';
 import {ModalMomentDetailPage} from "../moments/momentDetail";
@@ -25,12 +25,18 @@ declare var BMap;
 export class MapPage{
   map:any;
   moments:Moment[]=MOMENTS;
+  accountData:{};
   @ViewChild('map') mapElement: ElementRef;
   constructor(
     private navCtrl: NavController,
     private platform: Platform,
-    public modalCtrl: ModalController
-  ){}
+    public modalCtrl: ModalController,
+    public navParams: NavParams
+  ){
+    if (!this.accountData) {
+      this.accountData = navParams.data;
+    }
+  }
   ionViewWillEnter() {
     let map = this.map = new BMap.Map(this.mapElement.nativeElement, {enableMapClick: true});//创建地图实例
     map.enableScrollWheelZoom();//启动滚轮放大缩小，默认禁用

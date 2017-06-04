@@ -28,6 +28,7 @@ export class MomentsService {
         "image": "advance-card-bttf.png",
         "content": "<p>Wait a minute. Wait a minute, Doc. Uhhh... Are you telling me that you built a time machine... out of a DeLorean?! Whoa. This is heavy.</p>",
         "likes": ["Bullseye", "Hamm"],
+        "tags":["technique", "geek"],
         "comments": [{
           "author": "Woody",
           "avatar": "avatar-ts-woody.png",
@@ -47,6 +48,7 @@ export class MomentsService {
         "image": "advance-card-tmntr.jpg",
         "content": "<p>I face the unknown future, with a sense of hope. Because if a machine, a Terminator, can learn the value of human life, maybe we can too.</p>",
         "likes": ["Woody"],
+        "tags":["technique", "geek"],
         "comments": [{
           "author": "Woody",
           "avatar": "avatar-ts-woody.png",
@@ -61,6 +63,7 @@ export class MomentsService {
         "image": "advance-card-jp.jpg",
         "content": "<p>Your scientists were so preoccupied with whether or not they could, that they didn't stop to think if they should.</p>",
         "likes": ["Woody"],
+        "tags":["technique", "geek"],
         "comments": [{
           "author": "Hamm",
           "avatar": "avatar-ts-hamm.png",

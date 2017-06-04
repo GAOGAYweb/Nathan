@@ -5,13 +5,54 @@ import { Injectable }    from '@angular/core';
 import { RequestOptions,Headers, Http } from '@angular/http';
 import 'rxjs/add/operator/toPromise';
 import 'rxjs/add/operator/map';
+import {AppConfig} from "../app/app.config";
 @Injectable()
 export class UserService {
 
   server: string;
   constructor(private http: Http) {
-    this.server = ""
+    this.server = AppConfig.getServerUrl() + '/user';
   }
+
+  login(account,password) {
+    if (account && password) {
+      let headers = new Headers({
+        'Content-Type': 'application/x-www-form-urlencoded'
+      });
+      let options = new RequestOptions({
+        headers: headers
+      });
+      let body= "method=login&account="+account+"&password="+password;
+      return new Promise((resolve, reject) => {
+        this.http.post(this.server, body, options )
+          .map(res => res.json())
+          .subscribe(data => resolve(data), err => reject(err))
+      })
+    }
+    else {
+      return new Promise((resolve, reject) => {
+        let data = {status: "400"};
+          resolve(data)
+      });
+    }
+  }
+
+  register(account,password,name) {
+    let headers = new Headers({
+      'Content-Type': 'application/x-www-form-urlencoded'
+    });
+    let options = new RequestOptions({
+      headers: headers
+    });
+    let body= "method=register&account="+account+"&password="+password+"&name="+name;
+    return new Promise((resolve, reject) => {
+      this.http.post(this.server, body, options )
+        .map(res => res.json())
+        .subscribe(data => resolve(data), err => reject(err))
+    })
+  }
+
+
   changeInformation(inforMap) {
     let headers = new Headers({
       'Content-Type': 'application/x-www-form-urlencoded'

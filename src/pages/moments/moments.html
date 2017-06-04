@@ -28,8 +28,10 @@
     <ion-card-content [innerHTML]="moment.content"></ion-card-content>
     <ion-row>
       <ion-col>
-        <ion-note>Tag:</ion-note>
-        <ion-label>Technique</ion-label>
+        <ion-item icon-left>
+          <ion-note >Tag:</ion-note>
+          <button ion-button clear *ngFor="let tag of moment.tags">{{tag}}</button>
+        </ion-item>
       </ion-col>
     </ion-row>
     <ion-row>

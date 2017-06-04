@@ -31,7 +31,7 @@ export class ModalNewPostPage {
   }
 
   dismiss() {
-    this.viewCtrl.dismiss();
+    this.viewCtrl.dismiss({"foo":"bar"});
   }
   sendMoment() {
     console.log(this.data);
