@@ -25,7 +25,7 @@ export class MyApp {
   // make HelloIonicPage the root (or first) page
   rootPage = LoginPage;
   pages: Array<{ title: string, component: any }>;
-  accountData=null;
+  accountData:{};
   constructor(public platform: Platform,
               public menu: MenuController,
               public statusBar: StatusBar,
@@ -53,18 +53,21 @@ export class MyApp {
     });
   }
   setAccountData(data) {
-    this.accountData = data;
+    this.accountData = JSON.parse(data);
   }
   openPage(page) {
     // close the menu when clicking a link from the menu
     this.menu.close();
     // navigate to the new page if it is not the current page
-    this.accountData = this.userService.getSessionAccountData();
+    console.log("open page", this.accountData);
     if (this.accountData) {
       this.nav.setRoot(page.component, this.accountData);
     }
     else {
-      alert("wrong account data!")
+      let _data = this.userService.getSessionAccountData().toString();
+      this.accountData = JSON.parse(_data);
+      console.log("open page2", this.accountData);
+      this.nav.setRoot(page.component, this.accountData);
     }
   }
 }

@@ -10,7 +10,7 @@ import {AppConfig} from "../app/app.config";
 export class UserService {
 
   server: string;
-  accountData:{};
+  accountData: string;
   constructor(private http: Http) {
     this.server = AppConfig.getServerUrl() + '/user';
   }
@@ -31,7 +31,6 @@ export class UserService {
           .map(res => res.json())
           .subscribe(data => {
             this.accountData = data["data"];
-            console.log("service", this.accountData);
             resolve(data)
             }, err => reject(err)
           )
@@ -60,16 +59,16 @@ export class UserService {
     })
   }
 
-  getUserInformation(account) {
+  getUserInformation(id) {
     let headers = new Headers({
       'Content-Type': 'application/x-www-form-urlencoded'
     });
     let options = new RequestOptions({
       headers: headers
     });
-    let body= "account=" + account;
+    let body= "method=info&id=" + id;
     return new Promise((resolve, reject) => {
-      this.http.post(this.server + '/calendar', body, options )
+      this.http.post(this.server, body, options )
         .map(res => res.json())
         .subscribe(data => resolve(data), err => reject(err))
     })

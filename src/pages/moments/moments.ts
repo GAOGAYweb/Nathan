@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ModalController } from 'ionic-angular';
+import { ModalController , NavParams} from 'ionic-angular';
 import { ModalNewPostPage } from './newPost';
 import { ModalMomentDetailPage } from './momentDetail';
 import {MomentsService} from "../../services/MomentsService";
@@ -14,7 +14,15 @@ export class MomentsPage {
 
   moments: any;
   account: string;
-  constructor(public modalCtrl: ModalController, private momentsService: MomentsService) {
+  accountData: {id:string, account:string};
+  constructor(
+    public modalCtrl: ModalController, 
+    private momentsService: MomentsService, 
+    public navParams: NavParams) {
+    console.log("data", navParams.data);
+    if (!this.accountData) {
+      this.accountData = JSON.parse(navParams.data);
+    }
     this.moments = momentsService.getMoments(this.account);
   }
 
@@ -44,5 +52,14 @@ export class MomentsPage {
     modal.present();
   }
 
-
+  clickThumb(moment) {
+    let idnex = moment["likes"].indexOf(this.accountData.account); 
+    if (idnex >= 0) {
+      // code...
+      moment["likes"].remove(idnex);
+    }
+    else {
+      moment["likes"].push(this.accountData.account);
+    }
+  }
 }
