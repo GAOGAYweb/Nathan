@@ -1,6 +1,8 @@
 import {Component} from '@angular/core';
 import {NavController} from 'ionic-angular';
-import {ChatPage} from './chat/chat'
+import {ChatPage} from './chat/chat';
+import { Storage } from '@ionic/storage';
+import { ChangeDetectorRef } from '@angular/core'; 
 
 @Component({
   selector: 'page-chatlist',
@@ -8,9 +10,31 @@ import {ChatPage} from './chat/chat'
 })
 export class ChatListPage {
 
-  contacts;
-  constructor(public navCtrl: NavController) {
-    this.contacts=CONTACTS;
+  contacts=[];
+  constructor(public navCtrl: NavController,private storage: Storage,public cd: ChangeDetectorRef) {
+    
+  }
+
+  ionViewWillEnter(){
+    this.storage.ready().then(()=>{
+      this.storage.get('chatlist').then((chatlist)=>{
+        if(chatlist){
+          for(let i=0;i<chatlist.length;i++){
+            this.contacts.push({
+              name:chatlist[i].name,
+              message: "gooluuuuuu", 
+              time : "9:30 am",
+              avatar: "avatar-yoda.png"
+            });
+          }
+          this.cd.detectChanges();  
+        }
+      });
+    });
+  }
+
+  ionViewDidLeave(){
+    this.contacts=[];
   }
 
   itemTapped(event,friend,avatar) {
@@ -20,19 +44,29 @@ export class ChatListPage {
     });
   }
 
+  delete(name){
+    this.storage.ready().then(()=>{
+      this.storage.get('chatlist').then((chatlist)=>{
+        if(chatlist){
+          for(let i=0;i<chatlist.length;i++){
+            if(chatlist[i].name===name){
+              chatlist.splice(i,1);
+              break;
+            }
+          }
+          this.storage.set('chatlist',chatlist);
+          this.contacts=[];
+          for(let i=0;i<chatlist.length;i++){
+            this.contacts.push({
+              name:chatlist[i].name,
+              message: "gooluuuuuu", 
+              time : "9:30 am",
+              avatar: "avatar-yoda.png"
+            });
+          }
+          console.log(chatlist);
+        }
+      });
+    });
+  }
 }
-
-let CONTACTS = [
-  {"name": "yoda", 
-   "message": "gooluuuuuu", 
-   "time" : "9:30 am",
-   "avatar": "avatar-yoda.png"},
-  {"name": "han", 
-   "message": "wow", 
-   "time" : "12:26 pm",
-   "avatar": "avatar-han.png"},
-  {"name": "rey", 
-   "message": "hello", 
-   "time" : "4:45 pm",
-   "avatar": "avatar-rey.png"},
-]
