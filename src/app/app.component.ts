@@ -8,10 +8,10 @@ import {AccountIonicPage} from "../pages/account/account-ionic";
 import {MapPage} from "../pages/map/map";
 import {FriendsPage} from '../pages/friends/friends';
 import {ChatListPage} from '../pages/chatlist/chatlist';
-import {MomentsPage} from '../pages/moments/moments';
 import {LoginPage} from '../pages/login/login';
 import {UserService} from "../services/UserService";
 import {MinecraftPage} from "../minecraft/minecraft";
+import {TabsPage} from '../pages/moments/tabs';
 
 import {ChatPage} from '../pages/chatlist/chat/chat';
 
@@ -37,9 +37,9 @@ export class MyApp {
       {title: 'My Account', component: AccountIonicPage},
       {title: 'My Map', component: MapPage},
       {title: 'My Friends', component: FriendsPage},
-      {title: 'Moments', component: MomentsPage},
       {title: 'Chats', component: ChatListPage},
       {title: 'WebCraft', component: MinecraftPage},
+      {title: 'Moments', component: TabsPage}
     ];
 
   }

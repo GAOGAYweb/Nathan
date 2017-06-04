@@ -25,6 +25,9 @@ import {ModalNewPostPage} from '../pages/moments/newPost';
 import {ModalMomentDetailPage} from '../pages/moments/momentDetail';
 import {LoginPage} from '../pages/login/login';
 import {RegisterPage} from '../pages/register/register';
+import {TabsPage} from '../pages/moments/tabs';
+import {LikesPage} from '../pages/moments/likes';
+import {RecommendPage} from '../pages/moments/recommend';
 
 import {Keyboard} from '@ionic-native/keyboard';
 import {UserService} from "../services/UserService";
@@ -36,6 +39,7 @@ import {LocationList} from "../pages/moments/LocationList";
 import {ShareDetail} from "../pages/moments/shareDetail";
 import {MinecraftPage} from "../minecraft/minecraft";
 import {BrowserPopoverPage} from "../minecraft/browser-popover";
+import { IonicStorageModule } from '@ionic/storage';
 
 @NgModule({
   declarations: [
@@ -51,11 +55,14 @@ import {BrowserPopoverPage} from "../minecraft/browser-popover";
     MinecraftPage,BrowserPopoverPage,
     ChatListPage, ChatPage,
     LoginPage, RegisterPage,
+    TabsPage,LikesPage,
+    RecommendPage
   ],
   imports: [
     HttpModule,
     BrowserModule,
     IonicModule.forRoot(MyApp),
+    IonicStorageModule.forRoot()
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -70,7 +77,9 @@ import {BrowserPopoverPage} from "../minecraft/browser-popover";
     MomentsPage, ModalNewPostPage, ModalMomentDetailPage,
     MinecraftPage,BrowserPopoverPage,
     ChatListPage, ChatPage,
-    LoginPage, RegisterPage
+    LoginPage, RegisterPage,
+    TabsPage,LikesPage,
+    RecommendPage
   ],
   providers: [
     Keyboard,

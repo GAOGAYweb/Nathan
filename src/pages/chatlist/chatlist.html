@@ -19,11 +19,7 @@
         <ion-note item-right>{{contact.time}}</ion-note>
       </button>
       <ion-item-options>
-        <button ion-button color="primary" icon-left>
-          <ion-icon name="text"></ion-icon>
-          Text
-        </button>
-        <button ion-button color="danger" icon-left>
+        <button ion-button color="danger" icon-left (click)=delete(contact.name)>
           <ion-icon name="close"></ion-icon>
           Delete
         </button>
