@@ -10,10 +10,13 @@ import {AppConfig} from "../app/app.config";
 export class UserService {
 
   server: string;
+  accountData:{};
   constructor(private http: Http) {
     this.server = AppConfig.getServerUrl() + '/user';
   }
-
+  getSessionAccountData() {
+    return this.accountData;
+  }
   login(account,password) {
     if (account && password) {
       let headers = new Headers({
@@ -26,7 +29,12 @@ export class UserService {
       return new Promise((resolve, reject) => {
         this.http.post(this.server, body, options )
           .map(res => res.json())
-          .subscribe(data => resolve(data), err => reject(err))
+          .subscribe(data => {
+            this.accountData = data["data"];
+            console.log("service", this.accountData);
+            resolve(data)
+            }, err => reject(err)
+          )
       })
     }
     else {
@@ -52,6 +60,20 @@ export class UserService {
     })
   }
 
+  getUserInformation(account) {
+    let headers = new Headers({
+      'Content-Type': 'application/x-www-form-urlencoded'
+    });
+    let options = new RequestOptions({
+      headers: headers
+    });
+    let body= "account=" + account;
+    return new Promise((resolve, reject) => {
+      this.http.post(this.server + '/calendar', body, options )
+        .map(res => res.json())
+        .subscribe(data => resolve(data), err => reject(err))
+    })
+  }
 
   changeInformation(inforMap) {
     let headers = new Headers({

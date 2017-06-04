@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import {AlertController, LoadingController, MenuController, NavController} from 'ionic-angular';
 import {MapPage} from "../map/map";
 import {UserService} from "../../services/UserService";
-import {MyApp} from "../../app/app.component";
 
 @Component({
   selector: 'page-login',
@@ -12,7 +11,7 @@ export class LoginPage {
   account:string;
   password:string;
   constructor(public loadingCtrl: LoadingController, public navCtrl: NavController, public menu: MenuController,
-              private userService:UserService, private alertCtrl: AlertController) {
+              public userService:UserService, private alertCtrl: AlertController) {
     this.menu.swipeEnable(false, 'myMenu');
   }
 
@@ -28,6 +27,7 @@ export class LoginPage {
       if (data["status"] === "200") {
         this.menu.swipeEnable(true, 'myMenu');
         this.navCtrl.setRoot(MapPage, data["data"]);
+
         loader.dismiss();
       }
       else {
@@ -40,6 +40,5 @@ export class LoginPage {
         alert.present();
       }
     });
-
   }
 }

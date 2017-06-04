@@ -10,6 +10,8 @@ import {FriendsPage} from '../pages/friends/friends';
 import {ChatListPage} from '../pages/chatlist/chatlist';
 import {MomentsPage} from '../pages/moments/moments';
 import {LoginPage} from '../pages/login/login';
+import {UserService} from "../services/UserService";
+import {MinecraftPage} from "../minecraft/minecraft";
 
 
 @Component({
@@ -24,7 +26,8 @@ export class MyApp {
   constructor(public platform: Platform,
               public menu: MenuController,
               public statusBar: StatusBar,
-              public splashScreen: SplashScreen) {
+              public splashScreen: SplashScreen,
+              public userService:UserService) {
     this.initializeApp();
     // set our app's pages
     this.pages = [
@@ -33,6 +36,7 @@ export class MyApp {
       {title: 'My Friends', component: FriendsPage},
       {title: 'Moments', component: MomentsPage},
       {title: 'Chats', component: ChatListPage},
+      {title: 'WebCraft', component: MinecraftPage},
     ];
 
   }
@@ -46,12 +50,13 @@ export class MyApp {
     });
   }
   setAccountData(data) {
-    this.accountData = data
+    this.accountData = data;
   }
   openPage(page) {
     // close the menu when clicking a link from the menu
     this.menu.close();
     // navigate to the new page if it is not the current page
+    this.accountData = this.userService.getSessionAccountData();
     if (this.accountData) {
       this.nav.setRoot(page.component, this.accountData);
     }
