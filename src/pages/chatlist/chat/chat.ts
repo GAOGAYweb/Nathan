@@ -2,6 +2,7 @@ import { Component, Renderer, ElementRef, ViewChild } from '@angular/core';
 import { NavController, NavParams,Content } from 'ionic-angular';
 import { Keyboard } from '@ionic-native/keyboard';
 import { ChatService } from '../../../services/ChatService';
+import { ChangeDetectorRef } from '@angular/core'; 
 
 
 declare let JMessage:any;
@@ -19,7 +20,8 @@ export class ChatPage {
   JIM;
   constructor(public navCtrl: NavController,public navParams: NavParams,
             private renderer:Renderer, private elementRef:ElementRef,
-            private keyboard: Keyboard, private chatService:ChatService) {
+            private keyboard: Keyboard, private chatService:ChatService,
+            public cd: ChangeDetectorRef) {
     this.name=this.navParams.get("name");
     this.avatar=this.navParams.get("avatar");
     this.messages=MESSAGE;
@@ -60,7 +62,6 @@ export class ChatPage {
                             });
                         });
                         console.log(data);
-                        console.log(data.messages[0].content.msg_body.text);
                         data = JSON.stringify(data);
                         console.log('msg_receive:' + data);
                         
@@ -68,6 +69,19 @@ export class ChatPage {
                     
                     JIM.onSyncConversation(function(data) { //离线消息同步监听
                         console.log(data);
+                        data.forEach(msg=>{
+                            console.log(msg);
+                            msg.msgs.forEach(message=>{
+                                console.log(message);
+                                console.log(message.content.from_id);
+                                that.messages.push({
+                                    "tome":true,
+                                    "message":message.content.msg_body.text,
+                                    "avatar":"avatar.png"
+                                });
+                            });
+                        });
+                        that.cd.detectChanges(); 
                         console.log('event_receive: ' + JSON.stringify(data));
                     });
                 }).onFail(function(data) {

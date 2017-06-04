@@ -1,6 +1,8 @@
 import {Component} from '@angular/core';
 import {NavController} from 'ionic-angular';
 import { Storage } from '@ionic/storage';
+import { ChatListPage } from '../chatlist/chatlist';
+import { ChatPage } from '../chatlist/chat/chat';
 
 @Component({
   selector: 'page-friends',
@@ -10,7 +12,7 @@ export class FriendsPage {
   contacts;
   categorizedContacts;
 
-  itemSelected(name: string) {
+  itemSelected(name: string,avatar: string) {
     console.log("Selected Item", name);
     this.storage.ready().then(()=>{
       this.storage.get('chatlist').then((chatlist)=>{
@@ -21,16 +23,21 @@ export class FriendsPage {
               break;
             }
           }
-          chatlist.unshift({name:name});
+          chatlist.unshift({name:name,avatar:avatar});
           this.storage.set('chatlist',chatlist);
           console.log(chatlist);
         }
         else{
           this.storage.set('chatlist',
-            [{name : name}]
+            [{name : name,avatar:avatar}]
           );
         }
       });
+    });
+    this.navCtrl.setRoot(ChatListPage);
+    this.navCtrl.push(ChatPage,{
+        avatar:avatar,
+        name:name
     });
   }
 

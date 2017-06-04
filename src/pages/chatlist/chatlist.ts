@@ -24,7 +24,7 @@ export class ChatListPage {
               name:chatlist[i].name,
               message: "gooluuuuuu", 
               time : "9:30 am",
-              avatar: "avatar-yoda.png"
+              avatar: chatlist[i].avatar
             });
           }
           this.cd.detectChanges();  
@@ -61,9 +61,10 @@ export class ChatListPage {
               name:chatlist[i].name,
               message: "gooluuuuuu", 
               time : "9:30 am",
-              avatar: "avatar-yoda.png"
+              avatar: chatlist[i].avatar
             });
           }
+          this.cd.detectChanges();  
           console.log(chatlist);
         }
       });
