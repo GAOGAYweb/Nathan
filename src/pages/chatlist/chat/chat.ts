@@ -1,7 +1,10 @@
 import { Component, Renderer, ElementRef, ViewChild } from '@angular/core';
 import { NavController, NavParams,Content } from 'ionic-angular';
 import { Keyboard } from '@ionic-native/keyboard';
+import { ChatService } from '../../../services/ChatService';
 
+
+declare let JMessage:any;
 @Component({
   selector: 'page-chat',
   templateUrl: 'chat.html'
@@ -13,7 +16,10 @@ export class ChatPage {
   avatar:string;
   messages;
   myMessage:string;
-  constructor(public navCtrl: NavController,public navParams: NavParams,private renderer:Renderer, private elementRef:ElementRef,private keyboard: Keyboard) {
+  JIM;
+  constructor(public navCtrl: NavController,public navParams: NavParams,
+            private renderer:Renderer, private elementRef:ElementRef,
+            private keyboard: Keyboard, private chatService:ChatService) {
     this.name=this.navParams.get("name");
     this.avatar=this.navParams.get("avatar");
     this.messages=MESSAGE;
@@ -24,6 +30,56 @@ export class ChatPage {
         else
             message.avatar="avatar-finn.png";
     }
+  }
+
+  ngOnInit(){
+      let that=this;
+      this.chatService.init().then((data:any)=>{
+        console.log(data);
+        let JIM=new JMessage();
+        this.JIM=JIM;
+        JIM.init({
+                "appkey" : data.appkey,
+                "random_str" : data.random_str,
+                "signature" : data.signature,
+                "timestamp" : data.timestamp,
+                "flag" : "1"
+            }).onSuccess(function(data) {
+                console.log('success:' + JSON.stringify(data));
+                JIM.login({
+                    'username' : 'test',
+                    'password' : '123456'
+                }).onSuccess(function(data) {
+                    console.log('success:' + JSON.stringify(data));
+                    JIM.onMsgReceive(function(data) {
+                        data.messages.forEach(message => {
+                            that.messages.push({
+                                "tome":true,
+                                "message":message.content.msg_body.text,
+                                "avatar":"avatar.png"
+                            });
+                        });
+                        console.log(data);
+                        console.log(data.messages[0].content.msg_body.text);
+                        data = JSON.stringify(data);
+                        console.log('msg_receive:' + data);
+                        
+                    });
+                    
+                    JIM.onSyncConversation(function(data) { //离线消息同步监听
+                        console.log(data);
+                        console.log('event_receive: ' + JSON.stringify(data));
+                    });
+                }).onFail(function(data) {
+                    console.log('error:' + JSON.stringify(data));
+                }).onTimeout(function(data) {
+                    console.log('timeout:' + JSON.stringify(data));
+                });
+            }).onFail(function(data) {
+                // 同
+            });
+        });
+      
   }
 
   send(){
@@ -43,6 +99,14 @@ export class ChatPage {
             "message":this.myMessage,
             "avatar":"avatar-finn.png"
         });
+        this.JIM.sendSingleMsg({
+            'target_username' : 'test2',
+            'content' : this.myMessage
+        }).onSuccess(function(data) {
+            console.log('success:' + JSON.stringify(data));
+        }).onFail(function(data) {
+            console.log('error:' + JSON.stringify(data));
+        });
         this.myMessage="";
       }
   }
@@ -51,34 +115,5 @@ export class ChatPage {
 
 
 let MESSAGE = [
-    {
-        "tome":true,
-        "message":"hello",
-        "avator":""
-    },
-    {
-        "tome":false,
-        "message":"hello",
-        "avator":""
-    },
-    {
-        "tome":false,
-        "message":"how are you",
-        "avator":""
-    },
-    {
-        "tome":true,
-        "message":"zaima",
-        "avator":""
-    },
-    {
-        "tome":false,
-        "message":"buzai",
-        "avator":""
-    },
-    {
-        "tome":true,
-        "message":"rua",
-        "avator":""
-    }
+    
 ];

@@ -11,6 +11,8 @@ import {ChatListPage} from '../pages/chatlist/chatlist';
 import {MomentsPage} from '../pages/moments/moments';
 import {LoginPage} from '../pages/login/login';
 
+import {ChatPage} from '../pages/chatlist/chat/chat';
+
 
 @Component({
   templateUrl: 'app.html'
@@ -19,7 +21,7 @@ export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
   // make HelloIonicPage the root (or first) page
-  rootPage = LoginPage;
+  rootPage = ChatPage;
   pages: Array<{ title: string, component: any }>;
 
   constructor(public platform: Platform,

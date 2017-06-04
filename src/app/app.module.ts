@@ -30,6 +30,7 @@ import {Keyboard} from '@ionic-native/keyboard';
 import {UserService} from "../services/UserService";
 import {HttpModule} from "@angular/http";
 import {MomentsService} from "../services/MomentsService";
+import {ChatService} from "../services/ChatService";
 import {FriendList} from "../pages/moments/friendList";
 import {LocationList} from "../pages/moments/LocationList";
 
@@ -74,6 +75,7 @@ import {LocationList} from "../pages/moments/LocationList";
     ImgService,
     UserService,
     MomentsService,
+    ChatService,
     Camera,
     FileChooser,
     FilePath,
