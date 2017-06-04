@@ -1,24 +1,44 @@
 import { Component } from '@angular/core';
-import {LoadingController, NavController} from 'ionic-angular';
+import {AlertController, LoadingController, MenuController, NavController} from 'ionic-angular';
 import {MapPage} from "../map/map";
+import {UserService} from "../../services/UserService";
 
 @Component({
   selector: 'page-login',
   templateUrl: 'login.html'
 })
 export class LoginPage {
-  constructor(public loadingCtrl: LoadingController, public navCtrl: NavController) {
-
+  account:string;
+  password:string;
+  constructor(public loadingCtrl: LoadingController, public navCtrl: NavController, public menu: MenuController,
+              public userService:UserService, private alertCtrl: AlertController) {
+    this.menu.swipeEnable(false, 'myMenu');
   }
 
   presentLoading() {
     let loader = this.loadingCtrl.create({
       content: "Please wait...",
-      duration: 3000
+      //duration: 3000
     });
     loader.present();
-    setTimeout(()=> {
-      this.navCtrl.push(MapPage);
-    },1000);
+    //console.log("sign in:", this.account, this.password);
+    this.userService.login(this.account, this.password).then(data => {
+      console.log(data);
+      if (data["status"] === "200") {
+        this.menu.swipeEnable(true, 'myMenu');
+        this.navCtrl.setRoot(MapPage, data["data"]);
+
+        loader.dismiss();
+      }
+      else {
+        loader.dismiss();
+        let alert = this.alertCtrl.create({
+          title: 'Wrong Input',
+          subTitle: 'You might input a wrong account or password!',
+          buttons: ['OK']
+        });
+        alert.present();
+      }
+    });
   }
 }

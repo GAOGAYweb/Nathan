@@ -10,6 +10,8 @@ import {FriendsPage} from '../pages/friends/friends';
 import {ChatListPage} from '../pages/chatlist/chatlist';
 import {MomentsPage} from '../pages/moments/moments';
 import {LoginPage} from '../pages/login/login';
+import {UserService} from "../services/UserService";
+import {MinecraftPage} from "../minecraft/minecraft";
 
 import {ChatPage} from '../pages/chatlist/chat/chat';
 
@@ -21,15 +23,15 @@ export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
   // make HelloIonicPage the root (or first) page
-  rootPage = ChatPage;
+  rootPage = LoginPage;
   pages: Array<{ title: string, component: any }>;
-
+  accountData=null;
   constructor(public platform: Platform,
               public menu: MenuController,
               public statusBar: StatusBar,
-              public splashScreen: SplashScreen) {
+              public splashScreen: SplashScreen,
+              public userService:UserService) {
     this.initializeApp();
-
     // set our app's pages
     this.pages = [
       {title: 'My Account', component: AccountIonicPage},
@@ -37,6 +39,7 @@ export class MyApp {
       {title: 'My Friends', component: FriendsPage},
       {title: 'Moments', component: MomentsPage},
       {title: 'Chats', component: ChatListPage},
+      {title: 'WebCraft', component: MinecraftPage},
     ];
 
   }
@@ -49,11 +52,19 @@ export class MyApp {
       this.splashScreen.hide();
     });
   }
-
+  setAccountData(data) {
+    this.accountData = data;
+  }
   openPage(page) {
     // close the menu when clicking a link from the menu
     this.menu.close();
     // navigate to the new page if it is not the current page
-    this.nav.setRoot(page.component);
+    this.accountData = this.userService.getSessionAccountData();
+    if (this.accountData) {
+      this.nav.setRoot(page.component, this.accountData);
+    }
+    else {
+      alert("wrong account data!")
+    }
   }
 }

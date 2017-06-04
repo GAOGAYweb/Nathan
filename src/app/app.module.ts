@@ -33,6 +33,9 @@ import {MomentsService} from "../services/MomentsService";
 import {ChatService} from "../services/ChatService";
 import {FriendList} from "../pages/moments/friendList";
 import {LocationList} from "../pages/moments/LocationList";
+import {ShareDetail} from "../pages/moments/shareDetail";
+import {MinecraftPage} from "../minecraft/minecraft";
+import {BrowserPopoverPage} from "../minecraft/browser-popover";
 
 @NgModule({
   declarations: [
@@ -43,8 +46,9 @@ import {LocationList} from "../pages/moments/LocationList";
     WhatsUpPage,
     AccountIonicPage,
     MapPage,
-    FriendsPage, FriendList, LocationList,
+    FriendsPage, FriendList, LocationList, ShareDetail,
     MomentsPage, ModalNewPostPage, ModalMomentDetailPage,
+    MinecraftPage,BrowserPopoverPage,
     ChatListPage, ChatPage,
     LoginPage, RegisterPage,
   ],
@@ -62,8 +66,9 @@ import {LocationList} from "../pages/moments/LocationList";
     PicIonicPage,
     AccountIonicPage,
     MapPage,
-    FriendsPage,FriendList,LocationList,
+    FriendsPage,FriendList,LocationList, ShareDetail,
     MomentsPage, ModalNewPostPage, ModalMomentDetailPage,
+    MinecraftPage,BrowserPopoverPage,
     ChatListPage, ChatPage,
     LoginPage, RegisterPage
   ],

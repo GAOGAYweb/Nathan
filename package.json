@@ -28,6 +28,7 @@
     "@ionic-native/status-bar": "3.4.2",
     "@ionic-native/transfer": "^3.6.1",
     "@ionic/storage": "2.0.1",
+    "bosonnlp": "0.0.9",
     "ionic": "^2.2.3",
     "ionic-angular": "^3.1.1",
     "ionic-img-viewer": "^1.3.3",

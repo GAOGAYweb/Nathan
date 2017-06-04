@@ -11,6 +11,7 @@ export class ModalMomentDetailPage {
 
   constructor(public viewCtrl: ViewController, public params: NavParams, public alertCtrl: AlertController) {
     this.moment = this.params.get('moment');
+    console.log(this.moment)
   }
 
   dismiss() {

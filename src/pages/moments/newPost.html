@@ -13,7 +13,7 @@
 
 <ion-card>
   <ion-card-header>
-  <ion-textarea placeholder="Enter a description" [(ngModel)]="data.message"></ion-textarea>
+  <ion-textarea placeholder="Enter a description" [(ngModel)]="data.content"></ion-textarea>
   </ion-card-header>
 
  <ion-item>
@@ -30,7 +30,7 @@
       Location
     </button>
 
-    <button ion-item>
+    <button ion-item (click)="presentShareModal()">
       <ion-icon name="share-alt" item-left></ion-icon>
       Share to
     </button>
@@ -42,7 +42,7 @@
 
 
     <ion-item item-left>
-      {{getMentionedFriends()}}
+      <ion-note>{{getMentionedFriends()}}</ion-note>
     </ion-item>
   </ion-list>
 
