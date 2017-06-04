@@ -10,7 +10,7 @@ import {AppConfig} from "../app/app.config";
 export class UserService {
 
   server: string;
-  accountData:{};
+  accountData: string;
   constructor(private http: Http) {
     this.server = AppConfig.getServerUrl() + '/user';
   }
@@ -60,7 +60,6 @@ export class UserService {
   }
 
   getUserInformation(id) {
-    console.log("id", id);
     let headers = new Headers({
       'Content-Type': 'application/x-www-form-urlencoded'
     });

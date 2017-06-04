@@ -36,7 +36,8 @@
     </ion-row>
     <ion-row>
       <ion-col>
-        <button ion-button color="primary" clear small icon-left>
+        <button ion-button color="primary" clear small icon-left 
+        (click)="clickThumb(({moment: moment}))">
           <ion-icon name='thumbs-up'></ion-icon>
           {{moment.likes.length}} Likes
         </button>
