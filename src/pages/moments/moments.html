@@ -36,7 +36,7 @@
     </ion-row>
     <ion-row>
       <ion-col>
-        <button ion-button color="primary" clear small icon-left 
+        <button ion-button color="primary" clear small icon-left
         (click)="clickThumb(moment)">
           <ion-icon name='thumbs-up'></ion-icon>
           {{moment.likes.length}} Likes
@@ -57,5 +57,18 @@
     </ion-row>
 
   </ion-card>
-
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content
+      pullingIcon="arrow-dropdown"
+      pullingText="Pull to refresh"
+      refreshingSpinner="circles"
+      refreshingText="Refreshing...">
+    </ion-refresher-content>
+  </ion-refresher>
+  <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+    <ion-infinite-scroll-content
+      loadingSpinner="bubbles"
+      loadingText="Loading more data...">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
 </ion-content>

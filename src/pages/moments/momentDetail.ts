@@ -1,5 +1,6 @@
 import {Component} from '@angular/core';
 import {AlertController, ViewController, NavParams} from 'ionic-angular';
+import {UserService} from "../../services/UserService";
 
 @Component({
   selector: 'page-momentDetail',
@@ -8,10 +9,12 @@ import {AlertController, ViewController, NavParams} from 'ionic-angular';
 
 export class ModalMomentDetailPage {
   moment;
-
-  constructor(public viewCtrl: ViewController, public params: NavParams, public alertCtrl: AlertController) {
-    this.moment = this.params.get('moment');
-    console.log(this.moment)
+  accountData:{id:string, account:string};
+  accountInformation: { name: string, description: string, gender: string, friendsNum: number, imageSrc:string};
+  constructor(public viewCtrl: ViewController, public params: NavParams, public alertCtrl: AlertController, public userService: UserService) {
+    this.moment = this.params.get('moment').moment;
+    this.accountData = this.params.get("accountData");
+    this.accountInformation = JSON.parse(this.userService.getSessionUserInformation());
   }
 
   dismiss() {
@@ -38,12 +41,13 @@ export class ModalMomentDetailPage {
         {
           text: 'Submit',
           handler: data => {
-            this.moment.comments.push({
-              "author": "老吴",
-              "avatar": "avatar-ts-hamm.png",
+            let obj = {
+              "author": this.accountInformation.name,
+              "avatar": this.accountInformation.imageSrc,
               "content": data["comment-text"],
               "time": new Date(Date.now()).toLocaleDateString()
-            });
+            };
+            this.moment.comments.push(obj);
           }
         }
       ]

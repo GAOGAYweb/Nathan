@@ -21,7 +21,7 @@
         <ion-icon name="add"></ion-icon>
       </button>
   </ion-item>
-
+  <button ion-button clear (click)="clearLocation()">{{locationName}}</button>
 </ion-card>
 
   <ion-list>
@@ -42,7 +42,7 @@
 
 
     <ion-item item-left>
-      <ion-note>{{getMentionedFriends()}}</ion-note>
+      <button ion-button clear (click)="clearMention()">{{getMentionedFriends()}}</button>
     </ion-item>
   </ion-list>
 

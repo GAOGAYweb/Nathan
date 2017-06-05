@@ -15,6 +15,7 @@ import {PicIonicPage} from "./profile-detail/pic-ionic";
 export class ProfileIonicPage {
   myCallbackFunction: (_params: any) => Promise<{}>;
   selectedUser: { name: string; description: string; gender: string; friendsNum: number; imageSrc: string};
+  pics:any;
   id:string;
   constructor(public navCtrl: NavController, public navParams: NavParams) {
     this.selectedUser = navParams.get('user');

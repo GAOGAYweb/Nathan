@@ -7,6 +7,7 @@ import {NavController, NavParams} from "ionic-angular";
 import {MomentsPage} from "../moments/moments";
 import {FriendsPage} from "../friends/friends";
 import {UserService} from "../../services/UserService";
+import { ChangeDetectorRef } from '@angular/core';
 
 
 @Component({
@@ -17,38 +18,39 @@ export class AccountIonicPage {
   user: { name: string, description: string, gender: string, friendsNum: number, imageSrc:string};
   mc: {ip: string};
   accountData:{id:string, account:string};
-  constructor(public navCtrl: NavController, public navParams: NavParams, public userService:UserService) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public userService:UserService,
+              public cd: ChangeDetectorRef) {
     this.mc = {ip: "http://10.131.250.11:3000/multiplayer.html"};
     if (!this.accountData) {
       this.accountData = navParams.data;
     }
-    this.user = {
+
+    this.user={
       name: "",
-      description: "",
-      friendsNum: 0,
-      gender: "Male",
-      imageSrc: ""
+        description: "",
+        friendsNum: 0,
+        gender: "Male",
+        imageSrc: "default.jpg"
     };
-  }
-  ionViewWillEnter() {
-    if(this.user.name === "") {
-      this.userService.getUserInformation(this.accountData.id).then(data => {
-        let obj = JSON.parse(data["data"]);
-        let name = obj.name;
-        let description = obj.description;
-        let friendsNum = obj.friendsNum;
-        let gender = obj.gender === "0" ? "Male" : "Female";
-        let imageSrc = obj.imageSrc;
-        this.user = {
-          name: name,
-          description: description,
-          friendsNum: friendsNum,
-          gender: gender,
-          imageSrc: imageSrc
-        };
-        console.log("user", this.user);
-      }) ;
-    }
+    userService.getUserInformation(this.accountData.id).then(data => {
+      console.log(data);
+      let obj = JSON.parse(data["data"]);
+      let name = obj.name;
+      let description = obj.description;
+      let friendsNum = obj.friendsNum;
+      let gender = obj.gender === "0" ? "Male" : "Female";
+      let imageSrc = obj.imageSrc;
+      console.log("data", name, description, friendsNum, gender, imageSrc);
+      this.user = {
+        name: name,
+        description: description,
+        friendsNum: friendsNum,
+        gender: gender,
+        imageSrc: imageSrc
+      };
+      this.cd.detectChanges();
+    }) ;
+
   }
   itemTapped(event, user) {
     this.navCtrl.push(ProfileIonicPage, {

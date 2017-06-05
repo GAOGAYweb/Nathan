@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {ChangeDetectorRef, Component} from '@angular/core';
 import {NavController, NavParams} from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 import { ChatListPage } from '../chatlist/chatlist';
@@ -58,13 +58,15 @@ export class FriendsPage {
         this.contacts.push(contact);
       }
       this.categorizedContacts = getcategorizedContacts(this.contacts);
-
+      this.cd.detectChanges();
     });
   }
 
-  constructor(public navCtrl: NavController,private storage: Storage, public navParams: NavParams, public userService:UserService) {
+  constructor(public navCtrl: NavController,private storage: Storage, public navParams: NavParams,
+              public userService:UserService,public cd: ChangeDetectorRef) {
     this.accountData = navParams.data;
     this.initContacts();
+
   }
 }
 
@@ -97,51 +99,3 @@ function strCmp(a, b) {
   return a.localeCompare(b);
 
 }
-
-let CONTACTS = [
-  {"name": "Barbie", "whatsup": "So, who's ready for Ken's dream tour?", "avatar": "avatar-ts-barbie.png"},
-
-  {
-    "name": "Bo Peep",
-    "whatsup": "What would you say if I get someone else to watch the sheep for me tonight?",
-    "avatar": "avatar-ts-bopeep.png"
-  },
-
-  {"name": "Bullseye", "whatsup": "Neigh!", "avatar": "avatar-ts-bullseye.png"},
-
-  {
-    "name": "Buzz Lightyear",
-    "whatsup": "My eyeballs could have been sucked from their sockets!",
-    "avatar": "avatar-ts-buzz.png"
-  },
-
-  {"name": "Hamm", "whatsup": "You heard of Kung Fu? Well get ready for pork chop.", "avatar": "avatar-ts-hamm.png"},
-
-  {
-    "name": "Jessie",
-    "whatsup": "Well aren't you just the sweetest space toy I ever did meet!",
-    "avatar": "avatar-ts-jessie.png"
-  },
-
-  {
-    "name": "Mr. Potato Head",
-    "whatsup": "You're not turning me into a Mashed Potato.",
-    "avatar": "avatar-ts-potatohead.png"
-  },
-
-  {"name": "Rex", "whatsup": "Were you scared? Tell me honestly.", "avatar": "avatar-ts-rex.png"},
-
-  {"name": "Sarge", "whatsup": "Code Red, repeat: We're at Code Red!", "avatar": "avatar-ts-sarge.png"},
-
-  {
-    "name": "Slinky Dog",
-    "whatsup": "I may not be a smart dog, but I know what roadkill is.",
-    "avatar": "avatar-ts-slinky.png"
-  },
-
-  {"name": "Squeeze", "whatsup": "The claw is our master.", "avatar": "avatar-ts-squeeze.png"},
-
-  {"name": "Woody", "whatsup": "This town ain't big enough for the two of us!", "avatar": "avatar-ts-woody.png"},
-
-  {"name": "吴老", "whatsup": "我会说中文", "avatar": "avatar-ts-woody.png"},
-];

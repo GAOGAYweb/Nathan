@@ -59,14 +59,12 @@ export class MyApp {
     // close the menu when clicking a link from the menu
     this.menu.close();
     // navigate to the new page if it is not the current page
-    console.log("open page", this.accountData);
     if (this.accountData) {
       this.nav.setRoot(page.component, this.accountData);
     }
     else {
       let _data = this.userService.getSessionAccountData().toString();
       this.accountData = JSON.parse(_data);
-      console.log("open page2", this.accountData);
       this.nav.setRoot(page.component, this.accountData);
     }
   }

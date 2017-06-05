@@ -10,10 +10,10 @@
 </ion-header>
 
 <ion-content class="has-header">
-  <ion-list radio-group [(ngModel)]="selectedPoint">
-    <ion-item *ngFor="let street of this.streetNames" >
+  <ion-list radio-group [(ngModel)]="selectedName">
+    <ion-item *ngFor="let street of this.streetNames">
       <ion-label>{{street.streetName}}</ion-label>
-      <ion-radio value="{{street.streetPoint}}"></ion-radio>
+      <ion-radio value="{{street.streetName}}" ></ion-radio>
     </ion-item>
   </ion-list>
   <ion-buttons end>

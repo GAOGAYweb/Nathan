@@ -11,11 +11,15 @@ export class UserService {
 
   server: string;
   accountData: string;
+  user:string;
   constructor(private http: Http) {
     this.server = AppConfig.getServerUrl() + '/user';
   }
   getSessionAccountData() {
     return this.accountData;
+  }
+  getSessionUserInformation() {
+    return this.user;
   }
   login(account,password) {
     if (account && password) {
@@ -31,6 +35,7 @@ export class UserService {
           .map(res => res.json())
           .subscribe(data => {
             this.accountData = data["data"];
+            this.getUserInformation(JSON.parse(this.accountData).id);
             resolve(data)
             }, err => reject(err)
           )
@@ -55,7 +60,9 @@ export class UserService {
     return new Promise((resolve, reject) => {
       this.http.post(this.server, body, options )
         .map(res => res.json())
-        .subscribe(data => resolve(data), err => reject(err))
+        .subscribe(data => {
+          resolve(data)
+        }, err => reject(err))
     })
   }
 
@@ -70,7 +77,10 @@ export class UserService {
     return new Promise((resolve, reject) => {
       this.http.post(this.server, body, options )
         .map(res => res.json())
-        .subscribe(data => resolve(data), err => reject(err))
+        .subscribe(data => {
+          this.user = data["data"];
+          resolve(data)
+        }, err => reject(err))
     })
   }
 

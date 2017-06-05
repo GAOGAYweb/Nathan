@@ -1,5 +1,6 @@
 import {Component} from '@angular/core';
-import {NavController, ViewController} from 'ionic-angular';
+import {NavController, ViewController, NavParams} from 'ionic-angular';
+import {UserService} from "../../services/UserService";
 
 @Component({
   selector: 'page-friends-list',
@@ -9,10 +10,24 @@ export class FriendList {
   selectedContacts: any[];
   contacts;
 
-  constructor(public navCtrl: NavController, public viewCtrl: ViewController) {
+  constructor(public navCtrl: NavController, public viewCtrl: ViewController, public navParams: NavParams, public userService:UserService) {
     console.log("init contact!");
     this.selectedContacts = [];
-    this.contacts = CONTACTS;
+    this.contacts = [];
+
+    this.userService.getFriendList(navParams.get("id")).then(data => {
+      let friends = data["data"];
+      for (let friend in friends) {
+        let user = JSON.parse(friends[friend]);
+        let contact = {
+          "name": user.account,
+          "whatsup": user.description,
+          "avatar": user.imageSrc
+        };
+        this.contacts.push(contact);
+      }
+    });
+    //this.contacts = CONTACTS;
   }
 
   dismiss() {

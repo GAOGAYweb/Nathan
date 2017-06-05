@@ -16,17 +16,24 @@ import {ShareDetail} from "./shareDetail";
 export class ModalNewPostPage {
   character;
   data: any;
-  constructor(public viewCtrl: ViewController, private notiSer: NoticeService, private imgSer: ImgService, private momentsService: MomentsService, public modalCtrl: ModalController) {
+  accountData:{id:string, account:string};
+  locationName = "";
+  locationModal:any;
+  constructor(public viewCtrl: ViewController, private notiSer: NoticeService, private imgSer: ImgService,
+              private momentsService: MomentsService, public modalCtrl: ModalController,
+              public navParams: NavParams) {
+    this.accountData = navParams.data;
     this.data = {
       content: "",
-      author: "",
+      author: this.accountData.account,
       avatar:"",
       time: "",
       image:[],
       likes:[],
       comments:[],
       mentionedFriends:[],
-      locationPoint:null
+      longitude:0,
+      latitude:0
     }
   }
 
@@ -40,23 +47,33 @@ export class ModalNewPostPage {
   }
 
   presentProfileModal() {
-    let profileModal = this.modalCtrl.create(FriendList, { userId: 8675309 });
+    let profileModal = this.modalCtrl.create(FriendList, { id: this.accountData.id });
     profileModal.onDidDismiss(data => {
       if(data.foo !== "bar") {
         this.data.mentionedFriends = data;
-        console.log(this.data.mentionedFriends);
       }
     });
     profileModal.present();
   }
   presentLocationModal() {
-    let locationModal = this.modalCtrl.create(LocationList);
-    locationModal.onDidDismiss(data => {
-      if(data.foo !== "bar") {
-        this.data.locationPoint = data;
-      }
-    });
-    locationModal.present();
+    if (this.locationModal == null) {
+      this.locationModal = this.modalCtrl.create(LocationList);
+      this.locationModal.onDidDismiss(data => {
+        if(data.foo !== "bar") {
+          this.data.latitude = data.latitude;
+          this.data.longitude = data.longitude;
+          this.locationName = data.streetName;
+        }
+      });
+    }
+    // let locationModal = this.modalCtrl.create(LocationList, {pointer: this.data.locationPoint == null ? null : this.data.locationPoint});
+    this.locationModal.present();
+  }
+  clearLocation() {
+    if (this.data.latitude != 0 && this.data.longitude != 0) {
+      this.locationName = "";
+      this.data.latitude = this.data.longitude = 0;
+    }
   }
   presentShareModal() {
     let presentModal = this.modalCtrl.create(ShareDetail);
@@ -73,7 +90,9 @@ export class ModalNewPostPage {
     }
     return "";
   }
-
+  clearMention() {
+    this.data.mentionedFriends = [];
+  }
   initImgSer() {
     this.imgSer.uploadObj.url = '';
     this.imgSer.uploadObj.success = (data) => {

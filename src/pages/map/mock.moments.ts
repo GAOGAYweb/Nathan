@@ -1,7 +1,9 @@
 import {Moment} from './moment';
 export const MOMENTS: Moment[]=[
   {
-    x:121.604,y:31.196,content:"三星河水超冰啊！！！", author: "weiziyun",
+    x:121.604,y:31.196,
+    content:"三星河水超冰啊！！！",
+    author: "weiziyun",
     time: "November 5, 1955",
     image: "advance-card-bttf.png",
     avatar: "marty-avatar.png",

@@ -2,7 +2,7 @@
  * Created by Administrator on 2017/6/3.
  */
 import {Component} from '@angular/core';
-import {NavController, ViewController} from 'ionic-angular';
+import {NavController, NavParams, ViewController} from 'ionic-angular';
 declare var BMap;
 @Component({
   selector: 'page-friends-list',
@@ -11,21 +11,25 @@ declare var BMap;
 export class LocationList {
   streetNames: any[];
   selectedPoint:any;
-  constructor(public navCtrl: NavController, public viewCtrl: ViewController) {
+  longitude:number;
+  latitude:number;
+  selectedName:string;
+  constructor(public navCtrl: NavController, public viewCtrl: ViewController, public navParams: NavParams) {
     var gc = new BMap.Geocoder();
     this.streetNames = [];
     let that = this;
     navigator.geolocation.getCurrentPosition(onSuccess, onError,{enableHighAccuracy:true});
-
     function onSuccess(position) {
 
       // 百度地图API功能
       //GPS坐标
-      var xx = position.coords.longitude;
-      var yy = position.coords.latitude;
-      var gpsPoint = new BMap.Point(xx,yy);
+      const xx = position.coords.longitude;
+      const yy = position.coords.latitude;
+      that.longitude = xx;
+      that.latitude = yy;
+      const gpsPoint = new BMap.Point(xx, yy);
       gc.getLocation(gpsPoint, rs=>{
-        var addComp = rs.addressComponents;
+        const addComp = rs.addressComponents;
         that.streetNames.push({
             streetName: addComp.province + ", " + addComp.city + ", " + addComp.district + ", " + addComp.street + ", " + addComp.streetNumber,
             streetPoint: gpsPoint
@@ -45,12 +49,16 @@ export class LocationList {
       }
     }
   }
+  clickLocation(name) {
+    console.log("streetName", name)
+    this.selectedName = name;
+  }
   dismiss() {
     let data = { 'foo': 'bar' };
     this.viewCtrl.dismiss(data);
   }
   confirmLocationList() {
-    this.viewCtrl.dismiss(this.selectedPoint);
+    this.viewCtrl.dismiss({longitude: this.longitude, latitude: this.latitude, streetName: this.selectedName});
   }
 }
 
