@@ -14,7 +14,7 @@ export class LikesPage {
   moments: any;
   account: string;
   constructor(public modalCtrl: ModalController, private momentsService: MomentsService) {
-    this.moments = momentsService.getMoments(this.account);
+    //this.moments = momentsService.getMoments(this.a);
   }
 
   openModalNewPostPage() {

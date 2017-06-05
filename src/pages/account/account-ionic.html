@@ -12,7 +12,7 @@
     <ion-item-divider color="light"></ion-item-divider>
     <ion-item (click)="itemTapped($event, user)" tappable>
       <ion-avatar item-left>
-        
+        <img src="../../assets/img/{{user.imageSrc}}">
       </ion-avatar>
       <h2>{{user.name}}</h2>
       <p>{{user.description}}</p>

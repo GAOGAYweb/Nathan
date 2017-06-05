@@ -74,7 +74,7 @@ export class UserService {
     })
   }
 
-  changeInformation(inforMap) {
+  changeInformation(inforMap, id) {
     let headers = new Headers({
       'Content-Type': 'application/x-www-form-urlencoded'
     });
@@ -87,13 +87,27 @@ export class UserService {
       paras.push(para);
     }
 
-    let body = paras.join("&");
+    let body = "method=update&id=" + id +"&" + paras.join("&");
     console.log(body);
     return new Promise((resolve, reject) => {
-      this.http.post(this.server + '/user', body, options )
+      this.http.post(this.server, body, options )
         .map(res => res.json())
         .subscribe(data => resolve(data), err => reject(err))
     })
   }
 
+  getFriendList(id) {
+    let headers = new Headers({
+      'Content-Type': 'application/x-www-form-urlencoded'
+    });
+    let options = new RequestOptions({
+      headers: headers
+    });
+    let body= "method=friendList&id=" + id;
+    return new Promise((resolve, reject) => {
+      this.http.post(this.server, body, options )
+        .map(res => res.json())
+        .subscribe(data => resolve(data), err => reject(err))
+    });
+  }
 }

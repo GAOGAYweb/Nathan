@@ -1,8 +1,9 @@
 import {Component} from '@angular/core';
-import {NavController} from 'ionic-angular';
+import {NavController, NavParams} from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 import { ChatListPage } from '../chatlist/chatlist';
 import { ChatPage } from '../chatlist/chat/chat';
+import {UserService} from "../../services/UserService";
 
 @Component({
   selector: 'page-friends',
@@ -10,8 +11,8 @@ import { ChatPage } from '../chatlist/chat/chat';
 })
 export class FriendsPage {
   contacts;
-  categorizedContacts;
-
+  categorizedContacts = new Map();
+  accountData:{id:string, account:string};
   itemSelected(name: string,avatar: string) {
     console.log("Selected Item", name);
     this.storage.ready().then(()=>{
@@ -41,27 +42,28 @@ export class FriendsPage {
     });
   }
 
-  /*
-   getItems(ev) {
-   this.initContacts();
-
-   var val = ev.target.value;
-
-   if (val && val.trim() != '') {
-   this.contacts = this.contacts.filter((item) => {
-   return (item.name.toLowerCase().indexOf(val.toLowerCase()) > -1);
-   });
-   this.categorizedContacts = getcategorizedContacts(this.contacts);
-   }
-   }
-   */
 
   initContacts() {
-    this.contacts = CONTACTS;
-    this.categorizedContacts = getcategorizedContacts(this.contacts);
+    this.contacts = [];
+    console.log("userService", this.accountData);
+    this.userService.getFriendList(this.accountData.id).then(data => {
+      let friends = data["data"];
+      for (let friend in friends) {
+        let user = JSON.parse(friends[friend]);
+        let contact = {
+          "name": user.account,
+          "whatsup": user.description,
+          "avatar": user.imageSrc
+        };
+        this.contacts.push(contact);
+      }
+      this.categorizedContacts = getcategorizedContacts(this.contacts);
+
+    });
   }
 
-  constructor(public navCtrl: NavController,private storage: Storage) {
+  constructor(public navCtrl: NavController,private storage: Storage, public navParams: NavParams, public userService:UserService) {
+    this.accountData = navParams.data;
     this.initContacts();
   }
 }

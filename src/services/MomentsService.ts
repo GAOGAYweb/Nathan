@@ -5,14 +5,15 @@ import { Injectable }    from '@angular/core';
 import { RequestOptions,Headers, Http } from '@angular/http';
 import 'rxjs/add/operator/toPromise';
 import 'rxjs/add/operator/map';
+import {AppConfig} from "../app/app.config";
 @Injectable()
 export class MomentsService {
 
   server: string;
   constructor(private http: Http) {
-    this.server = ""
+    this.server = AppConfig.getServerUrl() + '/moments';
   }
-  getMoments(account) {
+  getMoments(id, type = "") {
     let headers = new Headers({
       'Content-Type': 'application/x-www-form-urlencoded'
     });
@@ -20,6 +21,14 @@ export class MomentsService {
       headers: headers
     });
 
+    // if ("owner" === type) {
+    //   let body = "method=listOwner&id=" + id;
+    //   return new Promise((resolve, reject) => {
+    //     this.http.post(this.server, body, options )
+    //       .map(res => res.json())
+    //       .subscribe(data => resolve(data), err => reject(err))
+    //   })
+    // }
     let MOMENTS = [
       {
         "author": "Marty McFly",
@@ -86,6 +95,23 @@ export class MomentsService {
     let body;
     return new Promise((resolve, reject) => {
       this.http.post(this.server + '/user', body, options )
+        .map(res => res.json())
+        .subscribe(data => resolve(data), err => reject(err))
+    })
+  }
+
+  addLike(accountId, momentId) {
+
+    let headers = new Headers({
+      'Content-Type': 'application/x-www-form-urlencoded'
+    });
+    let options = new RequestOptions({
+      headers: headers
+    });
+
+    let body = "method=like&";
+    return new Promise((resolve, reject) => {
+      this.http.post(this.server, body, options )
         .map(res => res.json())
         .subscribe(data => resolve(data), err => reject(err))
     })

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController,ModalController , NavParams} from 'ionic-angular';
+import {NavController, ModalController, NavParams, AlertController} from 'ionic-angular';
 import { ModalNewPostPage } from './newPost';
 import { ModalMomentDetailPage } from './momentDetail';
 import {MomentsService} from "../../services/MomentsService";
@@ -16,13 +16,19 @@ export class MomentsPage {
   account: string;
   accountData: {id:string, account:string};
   constructor(
-    public modalCtrl: ModalController, 
-    private momentsService: MomentsService, 
-    public navParams: NavParams,public navCtrl: NavController) {
-    console.log("data", navParams.data);
+    public modalCtrl: ModalController,
+    private momentsService: MomentsService,
+    public navParams: NavParams,public navCtrl: NavController,
+    private alertCtrl: AlertController) {
     if (!this.accountData) {
       this.accountData = navParams.data;
     }
+    console.log(navParams.get("visible"));
+    // if ("owner" === navParams.get("visible")) {
+    //   momentsService.getMoments(this.accountData.id, "owner").then(data => {
+    //     console.log(data);
+    //   })
+    // }
     this.moments = momentsService.getMoments(this.account);
   }
 
@@ -53,13 +59,39 @@ export class MomentsPage {
   }
 
   clickThumb(moment) {
-    let index = moment.likes.indexOf(this.accountData.account); 
+    let index = moment.likes.indexOf(this.accountData.account);
     if (index >= 0) {
       // code...
-      moment["likes"].splice(index,1);
+      this.momentsService.addLike(this.accountData.id, moment.id).then(data => {
+        if(data["status"] !== "200") {
+          let alert = this.alertCtrl.create({
+            title: 'ERROR',
+            subTitle: 'NETWORK ERROR',
+            buttons: ['OK']
+          });
+          alert.present();
+
+        }
+        else {
+          moment["likes"].splice(index,1);
+        }
+      });
     }
     else {
-      moment["likes"].push(this.accountData.account);
+      this.momentsService.addLike(this.accountData.id, moment.id).then(data => {
+        if(data["status"] !== "200") {
+          let alert = this.alertCtrl.create({
+            title: 'ERROR',
+            subTitle: 'NETWORK ERROR',
+            buttons: ['OK']
+          });
+          alert.present();
+
+        }
+        else {
+          moment["likes"].push(this.accountData.account);
+        }
+      });
     }
   }
 }

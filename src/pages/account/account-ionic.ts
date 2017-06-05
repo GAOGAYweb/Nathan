@@ -22,42 +22,48 @@ export class AccountIonicPage {
     if (!this.accountData) {
       this.accountData = navParams.data;
     }
-    this.user={name: "name",
-        description: "description",
-        friendsNum: 123,
-        gender: "gender",
-        imageSrc: "imageSrc"};
-    userService.getUserInformation(this.accountData.id).then(data => {
-      console.log(data);
-      let obj = JSON.parse(data["data"]);
-      let name = obj.name;
-      let description = obj.description;
-      let friendsNum = obj.friendsNum;
-      let gender = obj.gender;
-      let imageSrc = obj.imageSrc;
-      console.log("data", name, description, friendsNum, gender, imageSrc);
-      this.user = {
-        name: name,
-        description: description,
-        friendsNum: friendsNum,
-        gender: gender,
-        imageSrc: imageSrc
-      }
-      console.log(this.user);
-    }) ;
+    this.user = {
+      name: "",
+      description: "",
+      friendsNum: 0,
+      gender: "Male",
+      imageSrc: ""
+    };
+  }
+  ionViewWillEnter() {
+    if(this.user.name === "") {
+      this.userService.getUserInformation(this.accountData.id).then(data => {
+        let obj = JSON.parse(data["data"]);
+        let name = obj.name;
+        let description = obj.description;
+        let friendsNum = obj.friendsNum;
+        let gender = obj.gender === "0" ? "Male" : "Female";
+        let imageSrc = obj.imageSrc;
+        this.user = {
+          name: name,
+          description: description,
+          friendsNum: friendsNum,
+          gender: gender,
+          imageSrc: imageSrc
+        };
+        console.log("user", this.user);
+      }) ;
+    }
   }
   itemTapped(event, user) {
     this.navCtrl.push(ProfileIonicPage, {
-      user: user
+      user: user,
+      id: this.accountData.id
     });
   }
   intoPost(user) {
     this.navCtrl.push(MomentsPage, {
-      user: user
+      accountData: this.accountData,
+      visible: "owner"
     });
   }
   intoFriends() {
-    this.navCtrl.setRoot(FriendsPage);
+    this.navCtrl.push(FriendsPage, this.accountData);
   }
   intoMyWorld(user) {
     window.location.href = this.mc.ip;
