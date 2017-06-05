@@ -7,6 +7,7 @@ import {NavController, NavParams} from "ionic-angular";
 import {MomentsPage} from "../moments/moments";
 import {FriendsPage} from "../friends/friends";
 import {UserService} from "../../services/UserService";
+import { ChangeDetectorRef } from '@angular/core'; 
 
 
 @Component({
@@ -17,7 +18,8 @@ export class AccountIonicPage {
   user: { name: string, description: string, gender: string, friendsNum: number, imageSrc:string};
   mc: {ip: string};
   accountData:{id:string, account:string};
-  constructor(public navCtrl: NavController, public navParams: NavParams, public userService:UserService) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public userService:UserService,
+              public cd: ChangeDetectorRef) {
     this.mc = {ip: "http://10.131.250.11:3000/multiplayer.html"};
     if (!this.accountData) {
       this.accountData = navParams.data;
@@ -44,6 +46,7 @@ export class AccountIonicPage {
         imageSrc: imageSrc
       }
       console.log(this.user);
+      this.cd.detectChanges();  
     }) ;
   }
   itemTapped(event, user) {
