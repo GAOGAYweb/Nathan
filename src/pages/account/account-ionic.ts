@@ -22,8 +22,13 @@ export class AccountIonicPage {
     if (!this.accountData) {
       this.accountData = navParams.data;
     }
-
+    this.user={name: "name",
+        description: "description",
+        friendsNum: 123,
+        gender: "gender",
+        imageSrc: "imageSrc"};
     userService.getUserInformation(this.accountData.id).then(data => {
+      console.log(data);
       let obj = JSON.parse(data["data"]);
       let name = obj.name;
       let description = obj.description;
