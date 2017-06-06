@@ -7,6 +7,7 @@ import { ModalController, NavParams } from 'ionic-angular';
 import {FriendList} from "./friendList";
 import {LocationList} from "./LocationList";
 import {ShareDetail} from "./shareDetail";
+import {UserService} from "../../services/UserService";
 @Component({
   selector: 'page-newPost',
   templateUrl: 'newPost.html',
@@ -17,21 +18,24 @@ export class ModalNewPostPage {
   character;
   data: any;
   accountData:{id:string, account:string};
-  locationName = "";
   locationModal:any;
+  accountInformation: { name: string, description: string, gender: string, friendsNum: number, imageSrc:string};
   constructor(public viewCtrl: ViewController, private notiSer: NoticeService, private imgSer: ImgService,
-              private momentsService: MomentsService, public modalCtrl: ModalController,
+              private momentsService: MomentsService, public userService: UserService,public modalCtrl: ModalController,
               public navParams: NavParams) {
     this.accountData = navParams.data;
+    this.accountInformation = JSON.parse(this.userService.getSessionUserInformation());
     this.data = {
       content: "",
       author: this.accountData.account,
-      avatar:"",
+      avatar: this.accountInformation.imageSrc,
       time: "",
       image:[],
       likes:[],
       comments:[],
+      commentsSize : 0,
       mentionedFriends:[],
+      streetName: "",
       longitude:0,
       latitude:0
     }
@@ -41,9 +45,33 @@ export class ModalNewPostPage {
     this.viewCtrl.dismiss({"foo":"bar"});
   }
   sendMoment() {
-    console.log(this.data);
-    //this.momentsService.sendMoments(this.data);
-    this.viewCtrl.dismiss(this.data);
+    if(this.data.content != "") {
+      let obj = {
+        "id": this.accountData.id,
+        "content": this.data.content
+      };
+      if (this.data.longitude != 0 && this.data.latitude != 0) {
+        obj["longitude"] = this.data.longitude;
+        obj["latitude"] = this.data.latitude;
+        obj["streetName"] = this.data.streetName;
+      }
+      if(this.data.image.length > 0) {
+        obj["image"] = this.data.image[0];
+      }
+      this.momentsService.sendMoments(obj).then(data => {
+        console.log("return data",data["status"]);
+        if (data["status"] === 200) {
+          this.data.time = new Date().toLocaleString();
+          this.viewCtrl.dismiss(this.data);
+        }
+        else {
+          this.viewCtrl.dismiss({"foo":"bar"});
+        }
+      });
+    }
+    else {
+      this.viewCtrl.dismiss({"foo":"bar"});
+    }
   }
 
   presentProfileModal() {
@@ -62,16 +90,15 @@ export class ModalNewPostPage {
         if(data.foo !== "bar") {
           this.data.latitude = data.latitude;
           this.data.longitude = data.longitude;
-          this.locationName = data.streetName;
+          this.data.streetName = data.streetName;
         }
       });
     }
-    // let locationModal = this.modalCtrl.create(LocationList, {pointer: this.data.locationPoint == null ? null : this.data.locationPoint});
     this.locationModal.present();
   }
   clearLocation() {
     if (this.data.latitude != 0 && this.data.longitude != 0) {
-      this.locationName = "";
+      this.data.streetName = "";
       this.data.latitude = this.data.longitude = 0;
     }
   }

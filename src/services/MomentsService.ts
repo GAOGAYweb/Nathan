@@ -48,7 +48,7 @@ export class MomentsService {
     let options = new RequestOptions({
       headers: headers
     });
-    let body = "method=listFriends&id="+ id + "&count=" + count;
+    let body = "method=listFriends&userid="+ id + "&count=" + count;
     return new Promise((resolve, reject) => {
       this.http.post(this.server, body, options )
         .map(res => res.json())
@@ -62,10 +62,14 @@ export class MomentsService {
     let options = new RequestOptions({
       headers: headers
     });
-
-    let body;
+    let keyValue = [];
+    for(let key in data) {
+      keyValue.push(key + "=" + data[key]);
+    }
+    let paras = keyValue.join("&");
+    let body = "method=add&"+ paras;
     return new Promise((resolve, reject) => {
-      this.http.post(this.server + '/user', body, options )
+      this.http.post(this.server, body, options )
         .map(res => res.json())
         .subscribe(data => resolve(data), err => reject(err))
     })

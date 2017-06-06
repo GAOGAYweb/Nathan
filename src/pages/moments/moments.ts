@@ -12,7 +12,6 @@ import {AppConfig} from "../../app/app.config";
 })
 
 export class MomentsPage {
-  items: any[];
 
   moments: any;
   accountData: {id:string, account:string};
@@ -27,23 +26,8 @@ export class MomentsPage {
     }
     if ("owner" === navParams.get("visible")) {
       momentsService.getMyMoments(this.accountData.id).then(data => {
-        let moments = data["data"];
         this.moments = [];
-        for (let moment in moments) {
-          let obj = JSON.parse(moments[moment]);
-          let new_moment = {
-            "id": obj.id,
-            "author": obj.account,
-            "avatar": AppConfig.getImagePrefix() + obj.avatar,
-            "time": obj.time,
-            "image": AppConfig.getImagePrefix() + obj.imageSrc,
-            "content": "<p>"+ obj.content +"</p>",
-            "likes": obj.likes,
-            "comments": [],
-            "tags":obj.tag
-          };
-          this.moments.push(new_moment);
-        }
+        this.addMoments(data);
         this.cd.detectChanges();
       })
     }
@@ -54,23 +38,8 @@ export class MomentsPage {
   }
   getMoments(page) {
     this.momentsService.getMoments(page).then(data => {
-      let moments = data["data"];
       this.moments = [];
-      for (let moment in moments) {
-        let obj = JSON.parse(moments[moment]);
-        let new_moment = {
-          "id": obj.id,
-          "author": obj.account,
-          "avatar": AppConfig.getImagePrefix() + obj.avatar,
-          "time": obj.time,
-          "image": AppConfig.getImagePrefix() + obj.imageSrc,
-          "content": "<p>"+ obj.content +"</p>",
-          "likes": obj.likes,
-          "comments": [],
-          "tags":obj.tag
-        };
-        this.moments.push(new_moment);
-      }
+      this.addMoments(data);
       this.page++;
       this.cd.detectChanges();
     })
@@ -82,15 +51,18 @@ export class MomentsPage {
         let moment = {
           "id": data.id,
           "author": data.author,
-          "avatar": data.avatar,
+          "avatar": AppConfig.getImagePrefix() + data.avatar,
           "time": data.time,
-          "image": "advance-card-bttf.png",//TODO
+          "image": data.image.length > 0 ? AppConfig.getImagePrefix() + data.image[0] : null,
           "content": "<p>"+ data.content +"</p>",
+          "streetName": data.streetName,
           "likes": [],
           "comments": [],
+          "commentsSize": data.commentsSize,
           "tags":[]
         };
         this.moments.unshift(moment);
+        this.cd.detectChanges();
       }
     });
     modal.present();
@@ -113,32 +85,33 @@ export class MomentsPage {
     setTimeout(() => {
       console.log("page", this.page);
       this.momentsService.getMoments(this.page).then(data => {
-        console.log(this.moments);
-        console.log(data);
-        let moments = data["data"];
-        for (let moment in moments) {
-          let obj = JSON.parse(moments[moment]);
-          let new_moment = {
-            "id": obj.id,
-            "author": obj.account,
-            "avatar": AppConfig.getImagePrefix() + obj.avatar,
-            "time": obj.time,
-            "image": AppConfig.getImagePrefix() +  obj.imageSrc,
-            "content": "<p>"+ obj.content +"</p>",
-            "likes": obj.likes,
-            "comments": [],
-            "tags":obj.tag
-          };
-          this.moments.push(new_moment);
-        }
+        this.addMoments(data);
         this.page++;
       });
       infiniteScroll.complete();
     }, 500);
   }
-
+  addMoments(data) {
+    let moments = data["data"];
+    for (let moment in moments) {
+      let obj = JSON.parse(moments[moment]);
+      let new_moment = {
+        "id": obj.id,
+        "author": obj.account,
+        "avatar": AppConfig.getImagePrefix() + obj.avatar,
+        "time": obj.time,
+        "image": AppConfig.getImagePrefix() +  obj.imageSrc,
+        "content": "<p>"+ obj.content +"</p>",
+        "likes": obj.likes,
+        "comments": [],
+        "streetName": obj.streetName === undefined ? "" : obj.streetName,
+        "commentsSize": obj.commentSize,
+        "tags":obj.tag
+      };
+      this.moments.push(new_moment);
+    }
+  }
   clickThumb(moment) {
-    console.log("moment", moment);
     let index = moment.likes.indexOf(this.accountData.account);
     if (index >= 0) {
       // code...

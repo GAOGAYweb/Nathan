@@ -3,6 +3,7 @@ import {AlertController, ViewController, NavParams} from 'ionic-angular';
 import {UserService} from "../../services/UserService";
 import {CommentsService} from "../../services/CommentsService";
 import {AppConfig} from "../../app/app.config";
+import {MomentsService} from "../../services/MomentsService";
 
 @Component({
   selector: 'page-momentDetail',
@@ -14,6 +15,7 @@ export class ModalMomentDetailPage {
   accountData:{id:string, account:string};
   accountInformation: { name: string, description: string, gender: string, friendsNum: number, imageSrc:string};
   constructor(public viewCtrl: ViewController, public params: NavParams, public alertCtrl: AlertController,
+              public momentsService: MomentsService,
               public userService: UserService, public commentsService: CommentsService, public cd: ChangeDetectorRef
   ) {
     this.moment = this.params.get('moment').moment;
@@ -29,7 +31,7 @@ export class ModalMomentDetailPage {
             "author": obj.nickname,
             "avatar": AppConfig.getImagePrefix() + obj.avatar,
             "content": obj.content,
-            "time": obj.time
+            "time": obj.time,
           });
         }
         this.cd.detectChanges();
@@ -40,7 +42,39 @@ export class ModalMomentDetailPage {
   dismiss() {
     this.viewCtrl.dismiss();
   }
-
+  doLike() {
+    let index = this.moment.likes.indexOf(this.accountData.account);
+    if (index >= 0) {
+      this.momentsService.addLike(this.accountData.id, this.moment.id).then(data => {
+        if(data["status"] !== "200") {
+          let alert = this.alertCtrl.create({
+            title: 'ERROR',
+            subTitle: 'NETWORK ERROR',
+            buttons: ['OK']
+          });
+          alert.present();
+        }
+        else {
+          this.moment["likes"].splice(index,1);
+        }
+      });
+    }
+    else {
+      this.momentsService.addLike(this.accountData.id, this.moment.id).then(data => {
+        if(data["status"] !== "200") {
+          let alert = this.alertCtrl.create({
+            title: 'ERROR',
+            subTitle: 'NETWORK ERROR',
+            buttons: ['OK']
+          });
+          alert.present();
+        }
+        else {
+          this.moment["likes"].push(this.accountData.account);
+        }
+      });
+    }
+  }
   doPrompt() {
     let prompt = this.alertCtrl.create({
       title: 'Comment',
@@ -63,7 +97,7 @@ export class ModalMomentDetailPage {
           handler: data => {
             let obj = {
               "author": this.accountInformation.name,
-              "avatar": this.accountInformation.imageSrc,
+              "avatar": AppConfig.getImagePrefix() + this.accountInformation.imageSrc,
               "content": data["comment-text"],
               "time": new Date(Date.now()).toLocaleDateString()
             };

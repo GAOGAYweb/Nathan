@@ -20,13 +20,13 @@
     <p>{{moment.time}}</p>
   </ion-item>
 
-  <img src="{{moment.image}}">
+  <img src="{{moment.image}}" *ngIf="moment.image.split('=').pop() !== 'moment_default.jpg'">
 
   <ion-card-content [innerHTML]="moment.content"> </ion-card-content>
 
   <ion-row>
     <ion-col>
-      <button ion-button color="primary" clear small icon-left (click)="doPrompt()">
+      <button ion-button color="primary" clear small icon-left (click)="doLike()">
         <ion-icon name='thumbs-up'></ion-icon>
         Like
       </button>
@@ -40,9 +40,13 @@
   </ion-row>
 
   <ion-row>
-    <ion-item>
+    <ion-item *ngIf="moment.likes.length > 0 ">
       <ion-icon name="heart" color="primary"></ion-icon>
       <a *ngFor="let like of moment.likes" [href]=""> {{like}} </a>
+    </ion-item>
+    <ion-item icon-left *ngIf="moment.streetName !== '空'">
+      <ion-icon name="navigate" item-left></ion-icon>
+      <button ion-button clear>{{moment.streetName}}</button>
     </ion-item>
   </ion-row>
 

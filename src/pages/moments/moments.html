@@ -23,14 +23,18 @@
       <p>{{moment.time}}</p>
     </ion-item>
 
-    <img src="{{moment.image}}">
+    <img src="{{moment.image}}" *ngIf="moment.image.split('=').pop() !== 'moment_default.jpg'">
 
     <ion-card-content [innerHTML]="moment.content"></ion-card-content>
     <ion-row>
       <ion-col>
-        <ion-item icon-left>
-          <ion-note >Tag:</ion-note>
+        <ion-item icon-left *ngIf="moment.tags.length > 0">
+          <ion-note>Tag:</ion-note>
           <button ion-button clear *ngFor="let tag of moment.tags">{{tag}}</button>
+        </ion-item>
+        <ion-item icon-left *ngIf="moment.streetName !== '空'">
+          <ion-icon name="navigate" item-left></ion-icon>
+          <button ion-button clear>{{moment.streetName}}</button>
         </ion-item>
       </ion-col>
     </ion-row>
@@ -46,7 +50,7 @@
         <button ion-button color="primary" clear small icon-left
                 (click)="openModalMomentDetailPage(({moment: moment}))">
           <ion-icon name='text'></ion-icon>
-          {{moment.comments.length}} Comments
+          {{moment.commentsSize}} Comments
         </button>
       </ion-col>
       <ion-col align-self-center text-center>
