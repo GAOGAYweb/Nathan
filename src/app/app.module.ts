@@ -40,6 +40,7 @@ import {ShareDetail} from "../pages/moments/shareDetail";
 import {MinecraftPage} from "../minecraft/minecraft";
 import {BrowserPopoverPage} from "../minecraft/browser-popover";
 import { IonicStorageModule } from '@ionic/storage';
+import {CommentsService} from "../services/CommentsService";
 
 @NgModule({
   declarations: [
@@ -56,7 +57,7 @@ import { IonicStorageModule } from '@ionic/storage';
     ChatListPage, ChatPage,
     LoginPage, RegisterPage,
     TabsPage,LikesPage,
-    RecommendPage
+    RecommendPage,
   ],
   imports: [
     HttpModule,
@@ -79,7 +80,7 @@ import { IonicStorageModule } from '@ionic/storage';
     ChatListPage, ChatPage,
     LoginPage, RegisterPage,
     TabsPage,LikesPage,
-    RecommendPage
+    RecommendPage,
   ],
   providers: [
     Keyboard,
@@ -89,6 +90,7 @@ import { IonicStorageModule } from '@ionic/storage';
     ImgService,
     UserService,
     MomentsService,
+    CommentsService,
     ChatService,
     Camera,
     FileChooser,

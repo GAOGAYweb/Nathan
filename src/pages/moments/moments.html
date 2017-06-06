@@ -17,13 +17,12 @@
   <ion-card *ngFor="let moment of moments">
     <ion-item>
       <ion-avatar item-left>
-        <img src="assets/img/{{moment.avatar}}">
+        <img src="{{moment.avatar}}">
       </ion-avatar>
       <h2>{{moment.author}}</h2>
       <p>{{moment.time}}</p>
     </ion-item>
-
-    <img src="assets/img/{{moment.image}}">
+    <img src="{{moment.image}}" />
 
     <ion-card-content [innerHTML]="moment.content"></ion-card-content>
     <ion-row>

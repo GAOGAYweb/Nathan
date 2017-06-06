@@ -8,6 +8,7 @@ import {MomentsPage} from "../moments/moments";
 import {FriendsPage} from "../friends/friends";
 import {UserService} from "../../services/UserService";
 import { ChangeDetectorRef } from '@angular/core';
+import {AppConfig} from "../../app/app.config";
 
 
 @Component({
@@ -33,20 +34,18 @@ export class AccountIonicPage {
         imageSrc: "default.jpg"
     };
     userService.getUserInformation(this.accountData.id).then(data => {
-      console.log(data);
       let obj = JSON.parse(data["data"]);
       let name = obj.name;
       let description = obj.description;
       let friendsNum = obj.friendsNum;
       let gender = obj.gender === "0" ? "Male" : "Female";
       let imageSrc = obj.imageSrc;
-      console.log("data", name, description, friendsNum, gender, imageSrc);
       this.user = {
         name: name,
         description: description,
         friendsNum: friendsNum,
         gender: gender,
-        imageSrc: imageSrc
+        imageSrc: AppConfig.getImagePrefix() + imageSrc
       };
       this.cd.detectChanges();
     }) ;

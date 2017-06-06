@@ -3,6 +3,7 @@ import {NavController, ModalController, NavParams, AlertController} from 'ionic-
 import { ModalNewPostPage } from './newPost';
 import { ModalMomentDetailPage } from './momentDetail';
 import {MomentsService} from "../../services/MomentsService";
+import {AppConfig} from "../../app/app.config";
 
 
 @Component({
@@ -31,10 +32,11 @@ export class MomentsPage {
         for (let moment in moments) {
           let obj = JSON.parse(moments[moment]);
           let new_moment = {
+            "id": obj.id,
             "author": obj.account,
-            "avatar": obj.avatar,
+            "avatar": AppConfig.getImagePrefix() + obj.avatar,
             "time": obj.time,
-            "image": obj.imageSrc,
+            "image": AppConfig.getImagePrefix() + obj.imageSrc,
             "content": "<p>"+ obj.content +"</p>",
             "likes": obj.likes,
             "comments": [],
@@ -57,10 +59,11 @@ export class MomentsPage {
       for (let moment in moments) {
         let obj = JSON.parse(moments[moment]);
         let new_moment = {
+          "id": obj.id,
           "author": obj.account,
-          "avatar": obj.avatar,
+          "avatar": AppConfig.getImagePrefix() + obj.avatar,
           "time": obj.time,
-          "image": obj.imageSrc,
+          "image": AppConfig.getImagePrefix() + obj.imageSrc,
           "content": "<p>"+ obj.content +"</p>",
           "likes": obj.likes,
           "comments": [],
@@ -77,6 +80,7 @@ export class MomentsPage {
     modal.onDidDismiss(data => {
       if(data.foo !== "bar") {
         let moment = {
+          "id": data.id,
           "author": data.author,
           "avatar": data.avatar,
           "time": data.time,
@@ -115,10 +119,11 @@ export class MomentsPage {
         for (let moment in moments) {
           let obj = JSON.parse(moments[moment]);
           let new_moment = {
+            "id": obj.id,
             "author": obj.account,
-            "avatar": obj.avatar,
+            "avatar": AppConfig.getImagePrefix() + obj.avatar,
             "time": obj.time,
-            "image": obj.imageSrc,
+            "image": AppConfig.getImagePrefix() +  obj.imageSrc,
             "content": "<p>"+ obj.content +"</p>",
             "likes": obj.likes,
             "comments": [],

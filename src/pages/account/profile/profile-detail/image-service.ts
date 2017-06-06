@@ -4,7 +4,7 @@
 import {ActionSheetController, LoadingController} from "ionic-angular";
 import { NoticeService} from "./notice-service";
 import { Transfer} from "@ionic-native/transfer";
-import {Injectable} from "@angular/core";
+import {EventEmitter, Injectable, Output} from "@angular/core";
 import { Camera, CameraOptions  } from '@ionic-native/camera';
 import {FileChooser} from "@ionic-native/file-chooser";
 import {FilePath} from "@ionic-native/file-path";
@@ -25,9 +25,11 @@ export class ImgService {
     error: (err) => {},   //图片上传失败后的回调
     listen: () => {}   //监听上传过程
   };
-  //imgPath: string = ''; //图片路径
 
   fileTransfer: Transfer;
+  @Output() imagesSelected = new EventEmitter<any>();
+  imagePaths: Array<string> = [];
+
 
   options: CameraOptions = {
   quality: 100,
@@ -52,27 +54,17 @@ export class ImgService {
     });
   }
   openImgPicker() {
-    /*this.fileChooser.open().then(uri =>{
-        this.filePath.resolveNativePath(uri)
-          .then(filePath => {
-            this.imageURL = filePath;
-            this.photoUrl = filePath;
-            this.upload(this.imageURL)
-          });
-      }
-    ).catch(e => console.log(e));
-    */
-    var options = {
+    const options = {
       // Some common settings are 20, 50, and 100
       quality: 50,
       destinationType: this.camera.DestinationType.FILE_URI,
       // In this app, dynamically set the picture source, Camera or photo gallery
-      sourceType:0,//0对应的值为PHOTOLIBRARY ，即打开相册
+      sourceType: 0,//0对应的值为PHOTOLIBRARY ，即打开相册
       encodingType: this.camera.EncodingType.JPEG,
       mediaType: this.camera.MediaType.PICTURE,
       allowEdit: true,
       correctOrientation: true  //Corrects Android orientation quirks
-    }
+    };
     this.camera.getPicture(options).then((imageData) => {
       // imageData is either a base64 encoded string or a file URI
       // If it's base64:
@@ -84,6 +76,20 @@ export class ImgService {
       // Handle error
     });
   }
+
+  addImg() {
+    if (this.imagePaths.length == 6) {
+      let tipLoader = this.loadingCtrl.create({
+        content: "最多添加6张!",
+        spinner: 'hide',
+        duration: 800,
+        showBackdrop: true
+      });
+      tipLoader.present();
+      return;
+    }
+  }
+
   upload(imgUrl){
     let loader = this.loadingCtrl.create({
       content: "uploading...",

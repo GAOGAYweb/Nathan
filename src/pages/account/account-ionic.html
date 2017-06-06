@@ -12,7 +12,7 @@
     <ion-item-divider color="light"></ion-item-divider>
     <ion-item (click)="itemTapped($event, user)" tappable>
       <ion-avatar item-left>
-        <img src="../../assets/img/{{user.imageSrc}}">
+        <img src="{{user.imageSrc}}">
       </ion-avatar>
       <h2>{{user.name}}</h2>
       <p>{{user.description}}</p>
@@ -23,10 +23,6 @@
     <ion-item (click)= "intoPost(user.name)">
       <ion-icon name='images' item-left></ion-icon>
       My Posts
-    </ion-item>
-    <ion-item>
-      <ion-icon name='star' item-left></ion-icon>
-      My Stars
     </ion-item>
     <ion-item (click)= "intoFriends(user.name)">
       <ion-icon name='people' item-left></ion-icon>
