@@ -46,8 +46,8 @@ export class MapPage{
       for (let moment in moments) {
         let obj = JSON.parse(moments[moment]);
         let new_moment = {
-          x: obj.latitude,
-          y: obj.longitude,
+          y: obj.latitude,
+          x: obj.longitude,
           content: obj.content,
           author: obj.account,
           time: obj.time,

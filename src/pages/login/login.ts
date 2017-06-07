@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import {AlertController, LoadingController, MenuController, NavController} from 'ionic-angular';
 import {MapPage} from "../map/map";
 import {UserService} from "../../services/UserService";
+import { Storage } from '@ionic/storage';
 
 @Component({
   selector: 'page-login',
@@ -11,7 +12,7 @@ export class LoginPage {
   account:string;
   password:string;
   constructor(public loadingCtrl: LoadingController, public navCtrl: NavController, public menu: MenuController,
-              public userService:UserService, private alertCtrl: AlertController) {
+              public userService:UserService, private alertCtrl: AlertController, private storage:Storage) {
     this.menu.swipeEnable(false, 'myMenu');
   }
 
@@ -25,6 +26,22 @@ export class LoginPage {
     this.userService.login(this.account, this.password).then(data => {
       console.log(data);
       if (data["status"] === "200") {
+        this.storage.ready().then(()=>{
+          this.storage.get("user").then((user)=>{
+            if(user){
+              if(user===this.account){
+                
+              }
+              else{
+                this.storage.set("user",this.account);
+                this.storage.remove("chatlist");
+              }
+            }
+            else{
+              this.storage.set("user",this.account);
+            }
+          });
+        });
         this.menu.swipeEnable(true, 'myMenu');
         this.navCtrl.setRoot(MapPage, data["data"]);
 

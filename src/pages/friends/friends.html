@@ -20,9 +20,9 @@
 
     <ion-item-divider color="light">{{category}}</ion-item-divider>
 
-    <ion-item *ngFor="let contact of categorizedContacts.get(category)" >
+    <ion-item *ngFor="let contact of categorizedContacts.get(category)" (click)="itemSelected(contact.name,contact.avatar,contact.whatsup)">
       <ion-avatar item-left>
-        <img src="assets/img/{{ contact.avatar }}">
+        <img src="{{ contact.avatar }}">
       </ion-avatar>
       <h2>{{ contact.name }}</h2>
       <p>{{ contact.whatsup }}</p>
