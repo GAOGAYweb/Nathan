@@ -12,11 +12,12 @@
     <ion-item-sliding *ngFor="let contact of contacts">
       <button ion-item (click)="itemTapped($event,contact.name,contact.avatar)">
         <ion-avatar item-left>
-          <img src="assets/img/{{contact.avatar}}">
+          <img src="{{contact.avatar}}">
         </ion-avatar>
         <h2>{{contact.name}}</h2>
         <p>{{contact.message}}</p>
         <ion-note item-right>{{contact.time}}</ion-note>
+        <ion-badge item-right [hidden]="contact.number==0">{{contact.number}}</ion-badge>
       </button>
       <ion-item-options>
         <button ion-button color="danger" icon-left (click)=delete(contact.name)>

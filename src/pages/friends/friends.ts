@@ -4,6 +4,7 @@ import { Storage } from '@ionic/storage';
 import { ChatListPage } from '../chatlist/chatlist';
 import { ChatPage } from '../chatlist/chat/chat';
 import {UserService} from "../../services/UserService";
+import { AppConfig } from '../../app/app.config';
 
 @Component({
   selector: 'page-friends',
@@ -13,8 +14,14 @@ export class FriendsPage {
   contacts;
   categorizedContacts = new Map();
   accountData:{id:string, account:string};
-  itemSelected(name: string,avatar: string) {
-    console.log("Selected Item", name);
+  itemSelected(name: string,avatar: string,whatsup: string) {
+    let date=new Date();
+    let time="";
+    if(date.getMinutes()<10){
+      time=date.getHours()+":0"+date.getMinutes();
+    }
+    else
+      time=date.getHours()+":"+date.getMinutes();
     this.storage.ready().then(()=>{
       this.storage.get('chatlist').then((chatlist)=>{
         if(chatlist){
@@ -24,18 +31,17 @@ export class FriendsPage {
               break;
             }
           }
-          chatlist.unshift({name:name,avatar:avatar});
+          chatlist.unshift({name:name,avatar:avatar,whatsup:whatsup,time:time,number:0});
           this.storage.set('chatlist',chatlist);
           console.log(chatlist);
         }
         else{
           this.storage.set('chatlist',
-            [{name : name,avatar:avatar}]
+            [{name : name,avatar:avatar,whatsup:whatsup,time:time,number:0}]
           );
         }
       });
     });
-    this.navCtrl.setRoot(ChatListPage);
     this.navCtrl.push(ChatPage,{
         avatar:avatar,
         name:name
@@ -53,7 +59,7 @@ export class FriendsPage {
         let contact = {
           "name": user.account,
           "whatsup": user.description,
-          "avatar": user.imageSrc
+          "avatar": AppConfig.getImagePrefix()+user.imageSrc
         };
         this.contacts.push(contact);
       }

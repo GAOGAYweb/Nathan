@@ -2,7 +2,10 @@ import { Component, Renderer, ElementRef, ViewChild } from '@angular/core';
 import { NavController, NavParams,Content } from 'ionic-angular';
 import { Keyboard } from '@ionic-native/keyboard';
 import { ChatService } from '../../../services/ChatService';
+import { UserService } from '../../../services/UserService';
 import { ChangeDetectorRef } from '@angular/core'; 
+import { Storage } from '@ionic/storage';
+import { AppConfig } from '../../../app/app.config';
 
 
 declare let JMessage:any;
@@ -18,20 +21,41 @@ export class ChatPage {
   messages;
   myMessage:string;
   JIM;
+  account:string;
+  user: any;
   constructor(public navCtrl: NavController,public navParams: NavParams,
             private renderer:Renderer, private elementRef:ElementRef,
             private keyboard: Keyboard, private chatService:ChatService,
-            public cd: ChangeDetectorRef) {
+            public cd: ChangeDetectorRef, private storage:Storage,
+            public userService: UserService) {
     this.name=this.navParams.get("name");
     this.avatar=this.navParams.get("avatar");
-    this.messages=MESSAGE;
+    this.user=JSON.parse(userService.getSessionUserInformation());
+    console.log(this.user);
     this.myMessage="";
-    for(let message of this.messages){
-        if(message.tome)
-            message.avatar=this.avatar;
-        else
-            message.avatar="avatar-finn.png";
-    }
+    this.storage.ready().then(()=>{
+        this.storage.get("user").then((account)=>{
+            this.account=account;
+            this.chatService.queryChat(this.account,this.name).then((data:any)=>{
+                console.log(data.data);
+                let MESSAGE=[];
+                data.data.forEach((data)=>{
+                    MESSAGE.push({
+                        "tome":JSON.parse(data).fromName===this.account?false:true,
+                        "message":JSON.parse(data).content,
+                        "avatar":JSON.parse(data).fromName===this.account?AppConfig.getImagePrefix()+this.user.imageSrc
+                        :this.avatar
+                    });
+                });
+                this.messages=MESSAGE;
+                this.cd.detectChanges();
+            });
+        });
+    });
+  }
+
+  ngOnDestroy(){
+      //this.JIM.loginOut();
   }
 
   ngOnInit(){
@@ -45,44 +69,28 @@ export class ChatPage {
                 "random_str" : data.random_str,
                 "signature" : data.signature,
                 "timestamp" : data.timestamp,
-                "flag" : "1"
+                "flag" : "0"
             }).onSuccess(function(data) {
                 console.log('success:' + JSON.stringify(data));
                 JIM.login({
-                    'username' : 'test',
+                    'username' : that.account,
                     'password' : '123456'
                 }).onSuccess(function(data) {
                     console.log('success:' + JSON.stringify(data));
+                    
                     JIM.onMsgReceive(function(data) {
                         data.messages.forEach(message => {
                             that.messages.push({
                                 "tome":true,
                                 "message":message.content.msg_body.text,
-                                "avatar":"avatar.png"
+                                "avatar":that.avatar
                             });
                         });
                         console.log(data);
                         data = JSON.stringify(data);
                         console.log('msg_receive:' + data);
-                        
-                    });
-                    
-                    JIM.onSyncConversation(function(data) { //离线消息同步监听
-                        console.log(data);
-                        data.forEach(msg=>{
-                            console.log(msg);
-                            msg.msgs.forEach(message=>{
-                                console.log(message);
-                                console.log(message.content.from_id);
-                                that.messages.push({
-                                    "tome":true,
-                                    "message":message.content.msg_body.text,
-                                    "avatar":"avatar.png"
-                                });
-                            });
-                        });
                         that.cd.detectChanges(); 
-                        console.log('event_receive: ' + JSON.stringify(data));
+                        that.content.scrollToBottom(300);
                     });
                 }).onFail(function(data) {
                     console.log('error:' + JSON.stringify(data));
@@ -97,6 +105,10 @@ export class ChatPage {
   }
 
   send(){
+      
+      if(this.myMessage===""){
+        return;
+      }
       let element = this.elementRef.nativeElement.querySelector('input');
        // we need to delay our call in order to work with ionic …
       setTimeout(() => {
@@ -104,30 +116,24 @@ export class ChatPage {
         this.keyboard.show();
         this.content.scrollToBottom(300);
       }, 500); // with 0 it will trigger a validation error instantly
-      if(this.myMessage==""){
-
-      }
-      else{
+      
+        let temp=this.myMessage;
         this.messages.push({
             "tome":false,
-            "message":this.myMessage,
-            "avatar":"avatar-finn.png"
+            "message":temp,
+            "avatar":AppConfig.getImagePrefix()+this.user.imageSrc
         });
+        this.chatService.addChat(this.account,this.name,this.myMessage);
         this.JIM.sendSingleMsg({
-            'target_username' : 'test2',
-            'content' : this.myMessage
-        }).onSuccess(function(data) {
+            'target_username' : this.name,
+            'content' : temp
+        }).onSuccess((data) => {
             console.log('success:' + JSON.stringify(data));
+            this.myMessage="";
+            this.cd.detectChanges(); 
         }).onFail(function(data) {
             console.log('error:' + JSON.stringify(data));
         });
-        this.myMessage="";
       }
-  }
 
 }
-
-
-let MESSAGE = [
-    
-];

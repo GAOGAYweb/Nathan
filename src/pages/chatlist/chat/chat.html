@@ -12,7 +12,7 @@
 <ion-content>
   <ion-list>
       <div *ngFor="let message of messages">
-        <img class="avator" [ngClass]="{'avator-left':message.tome,'avator-right':!message.tome}" src="assets/img/{{message.avatar}}">
+        <img class="avator" [ngClass]="{'avator-left':message.tome,'avator-right':!message.tome}" src="{{message.avatar}}">
         <div class="div-content">
             <div class="bubble" [ngClass]="{'left':message.tome,'right':!message.tome}">
                 <div class="plain">
