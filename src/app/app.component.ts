@@ -13,7 +13,6 @@ import {UserService} from "../services/UserService";
 import {MinecraftPage} from "../minecraft/minecraft";
 import {TabsPage} from '../pages/moments/tabs';
 
-import {ChatPage} from '../pages/chatlist/chat/chat';
 
 
 @Component({

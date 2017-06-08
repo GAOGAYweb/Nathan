@@ -73,7 +73,7 @@ export class MapPage{
       ptr=new BMap.Point(this.moments[i].x, this.moments[i].y);
       mkr=new BMap.Marker(ptr,{icon:myIcon});
       mkr.addEventListener('click', ()=>{
-        let modal = this.modalCtrl.create(ModalMomentDetailPage, {moment:moment});
+        let modal = this.modalCtrl.create(ModalMomentDetailPage, {moment:moment, accountData: this.accountData});
         modal.present();
       });
       mkr.setLabel(new BMap.Label(this.moments[i].content,{offset:new BMap.Size(20,-10)}));
@@ -87,7 +87,6 @@ export class MapPage{
     map.enableContinuousZoom();//连续缩放效果，默认禁用
     let point = new BMap.Point(121.604,31.196);//坐标可以通过百度地图坐标拾取器获取
     map.centerAndZoom(point, 18);//设置中心和地图显示级别
-
   }
 }
 

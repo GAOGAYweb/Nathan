@@ -1,8 +1,8 @@
-import { Component } from '@angular/core';
-import { ModalController } from 'ionic-angular';
-import { ModalNewPostPage } from './newPost';
+import {ChangeDetectorRef, Component} from '@angular/core';
+import {ModalController, NavParams} from 'ionic-angular';
 import { ModalMomentDetailPage } from './momentDetail';
 import {MomentsService} from "../../services/MomentsService";
+import {AppConfig} from "../../app/app.config";
 
 
 @Component({
@@ -11,37 +11,42 @@ import {MomentsService} from "../../services/MomentsService";
 
 export class RecommendPage {
 
+  accountData: {id:string, account:string};
   moments: any;
-  account: string;
-  constructor(public modalCtrl: ModalController, private momentsService: MomentsService) {
-    //this.moments = momentsService.getMoments(this.account);
-  }
-
-  openModalNewPostPage() {
-    let modal = this.modalCtrl.create(ModalNewPostPage);
-    modal.onDidDismiss(data => {
-      if(data.foo !== "bar") {
-        let moment = {
-          "author": data.author,
-          "avatar": data.avatar,
-          "time": data.time,
-          "image": "advance-card-bttf.png",
-          "content": "<p>"+ data.content +"</p>",
-          "likes": [],
-          "comments": [],
-          "tags":["technique", "geek"]
-        };
-        console.log(data);
-        this.moments.unshift(moment);
-      }
+  constructor(public modalCtrl: ModalController, private momentsService: MomentsService, public navParams: NavParams, public cd: ChangeDetectorRef) {
+    if (!this.accountData) {
+      this.accountData = navParams.data.accountData;
+    }
+    momentsService.getRecommendMoments(this.accountData.id).then(data => {
+      this.moments = [];
+      console.log(data);
+      this.addMoments(data);
+      this.cd.detectChanges();
     });
-    modal.present();
+  }
+  addMoments(data) {
+    let moments = data["data"];
+    for (let moment in moments) {
+      let obj = JSON.parse(moments[moment]);
+      let new_moment = {
+        "id": obj.id,
+        "author": obj.account,
+        "avatar": AppConfig.getImagePrefix() + obj.avatar,
+        "time": obj.time,
+        "image": AppConfig.getImagePrefix() +  obj.imageSrc,
+        "content": "<p>"+ obj.content +"</p>",
+        "likes": obj.likes,
+        "comments": [],
+        "streetName": obj.streetName === undefined ? "" : obj.streetName,
+        "commentsSize": obj.commentSize,
+        "tags":obj.tag
+      };
+      this.moments.push(new_moment);
+    }
   }
 
   openModalMomentDetailPage(moment) {
-    let modal = this.modalCtrl.create(ModalMomentDetailPage, moment);
+    let modal = this.modalCtrl.create(ModalMomentDetailPage, {moment:moment, accountData: this.accountData});
     modal.present();
   }
-
-
 }
