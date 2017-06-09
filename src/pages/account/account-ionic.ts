@@ -3,12 +3,14 @@
  */
 import { Component } from '@angular/core';
 import {ProfileIonicPage} from "./profile/profile-ionic";
-import {NavController, NavParams} from "ionic-angular";
+import {NavController, NavParams, MenuController} from "ionic-angular";
 import {MomentsPage} from "../moments/moments";
 import {FriendsPage} from "../friends/friends";
 import {UserService} from "../../services/UserService";
 import { ChangeDetectorRef } from '@angular/core';
 import {AppConfig} from "../../app/app.config";
+import {LoginPage} from "../login/login";
+import { Storage } from '@ionic/storage';
 
 
 @Component({
@@ -20,7 +22,7 @@ export class AccountIonicPage {
   mc: {ip: string};
   accountData:{id:string, account:string};
   constructor(public navCtrl: NavController, public navParams: NavParams, public userService:UserService,
-              public cd: ChangeDetectorRef) {
+              public cd: ChangeDetectorRef, public menu: MenuController,private storage:Storage) {
     this.mc = {ip: "http://10.131.250.11:3000/multiplayer.html"};
     if (!this.accountData) {
       this.accountData = navParams.data;
@@ -68,5 +70,14 @@ export class AccountIonicPage {
   }
   intoMyWorld(user) {
     window.location.href = this.mc.ip;
+  }
+  Logout(){
+    this.storage.ready().then(()=>{
+      this.storage.remove("user");
+      this.storage.remove("pwd");
+      this.storage.remove("chatlist");
+    });
+    this.menu.swipeEnable(false, 'myMenu');
+    this.navCtrl.setRoot(LoginPage);
   }
 }
