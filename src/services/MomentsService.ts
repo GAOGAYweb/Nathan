@@ -41,6 +41,25 @@ export class MomentsService {
         .subscribe(data => resolve(data), err => reject(err))
     });
   }
+
+  getCacheMoments(count) {
+    let headers = new Headers({
+      'Content-Type': 'application/x-www-form-urlencoded'
+    });
+    let options = new RequestOptions({
+      headers: headers
+    });
+    let body = "method=listNew&count=" + count;
+    let url = this.server + body;
+    fetch(url).then(function(response) {
+      // 通过promise 对象获得相应内容，并且将响应内容按照json格式转成对象，json()方法调用之后返回的依然是promise对象
+      // 也可以把内容转化成arraybuffer、blob对象
+      return response.json();
+    }).then(function(json) {
+      // 渲染页面
+    });
+  }
+
   getFriendsCycle(id, count) {
     let headers = new Headers({
       'Content-Type': 'application/x-www-form-urlencoded'
