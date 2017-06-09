@@ -44,7 +44,7 @@
       <ion-icon name="heart" color="primary"></ion-icon>
       <a *ngFor="let like of moment.likes" [href]=""> {{like}} </a>
     </ion-item>
-    <ion-item icon-left *ngIf="moment.streetName !== '空'">
+    <ion-item icon-left *ngIf="moment.streetName !== ''">
       <ion-icon name="navigate" item-left></ion-icon>
       <button ion-button clear>{{moment.streetName}}</button>
     </ion-item>

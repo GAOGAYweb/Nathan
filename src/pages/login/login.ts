@@ -30,7 +30,7 @@ export class LoginPage {
           this.storage.get("user").then((user)=>{
             if(user){
               if(user===this.account){
-                
+
               }
               else{
                 this.storage.set("user",this.account);
@@ -43,7 +43,7 @@ export class LoginPage {
           });
         });
         this.menu.swipeEnable(true, 'myMenu');
-        this.navCtrl.setRoot(MapPage, data["data"]);
+        this.navCtrl.setRoot(MapPage, JSON.parse(data["data"]));
 
         loader.dismiss();
       }

@@ -32,9 +32,13 @@
           <ion-note>Tag:</ion-note>
           <button ion-button clear *ngFor="let tag of moment.tags">{{tag}}</button>
         </ion-item>
-        <ion-item icon-left *ngIf="moment.streetName !== '空'">
+        <ion-item icon-left *ngIf="moment.streetName !== ''">
           <ion-icon name="navigate" item-left></ion-icon>
           <button ion-button clear>{{moment.streetName}}</button>
+        </ion-item>
+        <ion-item icon-left *ngIf="delete === true">
+          <ion-icon name="navigate" item-left></ion-icon>
+          <button ion-button clear>Delete</button>
         </ion-item>
       </ion-col>
     </ion-row>
@@ -48,7 +52,7 @@
       </ion-col>
       <ion-col>
         <button ion-button color="primary" clear small icon-left
-                (click)="openModalMomentDetailPage(({moment: moment}))">
+                (click)="openModalMomentDetailPage(moment)">
           <ion-icon name='text'></ion-icon>
           {{moment.commentsSize}} Comments
         </button>

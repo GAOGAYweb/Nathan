@@ -2,7 +2,7 @@
  * Created by Administrator on 2017/4/30.
  */
 import { Component } from '@angular/core';
-import {NavController, NavParams} from "ionic-angular";
+import {ModalController, NavController, NavParams} from "ionic-angular";
 import {GenderIonicPage} from "./profile-detail/gender-ionic";
 import {WhatsUpPage} from "./profile-detail/whatsup-ionic";
 import {PicIonicPage} from "./profile-detail/pic-ionic";
@@ -17,7 +17,7 @@ export class ProfileIonicPage {
   selectedUser: { name: string; description: string; gender: string; friendsNum: number; imageSrc: string};
   pics:any;
   id:string;
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public modalCtrl: ModalController, public navCtrl: NavController, public navParams: NavParams) {
     this.selectedUser = navParams.get('user');
     this.id = navParams.get('id');
     this.myCallbackFunction = function(_params) {
@@ -29,11 +29,11 @@ export class ProfileIonicPage {
   genderTapped(event, isGender, value) {
     console.log(isGender);
     if (isGender === 0) {
-      new Promise((resolve, reject) => {
-        this.navCtrl.push(GenderIonicPage, {resolve: resolve, gender: value, id: this.id});
-      }).then(data => {
-        this.selectedUser.gender = data.toString();
+      let modal = this.modalCtrl.create(GenderIonicPage, {gender: value, id: this.id});
+      modal.onDidDismiss(data => {
+        this.selectedUser.gender = data["gender"];
       });
+      modal.present();
     }
     else if(isGender === 1) {
       new Promise((resolve, reject) => {

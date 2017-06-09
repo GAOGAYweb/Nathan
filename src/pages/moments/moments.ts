@@ -16,6 +16,7 @@ export class MomentsPage {
   moments: any;
   accountData: {id:string, account:string};
   page = 0;
+  delete:boolean;
   constructor(
     public modalCtrl: ModalController,
     private momentsService: MomentsService,
@@ -29,6 +30,7 @@ export class MomentsPage {
         this.moments = [];
         this.addMoments(data);
         this.cd.detectChanges();
+        this.delete = true;
       })
     }
     else {
@@ -104,7 +106,7 @@ export class MomentsPage {
         "content": "<p>"+ obj.content +"</p>",
         "likes": obj.likes,
         "comments": [],
-        "streetName": obj.streetName === undefined ? "" : obj.streetName,
+        "streetName": obj.streetName === "空" ? "" : obj.streetName,
         "commentsSize": obj.commentSize,
         "tags":obj.tag
       };

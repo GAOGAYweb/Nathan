@@ -18,11 +18,11 @@ export class ModalMomentDetailPage {
               public momentsService: MomentsService,
               public userService: UserService, public commentsService: CommentsService, public cd: ChangeDetectorRef
   ) {
-    this.moment = this.params.get('moment').moment;
-    console.log("moment", this.moment);
+    this.moment = this.params.get("moment");
     this.accountData = this.params.get("accountData");
+    console.log("moments", this.moment);
     this.accountInformation = JSON.parse(this.userService.getSessionUserInformation());
-    if(!this.moment.comments[0]) {
+    if(this.moment.comments.length > 0) {
       commentsService.getComments(this.moment.id).then(data => {
         let comments = data["data"];
         for (let comment in comments) {
@@ -32,6 +32,7 @@ export class ModalMomentDetailPage {
             "avatar": AppConfig.getImagePrefix() + obj.avatar,
             "content": obj.content,
             "time": obj.time,
+            "streetName": obj.streetName === "空" ? "" : obj.streetName,
           });
         }
         this.cd.detectChanges();

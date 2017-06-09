@@ -3,6 +3,7 @@ import {ModalController, NavController, Platform, NavParams} from 'ionic-angular
 import { MOMENTS} from './mock.moments';
 import {ModalMomentDetailPage} from "../moments/momentDetail";
 import {MomentsService} from "../../services/MomentsService";
+import {AppConfig} from "../../app/app.config";
 declare var BMap;
 @Component({
   selector: 'map-presentation',
@@ -51,11 +52,12 @@ export class MapPage{
           content: obj.content,
           author: obj.account,
           time: obj.time,
-          image: obj.imageSrc,
-          avatar:obj.avatar,
+          image: AppConfig.getImagePrefix() + obj.imageSrc,
+          avatar:AppConfig.getImagePrefix() + obj.avatar,
           likes: obj.likes,
           comments:[],
-          tag: obj.tag
+          tag: obj.tag,
+          id: obj.id
         };
         this.moments.push(new_moment);
       }

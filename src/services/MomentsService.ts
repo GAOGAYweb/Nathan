@@ -91,20 +91,22 @@ export class MomentsService {
   }
 
   addLike(accountId, momentId) {
+    if (accountId && momentId) {
+      let headers = new Headers({
+        'Content-Type': 'application/x-www-form-urlencoded'
+      });
+      let options = new RequestOptions({
+        headers: headers
+      });
 
-    let headers = new Headers({
-      'Content-Type': 'application/x-www-form-urlencoded'
-    });
-    let options = new RequestOptions({
-      headers: headers
-    });
+      let body = "method=like&userid=" + accountId + "&momentid=" + momentId;
+      return new Promise((resolve, reject) => {
+        this.http.post(this.server, body, options )
+          .map(res => res.json())
+          .subscribe(data => resolve(data), err => reject(err))
+      })
+    }
 
-    let body = "method=like&userid=" + accountId + "&momentid=" + momentId;
-    return new Promise((resolve, reject) => {
-      this.http.post(this.server, body, options )
-        .map(res => res.json())
-        .subscribe(data => resolve(data), err => reject(err))
-    })
   }
 
 }
