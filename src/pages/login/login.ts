@@ -27,20 +27,8 @@ export class LoginPage {
       console.log(data);
       if (data["status"] === "200") {
         this.storage.ready().then(()=>{
-          this.storage.get("user").then((user)=>{
-            if(user){
-              if(user===this.account){
-
-              }
-              else{
-                this.storage.set("user",this.account);
-                this.storage.remove("chatlist");
-              }
-            }
-            else{
-              this.storage.set("user",this.account);
-            }
-          });
+          this.storage.set("user",this.account);
+          this.storage.set("pwd",this.password);
         });
         this.menu.swipeEnable(true, 'myMenu');
         this.navCtrl.setRoot(MapPage, JSON.parse(data["data"]));

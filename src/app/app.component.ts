@@ -1,7 +1,7 @@
 import {Component, ViewChild} from '@angular/core';
 
 import { Platform, MenuController, Nav } from 'ionic-angular';
-
+import {LoadingController} from 'ionic-angular';
 import {StatusBar} from '@ionic-native/status-bar';
 import {SplashScreen} from '@ionic-native/splash-screen';
 import {AccountIonicPage} from "../pages/account/account-ionic";
@@ -12,7 +12,7 @@ import {LoginPage} from '../pages/login/login';
 import {UserService} from "../services/UserService";
 import {MinecraftPage} from "../minecraft/minecraft";
 import {TabsPage} from '../pages/moments/tabs';
-
+import { Storage } from '@ionic/storage';
 
 
 @Component({
@@ -29,7 +29,8 @@ export class MyApp {
               public menu: MenuController,
               public statusBar: StatusBar,
               public splashScreen: SplashScreen,
-              public userService:UserService) {
+              public userService:UserService,public storage:Storage,
+              public loadingCtrl: LoadingController) {
     this.initializeApp();
     // set our app's pages
     this.pages = [
@@ -44,6 +45,15 @@ export class MyApp {
   }
 
   initializeApp() {
+    this.storage.ready().then(() => {
+      this.storage.get('user').then((user) => {
+        if(user){
+          this.storage.get('pwd').then((pwd)=>{
+            this.autoLogin(user,pwd);
+          });
+        }
+      })
+    });
     this.platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
@@ -51,6 +61,29 @@ export class MyApp {
       this.splashScreen.hide();
     });
   }
+
+  autoLogin(user,pwd){
+    let loader = this.loadingCtrl.create({
+      content: "Please wait...",
+      //duration: 3000
+    });
+    loader.present();
+    //console.log("sign in:", this.account, this.password);
+    this.userService.login(user, pwd).then(data => {
+      console.log(data);
+      if (data["status"] === "200") {
+        this.menu.swipeEnable(true, 'myMenu');
+        this.nav.setRoot(MapPage, data["data"]);
+        loader.dismiss();
+      }
+      else {
+        this.storage.remove("user");
+        this.storage.remove("chatlist");
+        loader.dismiss();
+      }
+    });
+  }
+
   setAccountData(data) {
     this.accountData = JSON.parse(data);
   }
