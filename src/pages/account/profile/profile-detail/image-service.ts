@@ -99,9 +99,9 @@ export class ImgService {
     const options = {
       fileKey: 'file',
       fileName: this.phone + '_head.jpg',
-      params: {operatiune: 'uploadpoza'}
+      params: {operatiune: 'uploadpoza', name: this.phone + '_head.jpg'}
     };
-    ft.create().upload(imgUrl,encodeURI(this.config.server +"/upload"),options)
+    ft.create().upload(imgUrl,encodeURI("http://120.76.144.133:9080/adweb/image/upload"),options)
       .then((data) => {
         if(data.response){
           const response = JSON.parse(data.response);
