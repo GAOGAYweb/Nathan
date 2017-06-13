@@ -22,9 +22,10 @@ export class ModalMomentDetailPage {
     this.accountData = this.params.get("accountData");
     console.log("moments", this.moment);
     this.accountInformation = JSON.parse(this.userService.getSessionUserInformation());
-    if(this.moment.comments.length > 0) {
+    if(this.moment.commentsSize > 0) {
       commentsService.getComments(this.moment.id).then(data => {
         let comments = data["data"];
+        console.log("comments", comments);
         for (let comment in comments) {
           let obj = JSON.parse(comments[comment]);
           this.moment.comments.push({
@@ -32,7 +33,6 @@ export class ModalMomentDetailPage {
             "avatar": AppConfig.getImagePrefix() + obj.avatar,
             "content": obj.content,
             "time": obj.time,
-            "streetName": obj.streetName === "空" ? "" : obj.streetName,
           });
         }
         this.cd.detectChanges();

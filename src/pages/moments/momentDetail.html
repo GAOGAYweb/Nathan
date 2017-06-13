@@ -51,13 +51,13 @@
   </ion-row>
 
   <ion-list>
-    <ion-item *ngFor="let comment of moment.comments">
+    <ion-item text-wrap *ngFor="let comment of moment.comments">
       <ion-avatar item-left>
         <img src="{{comment.avatar}}">
       </ion-avatar>
       <h2>{{comment.author}}</h2>
       <p>{{comment.content}}</p>
-      <ion-note item-right>{{comment.time}}</ion-note>
+      <ion-note>{{comment.time}}</ion-note>
     </ion-item>
 
   </ion-list>

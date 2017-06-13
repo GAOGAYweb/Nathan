@@ -55,6 +55,8 @@ export class MapPage{
           image: AppConfig.getImagePrefix() + obj.imageSrc,
           avatar:AppConfig.getImagePrefix() + obj.avatar,
           likes: obj.likes,
+          streetName: obj.streetName === "空" ? "" : obj.streetName,
+          commentsSize: obj.commentSize,
           comments:[],
           tag: obj.tag,
           id: obj.id

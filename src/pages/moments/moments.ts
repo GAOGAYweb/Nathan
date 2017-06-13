@@ -26,11 +26,11 @@ export class MomentsPage {
       this.accountData = navParams.data.accountData;
     }
     if ("owner" === navParams.get("visible")) {
+      this.delete = true;
       momentsService.getMyMoments(this.accountData.id).then(data => {
         this.moments = [];
         this.addMoments(data);
         this.cd.detectChanges();
-        this.delete = true;
       })
     }
     else {
@@ -74,7 +74,33 @@ export class MomentsPage {
     let modal = this.modalCtrl.create(ModalMomentDetailPage, {moment:moment, accountData: this.accountData});
     modal.present();
   }
-
+  doDelete(moment) {
+    let alert = this.alertCtrl.create({
+      title: 'Delete Confirm',
+      message: 'Do you want to delete this moment?',
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          handler: () => {
+            console.log('Cancel clicked');
+          }
+        },
+        {
+          text: 'Yes',
+          handler: () => {
+            this.momentsService.deleteMoment(moment.id).then(data => {
+              if (data["status"] === "200") {
+                this.moments.splice(this.moments.indexOf(moment), 1);
+                this.cd.detectChanges();
+              }
+            })
+          }
+        }
+      ]
+    });
+    alert.present();
+  }
   doRefresh(refresher) {
     setTimeout(() => {
       this.getMoments(0);
@@ -118,7 +144,6 @@ export class MomentsPage {
     if (index >= 0) {
       // code...
       this.momentsService.addLike(this.accountData.id, moment.id).then(data => {
-        console.log("data", data);
         if(data["status"] !== "200") {
           let alert = this.alertCtrl.create({
             title: 'ERROR',

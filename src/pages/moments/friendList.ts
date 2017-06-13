@@ -1,6 +1,7 @@
 import {Component} from '@angular/core';
 import {NavController, ViewController, NavParams} from 'ionic-angular';
 import {UserService} from "../../services/UserService";
+import {AppConfig} from "../../app/app.config";
 
 @Component({
   selector: 'page-friends-list',
@@ -18,11 +19,11 @@ export class FriendList {
     this.userService.getFriendList(navParams.get("id")).then(data => {
       let friends = data["data"];
       for (let friend in friends) {
-        let user = JSON.parse(friends[friend]);
+        let user = JSON.parse(JSON.parse(friends[friend]).friends[0]);
         let contact = {
           "name": user.account,
           "whatsup": user.description,
-          "avatar": user.imageSrc
+          "avatar": AppConfig.getImagePrefix() + user.imageSrc
         };
         this.contacts.push(contact);
       }

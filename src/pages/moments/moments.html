@@ -36,8 +36,7 @@
           <ion-icon name="navigate" item-left></ion-icon>
           <button ion-button clear>{{moment.streetName}}</button>
         </ion-item>
-        <ion-item icon-left *ngIf="delete === true">
-          <ion-icon name="navigate" item-left></ion-icon>
+        <ion-item icon-left *ngIf="delete === true" (click) = "doDelete(moment)">
           <button ion-button clear>Delete</button>
         </ion-item>
       </ion-col>

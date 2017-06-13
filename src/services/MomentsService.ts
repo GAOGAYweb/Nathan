@@ -41,7 +41,20 @@ export class MomentsService {
         .subscribe(data => resolve(data), err => reject(err))
     });
   }
-
+  deleteMoment(id) {
+    let headers = new Headers({
+      'Content-Type': 'application/x-www-form-urlencoded'
+    });
+    let options = new RequestOptions({
+      headers: headers
+    });
+    let body = "method=delete&id=" + id;
+    return new Promise((resolve, reject) => {
+      this.http.post(this.server, body, options )
+        .map(res => res.json())
+        .subscribe(data => resolve(data), err => reject(err))
+    });
+  }
   getCacheMoments(count) {
     let headers = new Headers({
       'Content-Type': 'application/x-www-form-urlencoded'

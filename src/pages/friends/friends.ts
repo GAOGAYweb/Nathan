@@ -1,7 +1,6 @@
 import {ChangeDetectorRef, Component} from '@angular/core';
 import {NavController, NavParams} from 'ionic-angular';
 import { Storage } from '@ionic/storage';
-import { ChatListPage } from '../chatlist/chatlist';
 import { ChatPage } from '../chatlist/chat/chat';
 import {UserService} from "../../services/UserService";
 import { AppConfig } from '../../app/app.config';
@@ -55,7 +54,8 @@ export class FriendsPage {
     this.userService.getFriendList(this.accountData.id).then(data => {
       let friends = data["data"];
       for (let friend in friends) {
-        let user = JSON.parse(friends[friend]);
+        let user = JSON.parse(JSON.parse(friends[friend]).friends[0]);
+        console.log(user);
         let contact = {
           "name": user.account,
           "whatsup": user.description,
