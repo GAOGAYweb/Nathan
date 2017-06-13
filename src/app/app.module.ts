@@ -28,6 +28,7 @@ import {RegisterPage} from '../pages/register/register';
 import {TabsPage} from '../pages/moments/tabs';
 import {LikesPage} from '../pages/moments/likes';
 import {RecommendPage} from '../pages/moments/recommend';
+import {FriendsDetailPage} from '../pages/friends/friendsDetail/friendsDetail';
 
 import {Keyboard} from '@ionic-native/keyboard';
 import {UserService} from "../services/UserService";
@@ -57,7 +58,7 @@ import {CommentsService} from "../services/CommentsService";
     ChatListPage, ChatPage,
     LoginPage, RegisterPage,
     TabsPage,LikesPage,
-    RecommendPage,
+    RecommendPage,FriendsDetailPage
   ],
   imports: [
     HttpModule,
@@ -80,7 +81,7 @@ import {CommentsService} from "../services/CommentsService";
     ChatListPage, ChatPage,
     LoginPage, RegisterPage,
     TabsPage,LikesPage,
-    RecommendPage,
+    RecommendPage,FriendsDetailPage
   ],
   providers: [
     Keyboard,
