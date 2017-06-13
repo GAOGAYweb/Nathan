@@ -15,7 +15,7 @@ export class MinecraftPage{
     secUrl: '', // 安全链接
 
     title: '加载中',
-    url: '',
+    url: '10.131.251.231:9966',
     share: null // 是否具有分享功能（传递一个分享对象ShareModel过来）
   };
   shareConfig: any = {

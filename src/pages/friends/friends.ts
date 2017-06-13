@@ -1,9 +1,9 @@
-import {ChangeDetectorRef, Component} from '@angular/core';
+import {ChangeDetectorRef, Component } from '@angular/core';
 import {NavController, NavParams} from 'ionic-angular';
 import { Storage } from '@ionic/storage';
-import { ChatPage } from '../chatlist/chat/chat';
 import {UserService} from "../../services/UserService";
 import { AppConfig } from '../../app/app.config';
+import {FriendsDetailPage} from './friendsDetail/friendsDetail';
 
 @Component({
   selector: 'page-friends',
@@ -14,36 +14,11 @@ export class FriendsPage {
   categorizedContacts = new Map();
   accountData:{id:string, account:string};
   itemSelected(name: string,avatar: string,whatsup: string) {
-    let date=new Date();
-    let time="";
-    if(date.getMinutes()<10){
-      time=date.getHours()+":0"+date.getMinutes();
-    }
-    else
-      time=date.getHours()+":"+date.getMinutes();
-    this.storage.ready().then(()=>{
-      this.storage.get('chatlist').then((chatlist)=>{
-        if(chatlist){
-          for(let i=0;i<chatlist.length;i++){
-            if(chatlist[i].name===name){
-              chatlist.splice(i,1);
-              break;
-            }
-          }
-          chatlist.unshift({name:name,avatar:avatar,whatsup:whatsup,time:time,number:0});
-          this.storage.set('chatlist',chatlist);
-          console.log(chatlist);
-        }
-        else{
-          this.storage.set('chatlist',
-            [{name : name,avatar:avatar,whatsup:whatsup,time:time,number:0}]
-          );
-        }
-      });
-    });
-    this.navCtrl.push(ChatPage,{
+    this.navCtrl.push(FriendsDetailPage,{
         avatar:avatar,
-        name:name
+        name:name,
+        account:this.accountData,
+        whatsup:whatsup
     });
   }
 
@@ -67,7 +42,6 @@ export class FriendsPage {
       this.cd.detectChanges();
     });
   }
-
   constructor(public navCtrl: NavController,private storage: Storage, public navParams: NavParams,
               public userService:UserService,public cd: ChangeDetectorRef) {
     this.accountData = navParams.data;
