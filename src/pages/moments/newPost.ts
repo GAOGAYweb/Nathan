@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component,ChangeDetectorRef } from '@angular/core';
 import { ViewController } from 'ionic-angular';
 import {ImgService} from "../account/profile/profile-detail/image-service";
 import {NoticeService} from "../account/profile/profile-detail/notice-service";
@@ -19,10 +19,12 @@ export class ModalNewPostPage {
   data: any;
   accountData:{id:string, account:string};
   locationModal:any;
+  groups;
+  post="all";
   accountInformation: { name: string, description: string, gender: string, friendsNum: number, imageSrc:string};
   constructor(public viewCtrl: ViewController, private notiSer: NoticeService, private imgSer: ImgService,
               private momentsService: MomentsService, public userService: UserService,public modalCtrl: ModalController,
-              public navParams: NavParams) {
+              public navParams: NavParams,public cd: ChangeDetectorRef) {
     this.accountData = navParams.data;
     this.accountInformation = JSON.parse(this.userService.getSessionUserInformation());
     this.data = {
@@ -39,6 +41,23 @@ export class ModalNewPostPage {
       longitude:0,
       latitude:0
     }
+    this.userService.getGroup(this.accountData.id).then((data:any)=>{
+        this.groups=[];
+        let datas=data.data;
+        for(let group of datas){
+            group=JSON.parse(group);
+            this.groups.push({
+                groupName:group.groupName,
+                friends: group.friends
+            });
+        }
+        console.log(this.groups);
+        this.cd.detectChanges();
+    });
+  }
+
+  changeGroup(name:string){
+    this.post=name;
   }
 
   dismiss() {
@@ -57,6 +76,10 @@ export class ModalNewPostPage {
       }
       if(this.data.image.length > 0) {
         obj["image"] = this.data.image[0];
+      }
+      if(this.post!="all"){
+        console.log("into all");
+        obj["groupName"] = this.post;
       }
       this.momentsService.sendMoments(obj).then(data => {
         console.log("return data",data["status"]);
