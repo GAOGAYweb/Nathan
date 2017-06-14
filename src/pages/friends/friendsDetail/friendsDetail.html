@@ -1,9 +1,33 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>{{name}}</ion-title>
+    <ion-title>Details</ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content>
+  <ion-item-group>
+    <ion-avatar>
+        <img src="{{avatar}}">
+    </ion-avatar>
+    <ion-item-divider color="light"></ion-item-divider>
+    <ion-item>
+      <ion-label>name</ion-label>
+      <ion-note item-right>{{name}}</ion-note>
+    </ion-item>
+    <ion-item>
+      <ion-label>What's Up</ion-label>
+      <ion-note item-right>{{whatsup}}</ion-note>
+    </ion-item>
+    <ion-item>
+      <ion-label>gender</ion-label>
+      <ion-note item-right>{{gender}}</ion-note>
+    </ion-item>
+    <ion-item>
+      <ion-label>Group</ion-label>
+      <ion-note item-right>{{group}}</ion-note>
+    </ion-item>
+    <ion-item-divider color="light"></ion-item-divider>
+  </ion-item-group>
+  <button ion-button block (click)="changeGroup()">Change Group</button>
   <button ion-button block (click)="intoChats()">Send Message</button>
 </ion-content>

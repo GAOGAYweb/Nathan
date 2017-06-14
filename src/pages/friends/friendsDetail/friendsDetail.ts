@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { ChatPage } from '../../chatlist/chat/chat';
 import { Storage } from '@ionic/storage';
+import { ChangeGroupPage } from './group';
 
 @Component({
   selector: 'friendsDetail',
@@ -12,15 +13,29 @@ export class FriendsDetailPage {
   avatar:string;
   name:string;
   whatsup:string;
+  group:string;
+  gender:string;
+  id:string;
   constructor(public navCtrl: NavController,private storage: Storage, public navParams: NavParams) {
     this.accountData = navParams.get("account");
-    this.avatar = this.navParams.get("avatat");
+    this.avatar = this.navParams.get("avatar");
     this.name = this.navParams.get("name");
     this.whatsup = this.navParams.get("whatsup");
+    this.group = this.navParams.get("group");
+    this.id = this.navParams.get("id");
+    if(this.navParams.get("gender")===1){
+        this.gender="female";
+    }
+    else
+        this.gender="male";
   }
 
   changeGroup(){
-
+    this.navCtrl.push(ChangeGroupPage,{
+        account:this.accountData,
+        group:this.group,
+        id:this.id
+    });
   }
 
   intoChats() {

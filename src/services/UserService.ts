@@ -120,4 +120,20 @@ export class UserService {
         .subscribe(data => resolve(data), err => reject(err))
     });
   }
+
+  getGroup(id) {
+    let headers = new Headers({
+      'Content-Type': 'application/x-www-form-urlencoded'
+    });
+    let options = new RequestOptions({
+      headers: headers
+    });
+    let body= "method=friendGroup&id=" + id;
+    return new Promise((resolve, reject) => {
+      this.http.post(this.server, body, options )
+        .map(res => res.json())
+        .subscribe(data => resolve(data), err => reject(err))
+    });
+  }
+
 }

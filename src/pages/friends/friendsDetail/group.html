@@ -1,0 +1,17 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>ChangeGroup</ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content>
+  <ion-list radio-group>
+    <ion-list-header>
+        Groups
+    </ion-list-header>
+
+    <ion-item *ngFor="let group of groups">
+        <ion-label>{{group.groupName}}</ion-label>
+        <ion-radio checked={{group.check}} value="{{group.groupName}}" (click)="changeGroup(group.groupName)"></ion-radio> 
+    </ion-item>
+  </ion-list>
+</ion-content>

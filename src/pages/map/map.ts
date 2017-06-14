@@ -85,7 +85,7 @@ export class MapPage{
       this.cd.detectChanges();
     }
   }
-  ionViewWillEnter() {
+  ngOnInit() {
     let map = this.map = new BMap.Map(this.mapElement.nativeElement, {enableMapClick: true});//创建地图实例
     map.enableScrollWheelZoom();//启动滚轮放大缩小，默认禁用
     map.enableContinuousZoom();//连续缩放效果，默认禁用

@@ -32,7 +32,7 @@ export class LoginPage {
         });
         this.menu.swipeEnable(true, 'myMenu');
         this.navCtrl.setRoot(MapPage, JSON.parse(data["data"]));
-
+        
         loader.dismiss();
       }
       else {

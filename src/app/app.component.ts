@@ -13,6 +13,7 @@ import {UserService} from "../services/UserService";
 import {MinecraftPage} from "../minecraft/minecraft";
 import {TabsPage} from '../pages/moments/tabs';
 import { Storage } from '@ionic/storage';
+import {GroupPage} from '../pages/group/group';
 
 
 @Component({
@@ -39,7 +40,8 @@ export class MyApp {
       {title: 'My Friends', component: FriendsPage},
       {title: 'Chats', component: ChatListPage},
       {title: 'WebCraft', component: MinecraftPage},
-      {title: 'Moments', component: TabsPage}
+      {title: 'Moments', component: TabsPage},
+      {title: 'Groups', component: GroupPage}
     ];
 
   }

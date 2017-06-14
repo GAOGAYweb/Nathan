@@ -13,31 +13,41 @@ export class FriendsPage {
   contacts;
   categorizedContacts = new Map();
   accountData:{id:string, account:string};
-  itemSelected(name: string,avatar: string,whatsup: string) {
+  itemSelected(name: string,avatar: string,whatsup: string,gender: string,group: string,id:string) {
     this.navCtrl.push(FriendsDetailPage,{
         avatar:avatar,
         name:name,
         account:this.accountData,
-        whatsup:whatsup
+        whatsup:whatsup,
+        gender:gender,
+        group:group,
+        id:id
     });
   }
-
 
   initContacts() {
     this.contacts = [];
     console.log("userService", this.accountData);
     this.userService.getFriendList(this.accountData.id).then(data => {
+      console.log(data);
       let friends = data["data"];
+      console.log(friends);
       for (let friend in friends) {
-        let user = JSON.parse(JSON.parse(friends[friend]).friends[0]);
-        console.log(user);
-        let contact = {
-          "name": user.account,
-          "whatsup": user.description,
-          "avatar": AppConfig.getImagePrefix()+user.imageSrc
-        };
-        this.contacts.push(contact);
+        let temp=JSON.parse(friends[friend]).friends;
+        for(let i=0;i<temp.length;i++){
+          let user = JSON.parse(temp[i]);
+          let contact = {
+            "name": user.account,
+            "whatsup": user.description,
+            "avatar": AppConfig.getImagePrefix()+user.imageSrc,
+            "gender": user.gender,
+            "group": JSON.parse(friends[friend]).groupName,
+            "id": user.id
+          };
+          this.contacts.push(contact);
+        }
       }
+      console.log(this.contacts);
       this.categorizedContacts = getcategorizedContacts(this.contacts);
       this.cd.detectChanges();
     });

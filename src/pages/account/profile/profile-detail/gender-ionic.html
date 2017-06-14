@@ -1,10 +1,12 @@
-<ion-list radio-group>
-  <ion-list-header>
-    Gender
-  </ion-list-header>
+<ion-content>
+  <ion-list radio-group>
+    <ion-list-header>
+      Gender
+    </ion-list-header>
 
-  <ion-item *ngFor="let gender of genderEum">
-    <ion-label>{{gender.item}}</ion-label>
-    <ion-radio checked={{gender.value}} value="{{gender.item}}" (click)="genderClicked($event, gender.item)"></ion-radio>
-  </ion-item>
-</ion-list>
+    <ion-item *ngFor="let gender of genderEum">
+      <ion-label>{{gender.item}}</ion-label>
+      <ion-radio checked={{gender.value}} value="{{gender.item}}" (click)="genderClicked($event, gender.item)"></ion-radio>
+    </ion-item>
+  </ion-list>
+</ion-content>

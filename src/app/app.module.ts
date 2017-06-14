@@ -29,6 +29,8 @@ import {TabsPage} from '../pages/moments/tabs';
 import {LikesPage} from '../pages/moments/likes';
 import {RecommendPage} from '../pages/moments/recommend';
 import {FriendsDetailPage} from '../pages/friends/friendsDetail/friendsDetail';
+import {GroupPage} from '../pages/group/group';
+import {ChangeGroupPage} from '../pages/friends/friendsDetail/group';
 
 import {Keyboard} from '@ionic-native/keyboard';
 import {UserService} from "../services/UserService";
@@ -42,6 +44,7 @@ import {MinecraftPage} from "../minecraft/minecraft";
 import {BrowserPopoverPage} from "../minecraft/browser-popover";
 import { IonicStorageModule } from '@ionic/storage';
 import {CommentsService} from "../services/CommentsService";
+import {FriendService} from "../services/FriendService";
 
 @NgModule({
   declarations: [
@@ -58,7 +61,7 @@ import {CommentsService} from "../services/CommentsService";
     ChatListPage, ChatPage,
     LoginPage, RegisterPage,
     TabsPage,LikesPage,
-    RecommendPage,FriendsDetailPage
+    RecommendPage,FriendsDetailPage,GroupPage,ChangeGroupPage
   ],
   imports: [
     HttpModule,
@@ -81,7 +84,7 @@ import {CommentsService} from "../services/CommentsService";
     ChatListPage, ChatPage,
     LoginPage, RegisterPage,
     TabsPage,LikesPage,
-    RecommendPage,FriendsDetailPage
+    RecommendPage,FriendsDetailPage,GroupPage,ChangeGroupPage
   ],
   providers: [
     Keyboard,
@@ -90,6 +93,7 @@ import {CommentsService} from "../services/CommentsService";
     NoticeService,
     ImgService,
     UserService,
+    FriendService,
     MomentsService,
     CommentsService,
     ChatService,
