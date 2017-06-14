@@ -32,7 +32,7 @@ export class ModalNewPostPage {
       author: this.accountData.account,
       avatar: this.accountInformation.imageSrc,
       time: "",
-      image:[],
+      image:["moment_default.jpg"],
       likes:[],
       comments:[],
       commentsSize : 0,

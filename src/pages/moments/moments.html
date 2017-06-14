@@ -23,7 +23,7 @@
       <p>{{moment.time}}</p>
     </ion-item>
 
-    <img src="{{moment.image}}" *ngIf="moment.image.split('=').pop() !== 'moment_default.jpg'">
+    <img src="{{moment.image}}" *ngIf="moment.image.indexOf('=') > 0 && moment.image.split('=').pop() !== 'moment_default.jpg'">
 
     <ion-card-content [innerHTML]="moment.content"></ion-card-content>
     <ion-row>
