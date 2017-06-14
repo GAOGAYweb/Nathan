@@ -39,7 +39,7 @@ export class MomentsPage {
     //this.moments = momentsService.getMoments(this.account);
   }
   getMoments(page) {
-    this.momentsService.getMoments(page).then(data => {
+    this.momentsService.getMoments(page,this.accountData.id).then(data => {
       this.moments = [];
       this.addMoments(data);
       this.page++;
@@ -112,7 +112,7 @@ export class MomentsPage {
   doInfinite(infiniteScroll) {
     setTimeout(() => {
       console.log("page", this.page);
-      this.momentsService.getMoments(this.page).then(data => {
+      this.momentsService.getMoments(this.page,this.accountData.id).then(data => {
         this.addMoments(data);
         this.page++;
       });

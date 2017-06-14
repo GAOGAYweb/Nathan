@@ -35,6 +35,7 @@ export class UserService {
           .map(res => res.json())
           .subscribe(data => {
             this.accountData = data["data"];
+            console.log(this.accountData);
             this.getUserInformation(JSON.parse(this.accountData).id);
             resolve(data)
             }, err => reject(err)

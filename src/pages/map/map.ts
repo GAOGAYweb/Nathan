@@ -26,7 +26,7 @@ declare var BMap;
 export class MapPage{
   map:any;
   moments:any;
-  accountData:{};
+  accountData:any;
   @ViewChild('map') mapElement: ElementRef;
   constructor(
     private navCtrl: NavController,
@@ -39,9 +39,8 @@ export class MapPage{
     if (!this.accountData) {
       this.accountData = navParams.data;
     }
-
     this.moments = MOMENTS;
-    this.momentsService.getMoments(0).then(data => {
+    this.momentsService.getMoments(0,JSON.parse(this.accountData).id).then(data => {
       let moments = data["data"];
       this.moments = [];
       for (let moment in moments) {

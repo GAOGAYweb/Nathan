@@ -27,7 +27,6 @@ export class AccountIonicPage {
     if (!this.accountData) {
       this.accountData = navParams.data;
     }
-
     this.user={
       name: "",
         description: "",
