@@ -40,6 +40,21 @@
       Mention
     </button>
 
+    <ion-list radio-group>
+      <ion-list-header>
+          Post to
+      </ion-list-header>
+
+      <ion-item>
+          <ion-label>All</ion-label>
+          <ion-radio value="all" checked="true" (click)="changeGroup('all')"></ion-radio>
+      </ion-item>
+      <ion-item *ngFor="let group of groups">
+          <ion-label>{{group.groupName}}</ion-label>
+          <ion-radio value="{{group.groupName}}" (click)="changeGroup(group.groupName)"></ion-radio> 
+      </ion-item>
+    </ion-list>
+
 
     <ion-item item-left>
       <button ion-button clear (click)="clearMention()">{{getMentionedFriends()}}</button>
