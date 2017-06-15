@@ -3,6 +3,7 @@
  */
 import {ActionSheetController, LoadingController} from "ionic-angular";
 import { NoticeService} from "./notice-service";
+import { UserService} from "../../../../services/UserService";
 import { Transfer} from "@ionic-native/transfer";
 import {EventEmitter, Injectable, Output} from "@angular/core";
 import { Camera, CameraOptions  } from '@ionic-native/camera';
@@ -41,7 +42,8 @@ export class ImgService {
   private phone: string;
   private photoUrl: string;
   constructor(private actionSheetCtrl: ActionSheetController,
-              private noticeSer: NoticeService, private camera: Camera, private fileChooser: FileChooser, private filePath: FilePath, public loadingCtrl: LoadingController) {
+              private noticeSer: NoticeService, private camera: Camera, private fileChooser: FileChooser,
+              private filePath: FilePath, public loadingCtrl: LoadingController, public userService: UserService) {
 
 
   }
@@ -100,28 +102,20 @@ export class ImgService {
     });
     loader.present();
     const ft = new Transfer();
+    const imageSrc = this.accountData.account + '_head';
     const options = {
       fileKey: 'file',
-      fileName: this.phone + '_head.jpg',
-      params: {operatiune: 'uploadpoza', name: this.phone + '_head.jpg'}
+      fileName: imageSrc,
+      params: {operatiune: 'uploadpoza', name: imageSrc}
     };
     ft.create().upload(imgUrl,encodeURI("http://120.76.144.133:9080/adweb/image/upload"),options)
       .then((data) => {
-        if(data.response){
-          const response = JSON.parse(data.response);
-          if(response.rtn){
             loader.dismiss();
-            alert("头像设置完成");
+            alert("头像设置完成");;
+            this.userService.changeInformation({
+              imageSrc: imageSrc+'.jpg'
+            }, this.accountData.id);
 
-
-          }else{
-            loader.dismiss();
-            alert("头像设置失败，请重新登录");
-          }
-        }else{
-          loader.dismiss();
-          alert("头像设置失败，请重新登录");
-        }
         //const rtnString = JSON.stringify(data);
       }, (err) => {
         loader.dismiss();
