@@ -75,7 +75,7 @@ export class MyApp {
       console.log(data);
       if (data["status"] === "200") {
         this.menu.swipeEnable(true, 'myMenu');
-        this.nav.setRoot(MapPage, data["data"]);
+        this.nav.setRoot(MapPage, JSON.parse(data["data"]));
         loader.dismiss();
       }
       else {
@@ -93,14 +93,8 @@ export class MyApp {
     // close the menu when clicking a link from the menu
     this.menu.close();
     // navigate to the new page if it is not the current page
-    console.log(this.accountData);
-    if (this.accountData) {
-      this.nav.setRoot(page.component, this.accountData);
-    }
-    else {
-      let _data = this.userService.getSessionAccountData().toString();
-      this.accountData = JSON.parse(_data);
-      this.nav.setRoot(page.component, this.accountData);
-    }
+    let _data = this.userService.getSessionAccountData().toString();
+    this.accountData = JSON.parse(_data);
+    this.nav.setRoot(page.component, this.accountData);
   }
 }

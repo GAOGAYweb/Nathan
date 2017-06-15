@@ -40,7 +40,7 @@ export class MapPage{
       this.accountData = navParams.data;
     }
     this.moments = MOMENTS;
-    this.momentsService.getMoments(0,JSON.parse(this.accountData).id).then(data => {
+    this.momentsService.getMoments(0, this.accountData.id).then(data => {
       let moments = data["data"];
       this.moments = [];
       for (let moment in moments) {
@@ -68,19 +68,21 @@ export class MapPage{
     //setTimeout(this.drawMap,1000)
   }
   drawMap() {
-    console.log(this.moments);
-    var mkr,ptr;
-    var myIcon = new BMap.Icon("assets/img/markers.png", new BMap.Size(23, 25));
-    for(var i=0;i<this.moments.length;i++){
+    let mkr,ptr;
+    let myIcon = new BMap.Icon("assets/img/markers.png", new BMap.Size(23, 25));
+    for(let i = 0;i < this.moments.length;i++){
       let moment = this.moments[i];
-      ptr=new BMap.Point(this.moments[i].x, this.moments[i].y);
-      mkr=new BMap.Marker(ptr,{icon:myIcon});
-      mkr.addEventListener('click', ()=>{
-        let modal = this.modalCtrl.create(ModalMomentDetailPage, {moment:moment, accountData: this.accountData});
-        modal.present();
-      });
-      mkr.setLabel(new BMap.Label(this.moments[i].content,{offset:new BMap.Size(20,-10)}));
-      this.map.addOverlay(mkr);
+      if(moment.streetName !== "") {
+        //console.log("moment", moment);
+        ptr = new BMap.Point(moment.x, moment.y);
+        mkr = new BMap.Marker(ptr,{icon:myIcon});
+        mkr.addEventListener('click', ()=>{
+          let modal = this.modalCtrl.create(ModalMomentDetailPage, {moment:moment, accountData: this.accountData});
+          modal.present();
+        });
+        mkr.setLabel(new BMap.Label(moment.content,{offset:new BMap.Size(20,-10)}));
+        this.map.addOverlay(mkr);
+      }
       this.cd.detectChanges();
     }
   }

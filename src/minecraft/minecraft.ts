@@ -14,7 +14,7 @@ export class MinecraftPage{
     progress: 0, // 网页访问的进度条
     secUrl: '', // 安全链接
 
-    title: '加载中',
+    title: 'loading...',
     url: '10.131.251.231:9966',
     share: null // 是否具有分享功能（传递一个分享对象ShareModel过来）
   };
@@ -25,18 +25,10 @@ export class MinecraftPage{
               private params: NavParams,
               private sanitizer: DomSanitizer,
               private popoverCtrl: PopoverController) {
-
-    let browser = {
-      isLoaded: false, // 网页是否被加载
-      proObj: null, // 进度条对象
-      progress: 0, // 网页访问的进度条
-      secUrl: 'http://10.131.251.231:9966', // 安全链接
-
-      title: '加载中',
-      url: 'http://10.131.251.231:9966',
-      //url: 'http://www.baidu.com',
-      share: null // 是否具有分享功能（传递一个分享对象ShareModel过来）
-    };
+    let browser;
+    if(params.get("url")) {
+      browser = params.data;
+    }
     if(browser) {
       this.browser.title = browser.title;
       this.browser.url = browser.url;

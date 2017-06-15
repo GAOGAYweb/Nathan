@@ -24,15 +24,16 @@ export class LoginPage {
     loader.present();
     //console.log("sign in:", this.account, this.password);
     this.userService.login(this.account, this.password).then(data => {
-      console.log(data);
+      console.log("log in", data["data"]);
       if (data["status"] === "200") {
         this.storage.ready().then(()=>{
           this.storage.set("user",this.account);
           this.storage.set("pwd",this.password);
         });
         this.menu.swipeEnable(true, 'myMenu');
+        this.userService.accountData = data["data"];
         this.navCtrl.setRoot(MapPage, JSON.parse(data["data"]));
-        
+
         loader.dismiss();
       }
       else {

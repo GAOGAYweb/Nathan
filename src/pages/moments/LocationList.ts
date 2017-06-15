@@ -23,8 +23,8 @@ export class LocationList {
 
       // 百度地图API功能
       //GPS坐标
-      const xx = position.coords.longitude;
-      const yy = position.coords.latitude;
+      const xx = position.coords.longitude.toFixed(4);
+      const yy = position.coords.latitude.toFixed(4);
       that.longitude = xx;
       that.latitude = yy;
       const gpsPoint = new BMap.Point(xx, yy);

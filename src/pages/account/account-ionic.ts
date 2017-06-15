@@ -11,6 +11,7 @@ import { ChangeDetectorRef } from '@angular/core';
 import {AppConfig} from "../../app/app.config";
 import {LoginPage} from "../login/login";
 import { Storage } from '@ionic/storage';
+import {MinecraftPage} from "../../minecraft/minecraft";
 
 
 @Component({
@@ -32,7 +33,7 @@ export class AccountIonicPage {
         description: "",
         friendsNum: 0,
         gender: "Male",
-        imageSrc: "default.jpg"
+        imageSrc: AppConfig.getImagePrefix() + "default.jpg"
     };
     userService.getUserInformation(this.accountData.id).then(data => {
       let obj = JSON.parse(data["data"]);
@@ -68,7 +69,16 @@ export class AccountIonicPage {
     this.navCtrl.push(FriendsPage, this.accountData);
   }
   intoMyWorld(user) {
-    window.location.href = this.mc.ip;
+    this.navCtrl.push(MinecraftPage, {
+      isLoaded: false, // 网页是否被加载
+      proObj: null, // 进度条对象
+      progress: 0, // 网页访问的进度条
+      secUrl: 'http://10.131.250.11:3000/multiplayer.html', // 安全链接
+
+      title: 'loading...',
+      url: 'http://10.131.250.11:3000/multiplayer.html',
+      share: null // 是否具有分享功能（传递一个分享对象ShareModel过来）
+    });
   }
   Logout(){
     this.storage.ready().then(()=>{
