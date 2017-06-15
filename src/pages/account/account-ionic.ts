@@ -56,7 +56,8 @@ export class AccountIonicPage {
   itemTapped(event, user) {
     this.navCtrl.push(ProfileIonicPage, {
       user: user,
-      id: this.accountData.id
+      id: this.accountData.id,
+      accountData: this.accountData
     });
   }
   intoPost(user) {

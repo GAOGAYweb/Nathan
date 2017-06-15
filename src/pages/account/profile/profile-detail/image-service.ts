@@ -12,6 +12,7 @@ import {FilePath} from "@ionic-native/file-path";
 
 @Injectable()
 export class ImgService {
+  accountData:any;
   config: any;
   imageURL: any;
   uploadObj: any = {
@@ -71,7 +72,10 @@ export class ImgService {
       let base64Image =  imageData;
       //this.path = base64Image;
       //this.profilePicture=base64Image;
+
       alert(base64Image);
+
+      this.upload(base64Image);
     }, (err) => {
       // Handle error
     });
@@ -108,6 +112,8 @@ export class ImgService {
           if(response.rtn){
             loader.dismiss();
             alert("头像设置完成");
+
+
           }else{
             loader.dismiss();
             alert("头像设置失败，请重新登录");

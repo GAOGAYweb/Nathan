@@ -23,6 +23,7 @@ export class ModalMomentDetailPage {
     console.log("moments", this.moment);
     this.accountInformation = JSON.parse(this.userService.getSessionUserInformation());
     if(this.moment.commentsSize > 0) {
+      this.moment.comments = [];
       commentsService.getComments(this.moment.id).then(data => {
         let comments = data["data"];
         console.log("comments", comments);

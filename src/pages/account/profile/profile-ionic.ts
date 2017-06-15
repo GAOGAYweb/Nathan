@@ -17,9 +17,11 @@ export class ProfileIonicPage {
   selectedUser: { name: string; description: string; gender: string; friendsNum: number; imageSrc: string};
   pics:any;
   id:string;
+  accountData:any;
   constructor(public modalCtrl: ModalController, public navCtrl: NavController, public navParams: NavParams) {
     this.selectedUser = navParams.get('user');
     this.id = navParams.get('id');
+    this.accountData = navParams.get('accountData');
     this.myCallbackFunction = function(_params) {
       return new Promise((resolve, reject) => {
         resolve();
@@ -44,7 +46,7 @@ export class ProfileIonicPage {
     }
     else {
       new Promise((resolve, reject) => {
-        this.navCtrl.push(PicIonicPage, {resolve: resolve, imageSrc: value, id: this.id});
+        this.navCtrl.push(PicIonicPage, {resolve: resolve, imageSrc: value, id: this.id, accountData: this.accountData});
       }).then(data => {
         //let des = this.selectedUser.description = data.toString();
       });
