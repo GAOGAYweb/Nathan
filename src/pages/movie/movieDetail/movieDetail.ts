@@ -99,7 +99,7 @@ export class MovieDetailPage {
                     "avatar": obj.avatar,
                     "time": obj.time,
                     "content": obj.content,
-                    "short": obj.short,
+                    "short": obj.content.replace(new RegExp("<br>","gm"), "").substring(0,75),
                     "title": obj.title
                 };
                 this.articles.push(new_moment);

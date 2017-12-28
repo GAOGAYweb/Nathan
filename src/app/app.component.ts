@@ -39,7 +39,6 @@ export class MyApp {
       {title: 'My Account', component: AccountIonicPage},
       {title: 'My Map', component: MapPage},
       {title: 'My Friends', component: FriendsPage},
-      {title: 'Chats', component: ChatListPage},
       {title: 'WebCraft', component: MinecraftPage},
       {title: 'Moments', component: TabsPage},
       {title: 'Groups', component: GroupPage},

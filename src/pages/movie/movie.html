@@ -21,7 +21,8 @@
         <b>{{movie["nm"]}}</b>
       </h1>
       <h3>观众评分:
-        <span> {{movie["sc"]}}</span>
+        <span *ngIf="movie['sc']!=0"> {{movie["sc"]}}</span>
+        <span *ngIf="movie['sc']==0"> 暂无 </span>
       </h3>
       <h3>导演: {{movie["dir"]}}</h3>
       <h3>演员: {{movie["star"]}}</h3>

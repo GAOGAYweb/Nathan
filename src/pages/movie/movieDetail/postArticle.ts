@@ -36,11 +36,11 @@ export class PostArticlePage {
                     let time = date.getFullYear()+"-"+(1+date.getMonth())+"-"+
                                 date.getDate()+" "+date.getHours()+":"+date.getMinutes()+":"+date.getSeconds();
                     this.viewCtrl.dismiss({
-                        content:this.content,
+                        content:this.content.replace(new RegExp("\n","gm"), "<br>"),
                         time: time,
                         title: this.title,
                         name: this.accountInformation.name,
-                        short: this.content.substring(0,70),
+                        short: this.content.substring(0,75),
                         avatar: this.accountInformation.imageSrc
                     });
                 }

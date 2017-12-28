@@ -16,7 +16,7 @@
             <p>{{article.time}}</p>
         </ion-item>
         <div id="content">
-            <p>{{article.content}}</p>
+            <p [innerHTML]="article.content"></p>
         </div>
     </div>
 </ion-content>
