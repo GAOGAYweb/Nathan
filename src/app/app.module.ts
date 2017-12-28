@@ -3,7 +3,6 @@ import {NgModule, ErrorHandler} from '@angular/core';
 import {IonicApp, IonicModule, IonicErrorHandler, NavController} from 'ionic-angular';
 import {MyApp} from './app.component';
 
-
 import {StatusBar} from '@ionic-native/status-bar';
 import {SplashScreen} from '@ionic-native/splash-screen';
 import {AccountIonicPage} from "../pages/account/account-ionic";
@@ -31,6 +30,11 @@ import {RecommendPage} from '../pages/moments/recommend';
 import {FriendsDetailPage} from '../pages/friends/friendsDetail/friendsDetail';
 import {GroupPage} from '../pages/group/group';
 import {ChangeGroupPage} from '../pages/friends/friendsDetail/group';
+import { MoviePage } from '../pages/movie/movie';
+import { MovieDetailPage } from '../pages/movie/movieDetail/movieDetail';
+import { PostCommentPage } from "../pages/movie/movieDetail/postComment";
+import { PostArticlePage } from "../pages/movie/movieDetail/postArticle";
+import { ArticlePage } from "../pages/movie/movieDetail/article";
 
 import {Keyboard} from '@ionic-native/keyboard';
 import {UserService} from "../services/UserService";
@@ -45,6 +49,7 @@ import {BrowserPopoverPage} from "../minecraft/browser-popover";
 import { IonicStorageModule } from '@ionic/storage';
 import {CommentsService} from "../services/CommentsService";
 import {FriendService} from "../services/FriendService";
+import {MovieService} from "../services/MovieService";
 
 @NgModule({
   declarations: [
@@ -54,7 +59,9 @@ import {FriendService} from "../services/FriendService";
     PicIonicPage,
     WhatsUpPage,
     AccountIonicPage,
+    MoviePage,
     MapPage,
+    MovieDetailPage, PostCommentPage, PostArticlePage, ArticlePage,
     FriendsPage, FriendList, LocationList, ShareDetail,
     MomentsPage, ModalNewPostPage, ModalMomentDetailPage,
     MinecraftPage,BrowserPopoverPage,
@@ -77,7 +84,9 @@ import {FriendService} from "../services/FriendService";
     WhatsUpPage,
     PicIonicPage,
     AccountIonicPage,
+    MoviePage,
     MapPage,
+    MovieDetailPage, PostCommentPage, PostArticlePage, ArticlePage,
     FriendsPage,FriendList,LocationList, ShareDetail,
     MomentsPage, ModalNewPostPage, ModalMomentDetailPage,
     MinecraftPage,BrowserPopoverPage,
@@ -97,6 +106,7 @@ import {FriendService} from "../services/FriendService";
     MomentsService,
     CommentsService,
     ChatService,
+    MovieService,
     Camera,
     FileChooser,
     FilePath,

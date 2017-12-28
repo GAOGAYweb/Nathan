@@ -1,0 +1,22 @@
+<ion-header>
+    <ion-navbar>
+        <ion-title>MovieDetail</ion-title>
+    </ion-navbar>
+
+</ion-header>
+
+<ion-content>
+    <div>
+        <h2><b>{{article.title}}</b></h2>
+        <ion-item text-wrap>
+            <ion-avatar small item-left>
+                <img src="{{article.avatar}}">
+            </ion-avatar>
+            <h3>{{article.name}} <span> 的影评</span></h3>
+            <p>{{article.time}}</p>
+        </ion-item>
+        <div id="content">
+            <p>{{article.content}}</p>
+        </div>
+    </div>
+</ion-content>

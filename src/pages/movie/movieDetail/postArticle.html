@@ -1,0 +1,27 @@
+<ion-header>
+    <ion-navbar>
+        <ion-title>New Post</ion-title>
+        <ion-buttons start>
+            <button ion-button icon-only (click)="dismiss()">
+                <ion-icon name='md-close'></ion-icon>
+            </button>
+        </ion-buttons>
+        <ion-buttons end>
+            <button ion-button (click)="sendArticle()">
+                Submit
+            </button>
+        </ion-buttons>
+    </ion-navbar>
+</ion-header>
+
+<ion-content>
+
+    <ion-card>
+        <ion-card-header>
+            <ion-input [(ngModel)]="title" placeholder="标题"></ion-input>
+            <ion-textarea [(ngModel)]="content" placeholder="内容"></ion-textarea>
+        </ion-card-header>
+    </ion-card>
+
+
+</ion-content>

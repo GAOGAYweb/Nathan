@@ -18,6 +18,7 @@ export class GroupPage {
     this.userService.getGroup(this.accountData.id).then((data:any)=>{
         this.groups=[];
         let datas=data.data;
+        console.log("group info",datas);
         for(let group of datas){
             group=JSON.parse(group);
             this.groups.push({

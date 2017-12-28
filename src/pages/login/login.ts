@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import {AlertController, LoadingController, MenuController, NavController} from 'ionic-angular';
 import {MapPage} from "../map/map";
+import {MoviePage} from "../movie/movie";
 import {UserService} from "../../services/UserService";
 import { Storage } from '@ionic/storage';
 
@@ -32,8 +33,8 @@ export class LoginPage {
         });
         this.menu.swipeEnable(true, 'myMenu');
         this.userService.accountData = data["data"];
-        this.navCtrl.setRoot(MapPage, JSON.parse(data["data"]));
-
+        //this.navCtrl.setRoot(MapPage, JSON.parse(data["data"]));
+        this.navCtrl.setRoot(MoviePage, JSON.parse(data["data"]));
         loader.dismiss();
       }
       else {

@@ -3,13 +3,14 @@
  */
 import { Injectable }    from '@angular/core';
 import { RequestOptions,Headers, Http } from '@angular/http';
+import {AppConfig} from "../app/app.config";
 import 'rxjs/add/operator/toPromise';
 import 'rxjs/add/operator/map';
 @Injectable()
 export class ChatService {
-    url='http://120.76.144.133:9080/adweb/';
+    url: string;
     constructor(private http: Http) {
-
+        this.url = AppConfig.getServerUrl() + '/';
     }
     init() {
         let headers = new Headers({

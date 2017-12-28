@@ -14,6 +14,7 @@ import {MinecraftPage} from "../minecraft/minecraft";
 import {TabsPage} from '../pages/moments/tabs';
 import { Storage } from '@ionic/storage';
 import {GroupPage} from '../pages/group/group';
+import { MoviePage } from '../pages/movie/movie';
 
 
 @Component({
@@ -41,7 +42,8 @@ export class MyApp {
       {title: 'Chats', component: ChatListPage},
       {title: 'WebCraft', component: MinecraftPage},
       {title: 'Moments', component: TabsPage},
-      {title: 'Groups', component: GroupPage}
+      {title: 'Groups', component: GroupPage},
+      {title: 'Movie', component: MoviePage}
     ];
 
   }
@@ -75,7 +77,8 @@ export class MyApp {
       console.log(data);
       if (data["status"] === "200") {
         this.menu.swipeEnable(true, 'myMenu');
-        this.nav.setRoot(MapPage, JSON.parse(data["data"]));
+        //this.nav.setRoot(MapPage, JSON.parse(data["data"]));
+        this.nav.setRoot(MoviePage, JSON.parse(data["data"])); 
         loader.dismiss();
       }
       else {

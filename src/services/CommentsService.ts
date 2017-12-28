@@ -35,6 +35,7 @@ export class CommentsService {
       headers: headers
     });
     let body = "method=add&id=" + id + "&userid=" + userId + "&content=" + content;
+    console.log("comment content",content);
     return new Promise((resolve, reject) => {
       this.http.post(this.server, body, options )
         .map(res => res.json())

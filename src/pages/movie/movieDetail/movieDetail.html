@@ -1,0 +1,98 @@
+<ion-header>
+    <ion-navbar>
+        <ion-title>MovieDetail</ion-title>
+    </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+    <div id="header">
+        <img item-start src="{{detail.img}}">
+        <div id="info">
+            <span class="name">{{detail["nm"]}}</span>
+            <br>
+            <div id="blank">
+                <span class="sub">{{detail["dir"]}}</span>
+                <br>
+                <span class="sub">{{detail["cat"]}}</span>
+                <br>
+                <span class="sub">{{detail["rt"]}}</span>
+                <br>
+                <span class="sub">{{detail["src"]}} {{detail["ver"]}}</span>
+                <br>
+            </div>
+        </div>
+    </div>
+    <div id="body">
+        <div id="otherinfo">
+            <div id="sc">
+                <span class="number">
+                    <b>{{detail["sc"]}}</b>
+                </span>
+                <br>
+                <span class="small">观众评分{{detail["snum"]}}人</span>
+            </div>
+            <div id="wish">
+                <span class="number">
+                    <b>{{detail["wish"]}}</b>
+                </span>
+                <br>
+                <span class="small">想看人数</span>
+            </div>
+        </div>
+        <p class="subtitle">剧情简介</p>
+        <p [innerHTML]="detail['dra']"></p>
+        <p class="subtitle">宣传视频</p>
+        <video src="{{detail['vd']}}" controls="controls"></video>
+        <div id="comment">
+            <p class="subtitle">短评</p>
+            <ion-list no-lines>
+                <div *ngFor="let comment of comments">
+                    <ion-item text-wrap>
+                        <ion-avatar small item-left>
+                            <img src="{{comment.avatar}}">
+                        </ion-avatar>
+                        <h3>{{comment.name}}</h3>
+                        <p>{{comment.time}}</p>
+                    </ion-item>
+                    <div id="content">
+                        <p>{{comment.content}}</p>
+                    </div>
+                </div>
+                <div class="nowno" *ngIf="comments.length == 0">
+                    暂无评论
+                </div>
+            </ion-list>
+        </div>
+        <div id="article">
+            <p class="subtitle">影评</p>
+            <ion-list no-lines>
+                <div *ngFor="let article of articles" (click)="intoArticle(article)">
+                    <h2>
+                        <b style="font-size: 20px;">{{article.title}}</b>
+                    </h2>
+                    <p style="margin-top: -5px;margin-bottom: 5px;">from {{article.name}}</p>
+                    <div class="article">{{article.short}}</div>
+                </div>
+                <div class="nowno" *ngIf="articles.length == 0">
+                    暂无影评
+                </div>
+            </ion-list>
+        </div>
+    </div>
+
+</ion-content>
+
+<ion-footer>
+    <ion-toolbar>
+        <p style="margin: 0;">
+            <button id="button1" ion-button (click)="presentPostComment()">
+                发布短评
+            </button>
+            <button id="button2" ion-button (click)="presentPostArticle()">
+                发布影评
+            </button>
+        </p>
+    </ion-toolbar>
+</ion-footer>

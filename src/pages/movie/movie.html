@@ -1,0 +1,36 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Movie</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="Pull to refresh" refreshingSpinner="circles" refreshingText="Refreshing...">
+    </ion-refresher-content>
+  </ion-refresher>
+  <ion-list>
+    <button ion-item *ngFor="let movie of hotMovies" (click)="intoDetails(movie['id'])">
+      <img class="movie_cover" item-start src="{{movie['img']}}">
+      <h1>
+        <b>{{movie["nm"]}}</b>
+      </h1>
+      <h3>观众评分:
+        <span> {{movie["sc"]}}</span>
+      </h3>
+      <h3>导演: {{movie["dir"]}}</h3>
+      <h3>演员: {{movie["star"]}}</h3>
+      <p>{{movie["rt"]}}</p>
+    </button>
+  </ion-list>
+
+  <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+    <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more movies...">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+</ion-content>
